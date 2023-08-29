@@ -7,7 +7,7 @@ const queryClient = new QueryClient();
 
 export function App() {
   return (
-    <QueryClientProvider client={queryClient} contextSharing>
+    <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <Router />
         <Toaster />
