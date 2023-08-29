@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { SVGProps } from "../../types";
+import { SVGProps } from "../../types/interfaces";
 import { cn } from "../../app/utils/cn.utils";
 
 export const Spinner = memo(({ className, ...props }: SVGProps) => (
