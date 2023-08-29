@@ -3,7 +3,11 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { IAuthSignin, useAuthSignin } from "../../../app/hooks/use-auth.hook";
+import {
+  IAuthSignin,
+  useAuthContext,
+  useAuthSignin,
+} from "../../../app/hooks/use-auth.hook";
 
 export const schema = z.object({
   email: z
@@ -20,6 +24,7 @@ export type IFormData = z.infer<typeof schema>;
 
 export function useController() {
   const { mutateAsync, isLoading } = useAuthSignin();
+  const { signin } = useAuthContext();
 
   const {
     register,
@@ -32,7 +37,7 @@ export function useController() {
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
       const { accessToken } = await mutateAsync(data);
-      return console.log({ accessToken });
+      return signin(accessToken);
     } catch (error) {
       const err = error as IAuthSignin.Error;
       toast.error(err.response?.data.message || "Something went wrong");

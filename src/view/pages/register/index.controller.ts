@@ -3,7 +3,11 @@ import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { IAuthSignup, useAuthSignup } from "../../../app/hooks/use-auth.hook";
+import {
+  IAuthSignup,
+  useAuthContext,
+  useAuthSignup,
+} from "../../../app/hooks/use-auth.hook";
 
 export const schema = z.object({
   name: z.string().nonempty("Nome é obrigatório"),
@@ -20,6 +24,7 @@ export const schema = z.object({
 export type IFormData = z.infer<typeof schema>;
 
 export function useController() {
+  const { signin } = useAuthContext();
   const { mutateAsync, isLoading } = useAuthSignup();
 
   const {
@@ -33,7 +38,7 @@ export function useController() {
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
       const { accessToken } = await mutateAsync(data);
-      return console.log({ accessToken });
+      return signin(accessToken);
     } catch (error) {
       const err = error as IAuthSignup.Error;
       toast.error(err.response?.data.message || "Something went wrong");
