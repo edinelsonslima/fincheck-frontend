@@ -34,11 +34,12 @@ export function useLocalStorage<T = unknown>(key: string, initialValue: T) {
     try {
       if (typeof window !== "undefined") {
         window.localStorage.removeItem(key);
+        setStoredValue(initialValue);
       }
     } catch (error) {
       console.error(error);
     }
-  }, [key]);
+  }, [key, initialValue]);
 
   return [storedValue, setValue, remove] as const;
 }
