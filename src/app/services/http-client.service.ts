@@ -46,8 +46,7 @@ class HttpClient {
 
   private getAccessToken() {
     const accessToken = localStorage.getItem(enLocalStorage.ACCESS_TOKEN);
-    if (!accessToken) return;
-    return JSON.parse(accessToken);
+    return accessToken ? JSON.parse(accessToken) : "";
   }
 }
 
