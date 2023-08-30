@@ -9,19 +9,11 @@ export function useAuthContext() {
 }
 
 export function useAuthSignup(mutationOptions?: IAuthSignup.MutationOptions) {
-  return useMutation({
-    ...mutationOptions,
-    mutationKey: ["signup"],
-    mutationFn: (data) => authService.signup(data),
-  });
+  return useMutation(["auth", "signup"], authService.signup, mutationOptions);
 }
 
 export function useAuthSignin(mutationOptions?: IAuthSignin.MutationOptions) {
-  return useMutation({
-    ...mutationOptions,
-    mutationKey: ["signin"],
-    mutationFn: (data) => authService.signin(data),
-  });
+  return useMutation(["auth", "signin"], authService.signin, mutationOptions);
 }
 
 export type { IAuthSignin, IAuthSignup };
