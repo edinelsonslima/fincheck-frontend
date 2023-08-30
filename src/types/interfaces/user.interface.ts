@@ -1,4 +1,4 @@
-import { UseQueryOptions } from "@tanstack/react-query";
+import { QueryFunctionContext, UseQueryOptions } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { IApiError, OmitQKeyQFn } from ".";
 
@@ -11,5 +11,7 @@ export module IUserMe {
   export interface Error extends AxiosError<IApiError> {}
 
   export interface QueryOptions
-    extends OmitQKeyQFn<UseQueryOptions<Response, Error>> {}
+    extends OmitQKeyQFn<UseQueryOptions<Response, Error, Response, string[]>> {}
+
+  export interface QueryFnProps extends QueryFunctionContext {}
 }
