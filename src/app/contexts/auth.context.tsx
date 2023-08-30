@@ -9,7 +9,7 @@ import { toast } from "react-hot-toast";
 import { useLocalStorage } from "../hooks/use-local-storage.hook";
 import { useUserMe } from "../hooks/use-user.hook";
 
-import { LaunchScreen } from "../../view/components/page-loader.component";
+import { LaunchScreen } from "../../view/components/launch-screen.component";
 
 import { enLocalStorage } from "../../types/enums/local-storage.enum";
 
