@@ -1,6 +1,9 @@
 import { useCallback, useState } from "react";
+import { useObservable } from "./use-observable.hook";
 
 export function useLocalStorage<T = unknown>(key: string, initialValue: T) {
+  const [, dispatchObservable] = useObservable();
+
   const [storedValue, setStoredValue] = useState<T>(() => {
     if (typeof window === "undefined") {
       return initialValue;
@@ -22,12 +25,13 @@ export function useLocalStorage<T = unknown>(key: string, initialValue: T) {
         setStoredValue(valueToStore);
         if (typeof window !== "undefined") {
           window.localStorage.setItem(key, JSON.stringify(valueToStore));
+          dispatchObservable(key, valueToStore);
         }
       } catch (error) {
         console.error(error);
       }
     },
-    [key, storedValue]
+    [dispatchObservable, key, storedValue]
   );
 
   const remove = useCallback(() => {
@@ -35,11 +39,13 @@ export function useLocalStorage<T = unknown>(key: string, initialValue: T) {
       if (typeof window !== "undefined") {
         window.localStorage.removeItem(key);
         setStoredValue(initialValue);
+
+        dispatchObservable(key, undefined);
       }
     } catch (error) {
       console.error(error);
     }
-  }, [key, initialValue]);
+  }, [key, initialValue, dispatchObservable]);
 
   return [storedValue, setValue, remove] as const;
 }
