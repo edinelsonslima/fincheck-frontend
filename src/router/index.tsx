@@ -6,8 +6,12 @@ import { Dashboard } from "../view/pages/dashboard";
 
 import { AuthGuard } from "./auth-guard.router";
 import { AuthLayout } from "../view/layouts/auth.layout";
+import { enLocalStorage } from "../types/enums/local-storage.enum";
+import { useObservable } from "../app/hooks/use-observable.hook";
 
 export function Router() {
+  useObservable(enLocalStorage.LANGUAGE);
+
   return (
     <BrowserRouter>
       <Routes>

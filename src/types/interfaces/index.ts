@@ -1,7 +1,9 @@
+import { langs } from "../../app/i18n";
+
 export interface IApiError {
   error: string;
-  message: string;
   statusCode: number;
+  message: keyof typeof langs["en-us"];
 }
 
 export type OmitQKeyQFn<T> = Omit<T, "queryKey" | "queryFn">;

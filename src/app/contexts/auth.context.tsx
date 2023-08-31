@@ -6,6 +6,7 @@ import {
 } from "react";
 import { toast } from "react-hot-toast";
 
+import { t } from "../i18n";
 import { useLocalStorage } from "../hooks/use-local-storage.hook";
 import { useUserMe } from "../hooks/use-user.hook";
 
@@ -46,7 +47,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (!isError) return;
-    toast.error("Session expired, please login again");
+    toast.error(t("Session expired, please login again"));
     signout();
   }, [isError, signout]);
 

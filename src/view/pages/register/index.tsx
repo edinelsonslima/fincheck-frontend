@@ -4,15 +4,16 @@ import { FormLayout } from "../../layouts/form.layout";
 
 import { Button } from "../../components/button.component";
 import { Input } from "../../components/input.component";
+import { t } from "../../../app/i18n";
 
 export function Register() {
   const { errors, handleSubmit, register, isLoading } = useController();
 
   return (
     <FormLayout
-      title="Crie sua conta"
-      subtitle="Já possui uma conta?"
-      link={{ to: "/login", text: "Fazer login" }}
+      title={t("Create an account")}
+      subtitle={t("Already have an account?")}
+      link={{ to: "/login", text: t("Sign in") }}
     >
       <form onSubmit={handleSubmit} className="mt-16 flex flex-col gap-4">
         <Input
@@ -35,7 +36,7 @@ export function Register() {
         />
 
         <Button type="submit" className="mt-6" loading={isLoading}>
-          Criar conta
+          {t("Create account")}
         </Button>
       </form>
     </FormLayout>
