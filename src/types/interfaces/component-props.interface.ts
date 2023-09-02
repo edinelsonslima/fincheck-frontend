@@ -1,3 +1,6 @@
 import { ComponentProps } from "react";
 
-export interface SVGProps extends Omit<ComponentProps<"svg">, "children"> {}
+type OmitChildren<T> = Omit<T, "children">;
+
+export interface SVGProps extends OmitChildren<ComponentProps<"svg">> {}
+export interface SelectProps extends OmitChildren<ComponentProps<"select">> {}
