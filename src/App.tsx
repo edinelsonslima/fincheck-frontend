@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 
 import { Router } from "./router";
 import { AuthProvider } from "./app/contexts/auth.context";
+import { LanguageProvider } from "./app/contexts/language.context";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,10 +22,13 @@ export function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools />
-      <AuthProvider>
-        <Router />
-        <Toaster />
-      </AuthProvider>
+      <Toaster />
+
+      <LanguageProvider>
+        <AuthProvider>
+          <Router />
+        </AuthProvider>
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }
