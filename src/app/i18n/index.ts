@@ -16,7 +16,7 @@ function getTranslatedTerm<T extends keyof typeof langs>(
   return langs[lang][term] || term;
 }
 
-export function getLanguage(): keyof typeof langs {
+function getLanguage(): keyof typeof langs {
   const language = localStorage.getItem(enLocalStorage.LANGUAGE);
   return language ? JSON.parse(language) : DEFAULT_LANGUAGE;
 }
