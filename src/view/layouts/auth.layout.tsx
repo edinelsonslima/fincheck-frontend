@@ -11,16 +11,16 @@ export function AuthLayout() {
     <>
       <SelectLanguage className="fixed right-2 top-2 mr-4 mt-1" />
 
-      <div className="container mx-auto flex h-full max-h-[960px]">
+      <div className="container mx-auto flex h-full max-h-[60rem]">
         <section className="flex-1 flex flex-col justify-center items-center gap-16">
           <IconLogo className="text-gray-500 h-6" />
 
-          <main className="w-full max-w-[504px] px-8">
+          <main className="w-full max-w-[31.5rem] px-8">
             <Outlet />
           </main>
         </section>
 
-        <section className="flex-1 hidden lg:block rounded-[32px] overflow-hidden my-8 mr-8 relative">
+        <section className="flex-1 hidden lg:block rounded-[2rem] overflow-hidden my-8 mr-8 relative">
           <img
             src={ImageIllustration}
             alt="illustration app dashboard"

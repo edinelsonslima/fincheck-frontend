@@ -28,7 +28,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (
       />
       <label
         htmlFor={inputId}
-        className="absolute left-[13px] top-2 text-gray-700 text-xs transition-all pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:top-3.5 peer-focus:text-xs peer-focus:top-2"
+        className="absolute left-[.8125rem] top-2 text-gray-700 text-xs transition-all pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:top-3.5 peer-focus:text-xs peer-focus:top-2"
       >
         {placeholder}
       </label>
