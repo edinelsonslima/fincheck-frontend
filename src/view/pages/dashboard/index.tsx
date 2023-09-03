@@ -1,7 +1,7 @@
 import { IconLogo } from "../../../assets/icons/logo.icon";
 import { UserMenu } from "../../components/user-menu.component";
-import { Accounts } from "./components/accounts.component";
-import { Transactions } from "./components/transactions.component";
+import { Accounts } from "./components/accounts";
+import { Transactions } from "./components/transactions";
 
 export function Dashboard() {
   return (
@@ -12,11 +12,11 @@ export function Dashboard() {
       </header>
 
       <main className="flex flex-col md:flex-row gap-4 flex-1">
-        <section className="bg-teal-900 flex-1 rounded-2xl px-4 py-8 md:p-10">
+        <section className="bg-teal-900 w-1/2 h-full flex flex-col rounded-2xl px-4 py-8 md:p-10">
           <Accounts />
         </section>
 
-        <section className="bg-gray-100 flex-1 rounded-2xl p-10">
+        <section className="bg-gray-100 w-1/2 h-full flex flex-col rounded-2xl p-10">
           <Transactions />
         </section>
       </main>
