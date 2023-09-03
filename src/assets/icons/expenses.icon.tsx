@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-export const ExpensesIcon = memo(() => {
+export const IconExpenses = memo(() => {
   return (
     <svg
       width="24"
