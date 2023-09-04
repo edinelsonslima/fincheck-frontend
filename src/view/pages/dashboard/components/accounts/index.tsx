@@ -8,7 +8,7 @@ import "swiper/css";
 import { useController } from "./use-controller";
 
 export function Accounts() {
-  const { sliderState, setSliderState } = useController();
+  const { sliderState, setSliderState, handleSlidePerView } = useController();
   return (
     <>
       <header>
@@ -27,11 +27,11 @@ export function Accounts() {
         </div>
       </header>
 
-      <section className="flex-1 flex flex-col justify-end">
+      <section className="flex-1 flex flex-col justify-end mt-10 md:mt-0">
         <div>
           <Swiper
             spaceBetween={16}
-            slidesPerView={2.1}
+            slidesPerView={handleSlidePerView()}
             onSlideChange={({ isBeginning, isEnd }) =>
               setSliderState({ isBeginning, isEnd })
             }
