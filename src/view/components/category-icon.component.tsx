@@ -7,7 +7,7 @@ import { IconGrocery } from "../../assets/icons/categories/expense/grocery.icon"
 import { IconHome } from "../../assets/icons/categories/expense/home.icon";
 import { IconTransport } from "../../assets/icons/categories/expense/transport.icon";
 import { IconTravel } from "../../assets/icons/categories/expense/travel.icon";
-import { IconIncome } from "../../assets/icons/income.icon";
+import { IconIncome } from "../../assets/icons/categories/income/income.icon";
 
 const iconsMap = {
   income: {
