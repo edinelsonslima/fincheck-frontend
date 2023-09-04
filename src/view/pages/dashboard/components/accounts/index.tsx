@@ -5,8 +5,10 @@ import { IconEye } from "../../../../../assets/icons/eye-icon";
 import { intlCurrency, t } from "../../../../../app/i18n";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { useController } from "./use-controller";
 
 export function Accounts() {
+  const { sliderState, setSliderState } = useController();
   return (
     <>
       <header>
@@ -27,7 +29,13 @@ export function Accounts() {
 
       <section className="flex-1 flex flex-col justify-end">
         <div>
-          <Swiper spaceBetween={16} slidesPerView={2.2}>
+          <Swiper
+            spaceBetween={16}
+            slidesPerView={2.1}
+            onSlideChange={({ isBeginning, isEnd }) =>
+              setSliderState({ isBeginning, isEnd })
+            }
+          >
             <div
               slot="container-start"
               className="flex items-center justify-between mb-4"
@@ -37,8 +45,14 @@ export function Accounts() {
               </h3>
 
               <div>
-                <ButtonChevron direction="slidePrev" />
-                <ButtonChevron direction="slideNext" />
+                <ButtonChevron
+                  direction="slidePrev"
+                  disabled={sliderState.isBeginning}
+                />
+                <ButtonChevron
+                  direction="slideNext"
+                  disabled={sliderState.isEnd}
+                />
               </div>
             </div>
 

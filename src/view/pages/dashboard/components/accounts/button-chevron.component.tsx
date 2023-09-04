@@ -4,13 +4,15 @@ import { IconChevronRight } from "../../../../../assets/icons/chevron-left.right
 
 interface ButtonChevronProps {
   direction: "slidePrev" | "slideNext";
+  disabled?: boolean;
 }
 
-export function ButtonChevron({ direction }: ButtonChevronProps) {
+export function ButtonChevron({ direction, disabled }: ButtonChevronProps) {
   const swiper = useSwiper();
 
   return (
     <button
+      disabled={disabled}
       onClick={() => swiper[direction]()}
       className="py-3 pl-2.5 pr-3.5 rounded-full enabled:hover:bg-black/10 transition-colors disabled:opacity-40"
     >
