@@ -8,7 +8,7 @@ import "swiper/css";
 import { useController } from "./use-controller";
 
 export function Accounts() {
-  const { sliderState, setSliderState, handleSlidePerView } = useController();
+  const { sliderState, setSliderState, slidesPerView } = useController();
   return (
     <>
       <header>
@@ -31,7 +31,7 @@ export function Accounts() {
         <div>
           <Swiper
             spaceBetween={16}
-            slidesPerView={handleSlidePerView}
+            slidesPerView={slidesPerView}
             onSlideChange={({ isBeginning, isEnd }) =>
               setSliderState({ isBeginning, isEnd })
             }

@@ -9,10 +9,10 @@ export function useController() {
     isEnd: false,
   });
 
-  const handleSlidePerView = useMemo(() => {
-    const isLess = (width: number) => windowWidth <= width;
-    return isLess(500) ? 1.1 : isLess(768) ? 2.1 : isLess(900) ? 1.1 : 2.1;
-  }, [windowWidth]);
+  const slidesPerView = useMemo(() => {
+    const isLess = (width: number) => windowWidth.width <= width;
+    return isLess(500) ? 1.1 : windowWidth.md ? 2.1 : isLess(900) ? 1.1 : 2.1;
+  }, [windowWidth.md, windowWidth.width]);
 
-  return { sliderState, setSliderState, handleSlidePerView };
+  return { sliderState, setSliderState, slidesPerView };
 }
