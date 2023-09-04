@@ -1,11 +1,12 @@
+import { Swiper, SwiperSlide } from "swiper/react";
+
 import { AccountCard } from "./account-card.component";
-import { ButtonChevron } from "./button-chevron.component";
+import { ButtonChevron } from "../button-chevron.component";
+
+import { useController } from "./use-controller";
+import { intlCurrency, t } from "../../../../../app/i18n";
 
 import { IconEye } from "../../../../../assets/icons/eye-icon";
-import { intlCurrency, t } from "../../../../../app/i18n";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { useController } from "./use-controller";
 
 export function Accounts() {
   const { sliderState, setSliderState, slidesPerView } = useController();
@@ -48,10 +49,12 @@ export function Accounts() {
                 <ButtonChevron
                   direction="slidePrev"
                   disabled={sliderState.isBeginning}
+                  className="py-3 pl-2.5 pr-3.5 rounded-full text-white enabled:hover:bg-black/10 transition-colors disabled:opacity-40"
                 />
                 <ButtonChevron
                   direction="slideNext"
                   disabled={sliderState.isEnd}
+                  className="py-3 pl-2.5 pr-3.5 rounded-full text-white enabled:hover:bg-black/10 transition-colors disabled:opacity-40"
                 />
               </div>
             </div>
