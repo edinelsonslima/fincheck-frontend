@@ -13,7 +13,7 @@ export function Dashboard() {
         <UserMenu />
       </header>
 
-      <main className="flex flex-col md:flex-row gap-4 flex-1">
+      <main className="flex flex-col md:flex-row gap-4 flex-1 max-h-full">
         <section className="bg-teal-900 h-full flex flex-col rounded-2xl px-4 py-8 md:p-10 md:w-1/2">
           <Accounts />
         </section>
