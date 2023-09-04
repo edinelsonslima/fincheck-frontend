@@ -17,5 +17,15 @@ export function useWindowSize() {
     };
   }, []);
 
-  return [width, height] as const;
+  return [
+    {
+      width,
+      sm: width <= 640,
+      md: width <= 768,
+      lg: width <= 1024,
+      xl: width <= 1280,
+      xxl: width <= 1536,
+    },
+    height,
+  ] as const;
 }
