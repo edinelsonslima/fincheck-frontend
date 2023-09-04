@@ -44,5 +44,13 @@ export function intlMonths(
   return [...Array(12).keys()].map((m) => intl.format(new Date(0, m)));
 }
 
+export function intlDate(date: string | number | Date) {
+  return new Intl.DateTimeFormat(getLanguage(), {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date(date));
+}
+
 export const LANGUAGES = Object.keys(langs) as ILanguages[];
 export const DEFAULT_LANGUAGE: ILanguages = "en-us";
