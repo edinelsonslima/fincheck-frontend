@@ -31,7 +31,7 @@ export function Accounts() {
         <div>
           <Swiper
             spaceBetween={16}
-            slidesPerView={handleSlidePerView()}
+            slidesPerView={handleSlidePerView}
             onSlideChange={({ isBeginning, isEnd }) =>
               setSliderState({ isBeginning, isEnd })
             }

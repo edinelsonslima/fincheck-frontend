@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useWindowSize } from "../../../../../app/hooks/use-window-size";
 
 export function useController() {
@@ -9,10 +9,10 @@ export function useController() {
     isEnd: false,
   });
 
-  const handleSlidePerView = () => {
+  const handleSlidePerView = useMemo(() => {
     const isLess = (width: number) => windowWidth <= width;
     return isLess(500) ? 1.1 : isLess(768) ? 2.1 : isLess(900) ? 1.1 : 2.1;
-  };
+  }, [windowWidth]);
 
   return { sliderState, setSliderState, handleSlidePerView };
 }
