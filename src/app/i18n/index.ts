@@ -37,5 +37,12 @@ export function intlCurrency(value: number) {
   }).format(value);
 }
 
+export function intlMonths(
+  format: "numeric" | "2-digit" | "long" | "short" | "narrow"
+) {
+  const intl = new Intl.DateTimeFormat(getLanguage(), { month: format });
+  return [...Array(12).keys()].map((m) => intl.format(new Date(0, m)));
+}
+
 export const LANGUAGES = Object.keys(langs) as ILanguages[];
 export const DEFAULT_LANGUAGE: ILanguages = "en-us";
