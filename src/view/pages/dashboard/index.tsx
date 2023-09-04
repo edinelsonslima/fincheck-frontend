@@ -3,6 +3,8 @@ import { UserMenu } from "../../components/user-menu.component";
 import { Accounts } from "./components/accounts";
 import { Transactions } from "./components/transactions";
 
+import "swiper/css";
+
 export function Dashboard() {
   return (
     <div className=" w-full h-full p-4 md:p-8 md:pt-6 flex flex-col">
