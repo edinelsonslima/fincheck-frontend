@@ -1,15 +1,22 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import { Value } from "../value.component";
 import { AccountCard } from "./account-card.component";
 import { ButtonChevron } from "../button-chevron.component";
 
-import { useController } from "./use-controller";
-import { intlCurrency, t } from "../../../../../app/i18n";
+import { useController } from "./use-controller.hook";
+import { t } from "../../../../../app/i18n";
 
 import { IconEye } from "../../../../../assets/icons/eye-icon";
 
 export function Accounts() {
-  const { sliderState, setSliderState, slidesPerView } = useController();
+  const {
+    sliderState,
+    setSliderState,
+    slidesPerView,
+    areValuesVisible,
+    toggleValuesVisibility,
+  } = useController();
   return (
     <>
       <header>
@@ -18,12 +25,17 @@ export function Accounts() {
         </h2>
 
         <div className="flex items-center gap-2">
-          <strong className="text-2xl text-white tracking-tightest">
-            {intlCurrency(598.23)}
-          </strong>
+          <Value
+            value={598.23}
+            visible={areValuesVisible}
+            className="text-2xl text-white tracking-tightest font-medium"
+          />
 
-          <button className="w-8 h-8 grid place-items-center">
-            <IconEye open />
+          <button
+            className="w-8 h-8 grid place-items-center"
+            onClick={() => toggleValuesVisibility()}
+          >
+            <IconEye open={areValuesVisible} />
           </button>
         </div>
       </header>

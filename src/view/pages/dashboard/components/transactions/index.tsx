@@ -1,16 +1,21 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { intlCurrency, intlDate, intlMonths, t } from "../../../../../app/i18n";
+import { intlDate, intlMonths, t } from "../../../../../app/i18n";
 
+import { Value } from "../value.component";
 import { ButtonMonth } from "./button-month.component";
 import { ButtonChevron } from "../button-chevron.component";
+import { CategoryIcon } from "../../../../components/category-icon.component";
+
+import { useController } from "./use-controller.hook";
 
 import { IconFilter } from "../../../../../assets/icons/filter.icon";
 import { IconChevronDown } from "../../../../../assets/icons/chevron-down.icon";
 import { IconTransactions } from "../../../../../assets/icons/transactions.icon";
-import { CategoryIcon } from "../../../../components/category-icon.component";
 
 export function Transactions() {
+  const { areValuesVisible } = useController();
+
   return (
     <>
       <header className="space-y-6">
@@ -64,7 +69,7 @@ export function Transactions() {
             </div>
           </div>
           <span className="text-red-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
+            - <Value value={656.89} visible={areValuesVisible} blur="sm" />
           </span>
         </div>
 
@@ -80,263 +85,7 @@ export function Transactions() {
             </div>
           </div>
           <span className="text-green-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="expense" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-red-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="income" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-green-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="expense" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-red-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="income" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-green-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="expense" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-red-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="income" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-green-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="expense" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-red-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="income" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-green-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="expense" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-red-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="income" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-green-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="expense" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-red-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="income" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-green-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="expense" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-red-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="income" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-green-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="expense" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-red-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
-          </span>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-          <div className="flex flex-1 items-center gap-2">
-            <CategoryIcon type="income" />
-
-            <div>
-              <strong className="block font-bold">Almoço</strong>
-              <span className="text-sm text-gray-600">
-                {intlDate("12/05/2023")}
-              </span>
-            </div>
-          </div>
-          <span className="text-green-800 tracking-tighter font-medium">
-            - {intlCurrency(656.89)}
+            + <Value value={656.89} visible={areValuesVisible} blur="sm" />
           </span>
         </div>
       </section>
