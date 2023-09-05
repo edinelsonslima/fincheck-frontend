@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useLanguage } from "../../app/hooks/use-language.hook";
 import { ILanguages, intlService } from "../../app/services/intl.service";
 import { cn } from "../../app/utils/cn.utils";
@@ -11,7 +10,6 @@ interface IOnChangeLanguage extends React.ChangeEvent<HTMLSelectElement> {
 interface ISelectLanguageProps extends SelectProps {}
 
 export function SelectLanguage({ className, ...props }: ISelectLanguageProps) {
-  const { languages } = useMemo(() => intlService, []);
   const [language, setLanguage] = useLanguage();
 
   return (
@@ -24,7 +22,7 @@ export function SelectLanguage({ className, ...props }: ISelectLanguageProps) {
         className
       )}
     >
-      {languages().map((lang) => (
+      {intlService.languages().map((lang) => (
         <option key={lang} label={lang} value={lang} />
       ))}
     </select>

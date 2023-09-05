@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -27,7 +26,6 @@ export const schema = z.object({
 export type IFormData = z.infer<typeof schema>;
 
 export function useController() {
-  const { intlTerm } = useMemo(() => intlService, []);
   const { mutateAsync, isLoading } = useAuthSignin();
   const { signin } = useAuthContext();
 
@@ -46,16 +44,18 @@ export function useController() {
     } catch (error) {
       const err = error as IAuthSignin.Error;
       toast.error(
-        intlTerm(err?.response?.data?.message || "Something went wrong")
+        intlService.intlTerm(
+          err?.response?.data?.message || "Something went wrong"
+        )
       );
     }
   });
 
   return {
-    intlTerm,
     errors,
     register,
     isLoading,
     handleSubmit,
+    intlTerm: intlService.intlTerm,
   };
 }

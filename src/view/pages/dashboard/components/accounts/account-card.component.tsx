@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { intlService } from "../../../../../app/services/intl.service";
 import { BankAccountType } from "../../../../components/bank-account-type-icon.component";
 import { CategoryIcon } from "../../../../components/category-icon.component";
@@ -13,7 +12,6 @@ interface AccountCardProps {
 }
 
 export function AccountCard({ balance, color, name }: AccountCardProps) {
-  const { intlTerm} = useMemo(() => intlService, []);
   const { areValuesVisible } = useDashboard();
   return (
     <div className="relative overflow-hidden p-4 bg-white rounded-2xl h-[12.5rem] flex flex-col justify-between">
@@ -34,7 +32,7 @@ export function AccountCard({ balance, color, name }: AccountCardProps) {
         />
 
         <small className="text-gray-600 text-sm">
-          {intlTerm("Current balance")}
+          {intlService.intlTerm("Current balance")}
         </small>
       </main>
 

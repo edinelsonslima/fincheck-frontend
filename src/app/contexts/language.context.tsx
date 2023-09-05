@@ -1,4 +1,4 @@
-import { PropsWithChildren, createContext, useEffect, useMemo } from "react";
+import { PropsWithChildren, createContext, useEffect } from "react";
 import { enLocalStorage } from "../../types/enums/local-storage.enum";
 import { useLocalStorage } from "../hooks/use-local-storage.hook";
 import { ILanguages, intlService } from "../services/intl.service";
@@ -14,10 +14,9 @@ export const LanguageContext = createContext<IContextProps>([
 ]);
 
 export function LanguageProvider({ children }: PropsWithChildren) {
-  const { defaultLanguage } = useMemo(() => intlService, []);
   const [language, setLanguage] = useLocalStorage(
     enLocalStorage.LANGUAGE,
-    defaultLanguage()
+    intlService.defaultLanguage()
   );
 
   useEffect(() => {

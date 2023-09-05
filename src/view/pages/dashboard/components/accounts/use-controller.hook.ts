@@ -4,7 +4,6 @@ import { intlService } from "../../../../../app/services/intl.service";
 import { useDashboard } from "../../hook/use-dashboard.hook";
 
 export function useController() {
-  const { intlTerm } = useMemo(() => intlService, []);
   const [windowWidth] = useWindowSize();
   const { areValuesVisible, toggleValuesVisibility } = useDashboard();
 
@@ -19,12 +18,12 @@ export function useController() {
   }, [windowWidth.md, windowWidth.width]);
 
   return {
-    intlTerm,
     sliderState,
     setSliderState,
     slidesPerView,
     areValuesVisible,
     toggleValuesVisibility,
+    intlTerm: intlService.intlTerm,
     isLoading: false,
     accounts: [],
   };

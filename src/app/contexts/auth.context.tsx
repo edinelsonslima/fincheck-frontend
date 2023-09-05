@@ -3,7 +3,6 @@ import {
   createContext,
   useCallback,
   useEffect,
-  useMemo,
 } from "react";
 import { toast } from "react-hot-toast";
 import { enLocalStorage } from "../../types/enums/local-storage.enum";
@@ -23,7 +22,6 @@ export const AuthContext = createContext<AuthContextValue>(
 );
 
 export function AuthProvider({ children }: PropsWithChildren) {
-  const { intlTerm } = useMemo(() => intlService, []);
   const [accessToken, setAccessToken, removeAccessToken] = useLocalStorage(
     enLocalStorage.ACCESS_TOKEN,
     ""
@@ -46,9 +44,9 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (!isError) return;
-    toast.error(intlTerm("Session expired, please login again"));
+    toast.error(intlService.intlTerm("Session expired, please login again"));
     signout();
-  }, [isError, signout, intlTerm]);
+  }, [isError, signout]);
 
   return (
     <AuthContext.Provider
