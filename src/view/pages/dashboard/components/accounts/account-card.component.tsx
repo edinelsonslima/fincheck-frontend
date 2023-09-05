@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { languageService } from "../../../../../app/services/language.service";
+import { intlService } from "../../../../../app/services/intl.service";
 import { BankAccountType } from "../../../../components/bank-account-type-icon.component";
 import { CategoryIcon } from "../../../../components/category-icon.component";
 import { useDashboard } from "../../hook/use-dashboard.hook";
@@ -13,7 +13,7 @@ interface AccountCardProps {
 }
 
 export function AccountCard({ balance, color, name }: AccountCardProps) {
-  const { t } = useMemo(() => languageService, []);
+  const { intlTerm} = useMemo(() => intlService, []);
   const { areValuesVisible } = useDashboard();
   return (
     <div className="relative overflow-hidden p-4 bg-white rounded-2xl h-[12.5rem] flex flex-col justify-between">
@@ -33,7 +33,9 @@ export function AccountCard({ balance, color, name }: AccountCardProps) {
           className="text-gray-800 font-medium tracking-tighter mt-4 block"
         />
 
-        <small className="text-gray-600 text-sm">{t("Current balance")}</small>
+        <small className="text-gray-600 text-sm">
+          {intlTerm("Current balance")}
+        </small>
       </main>
 
       <span

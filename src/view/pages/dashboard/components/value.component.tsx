@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { languageService } from "../../../../app/services/language.service";
+import { intlService } from "../../../../app/services/intl.service";
 import { cn } from "../../../../app/utils/cn.utils";
 
 interface ValueProps {
@@ -10,7 +10,7 @@ interface ValueProps {
 }
 
 export function Value({ value, className, visible, blur = "md" }: ValueProps) {
-  const { intlCurrency } = useMemo(() => languageService, []);
+  const { intlCurrency } = useMemo(() => intlService, []);
   const formattedValue = intlCurrency(value);
   return (
     <span className={cn(className, !visible && `blur-${blur}`)}>

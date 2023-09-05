@@ -10,7 +10,7 @@ import { enLocalStorage } from "../../types/enums/local-storage.enum";
 import { LaunchScreen } from "../../view/components/launch-screen.component";
 import { useLocalStorage } from "../hooks/use-local-storage.hook";
 import { useUserMe } from "../hooks/use-user.hook";
-import { languageService } from "../services/language.service";
+import { intlService } from "../services/intl.service";
 
 interface AuthContextValue {
   signedIn: boolean;
@@ -23,7 +23,7 @@ export const AuthContext = createContext<AuthContextValue>(
 );
 
 export function AuthProvider({ children }: PropsWithChildren) {
-  const { t } = useMemo(() => languageService, []);
+  const { intlTerm } = useMemo(() => intlService, []);
   const [accessToken, setAccessToken, removeAccessToken] = useLocalStorage(
     enLocalStorage.ACCESS_TOKEN,
     ""
@@ -46,9 +46,9 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (!isError) return;
-    toast.error(t("Session expired, please login again"));
+    toast.error(intlTerm("Session expired, please login again"));
     signout();
-  }, [isError, signout, t]);
+  }, [isError, signout, intlTerm]);
 
   return (
     <AuthContext.Provider

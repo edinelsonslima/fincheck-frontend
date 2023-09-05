@@ -8,23 +8,26 @@ import {
   useAuthContext,
   useAuthSignin,
 } from "../../../app/hooks/use-auth.hook";
-import { languageService } from "../../../app/services/language.service";
+import { intlService } from "../../../app/services/intl.service";
 
 export const schema = z.object({
   email: z
     .string()
-    .nonempty(languageService.t("E-mail is required"))
-    .email(languageService.t("Use a valid e-mail address")),
+    .nonempty(intlService.intlTerm("E-mail is required"))
+    .email(intlService.intlTerm("Use a valid e-mail address")),
   password: z
     .string()
-    .nonempty(languageService.t("Password is required"))
-    .min(8, languageService.t("Password must be at least 8 characters long")),
+    .nonempty(intlService.intlTerm("Password is required"))
+    .min(
+      8,
+      intlService.intlTerm("Password must be at least 8 characters long")
+    ),
 });
 
 export type IFormData = z.infer<typeof schema>;
 
 export function useController() {
-  const { t } = useMemo(() => languageService, []);
+  const { intlTerm } = useMemo(() => intlService, []);
   const { mutateAsync, isLoading } = useAuthSignin();
   const { signin } = useAuthContext();
 
@@ -42,12 +45,14 @@ export function useController() {
       return signin(accessToken);
     } catch (error) {
       const err = error as IAuthSignin.Error;
-      toast.error(t(err?.response?.data?.message || "Something went wrong"));
+      toast.error(
+        intlTerm(err?.response?.data?.message || "Something went wrong")
+      );
     }
   });
 
   return {
-    t,
+    intlTerm,
     errors,
     register,
     isLoading,

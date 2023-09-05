@@ -4,7 +4,14 @@ import { langs } from "../i18n";
 export type ILanguages = keyof typeof langs;
 type ITerms = keyof (typeof langs)[ILanguages]["term"];
 
-class LanguageService {
+class IntlService {
+  constructor() {
+    this.intlTerm = this.intlTerm.bind(this);
+    this.intlDate = this.intlDate.bind(this);
+    this.intlMonths = this.intlMonths.bind(this);
+    this.intlCurrency = this.intlCurrency.bind(this);
+  }
+
   public defaultLanguage(): ILanguages {
     return "en-us";
   }
@@ -13,7 +20,7 @@ class LanguageService {
     return Object.keys(langs) as ILanguages[];
   }
 
-  public t(term: ITerms) {
+  public intlTerm(term: ITerms) {
     return this.getTranslatedTerm(this.getLocalStorageLanguage(), term);
   }
 
@@ -54,4 +61,4 @@ class LanguageService {
   }
 }
 
-export const languageService = new LanguageService();
+export const intlService = new IntlService();

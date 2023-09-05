@@ -8,7 +8,7 @@ import { useController } from "./use-controller.hook";
 
 export function Accounts() {
   const {
-    t,
+    intlTerm,
     sliderState,
     setSliderState,
     slidesPerView,
@@ -29,7 +29,7 @@ export function Accounts() {
     <>
       <header>
         <h2 className="text-white tracking-tighter block">
-          {t("Total balance")}
+          {intlTerm("Total balance")}
         </h2>
 
         <div className="flex items-center gap-2">
@@ -62,7 +62,7 @@ export function Accounts() {
               className="flex items-center justify-between mb-4"
             >
               <h3 className="text-white text-lg tracking-tighter font-bold">
-                {t("My bills")}
+                {intlTerm("My bills")}
               </h3>
 
               <div>

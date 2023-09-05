@@ -1,12 +1,12 @@
 import { useMemo } from "react";
 import { Outlet } from "react-router-dom";
-import { languageService } from "../../app/services/language.service";
+import { intlService } from "../../app/services/intl.service";
 import { IconLogo } from "../../assets/icons/logo.icon";
 import ImageIllustration from "../../assets/images/illustration.image.png";
 import { SelectLanguage } from "../components/select-language.component";
 
 export function AuthLayout() {
-  const { t } = useMemo(() => languageService, []);
+  const { intlTerm } = useMemo(() => intlService, []);
   return (
     <>
       <SelectLanguage className="fixed right-2 top-2 mr-4 mt-1" />
@@ -30,7 +30,7 @@ export function AuthLayout() {
           <footer className="bg-white p-10 absolute bottom-0 grid">
             <IconLogo className="text-teal-900 h-8" />
             <p className="text-gray-700 text-xl font-medium mt-6">
-              {t(
+              {intlTerm(
                 "Manage your personal finances in a simple way with fincheck, and best of all, it's completely free!"
               )}
             </p>

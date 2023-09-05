@@ -10,7 +10,7 @@ import { ButtonMonth } from "./button-month.component";
 import { useController } from "./use-controller.hook";
 
 export function Transactions() {
-  const { areValuesVisible, isLoading, intlDate, intlMonths, t } =
+  const { areValuesVisible, isLoading, intlDate, intlMonths, intlTerm } =
     useController();
 
   if (isLoading) {
@@ -28,7 +28,7 @@ export function Transactions() {
           <button className="flex items-center gap-2">
             <IconTransactions />
             <span className="text-sm text-gray-800 tracking-tighter font-medium">
-              {t("Transactions")}
+              {intlTerm("Transactions")}
             </span>
             <IconChevronDown className="text-gray-900" />
           </button>
