@@ -22,5 +22,6 @@
   "Current balance": "Saldo atual",
   "My bills": "Minhas contas",
   "Transactions": "Transações",
-  "Register a new account": "Cadastrar uma nova conta"
+  "Register a new account": "Cadastrar uma nova conta",
+  "We didn't find any transactions": "Não encontramos nenhuma transação"
 }

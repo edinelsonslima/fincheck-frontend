@@ -22,5 +22,6 @@
   "Current balance": "Current balance",
   "My bills": "My bills",
   "Transactions": "Transactions",
-  "Register a new account": "Register a new account"
+  "Register a new account": "Register a new account",
+  "We didn't find any transactions": "We didn't find any transactions"
 }
