@@ -3,7 +3,7 @@ import { langs } from "../../app/i18n";
 export interface IApiError {
   error: string;
   statusCode: number;
-  message: keyof typeof langs["en-us"];
+  message: keyof (typeof langs)["en-us"]["term"];
 }
 
 export type OmitQKeyQFn<T> = Omit<T, "queryKey" | "queryFn">;
