@@ -6,5 +6,13 @@ export function useController() {
   const { intlTerm, intlDate, intlMonths } = useMemo(() => intlService, []);
   const { areValuesVisible } = useDashboard();
 
-  return { areValuesVisible, intlTerm, intlDate, intlMonths, isLoading: false };
+  return {
+    areValuesVisible,
+    intlTerm,
+    intlDate,
+    intlMonths,
+    transactions: [],
+    isInitialLoading: false,
+    isLoading: false,
+  };
 }
