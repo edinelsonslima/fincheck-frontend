@@ -1,13 +1,10 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { t } from "../../../../../app/i18n";
+import { IconEye } from "../../../../../assets/icons/eye-icon";
+import { ButtonChevron } from "../button-chevron.component";
 import { Value } from "../value.component";
 import { AccountCard } from "./account-card.component";
-import { ButtonChevron } from "../button-chevron.component";
-
 import { useController } from "./use-controller.hook";
-import { t } from "../../../../../app/i18n";
-
-import { IconEye } from "../../../../../assets/icons/eye-icon";
 
 export function Accounts() {
   const {

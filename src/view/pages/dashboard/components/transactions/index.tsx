@@ -1,17 +1,13 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import { intlDate, intlMonths, t } from "../../../../../app/i18n";
-
+import { IconChevronDown } from "../../../../../assets/icons/chevron-down.icon";
+import { IconFilter } from "../../../../../assets/icons/filter.icon";
+import { IconTransactions } from "../../../../../assets/icons/transactions.icon";
+import { CategoryIcon } from "../../../../components/category-icon.component";
+import { ButtonChevron } from "../button-chevron.component";
 import { Value } from "../value.component";
 import { ButtonMonth } from "./button-month.component";
-import { ButtonChevron } from "../button-chevron.component";
-import { CategoryIcon } from "../../../../components/category-icon.component";
-
 import { useController } from "./use-controller.hook";
-
-import { IconFilter } from "../../../../../assets/icons/filter.icon";
-import { IconChevronDown } from "../../../../../assets/icons/chevron-down.icon";
-import { IconTransactions } from "../../../../../assets/icons/transactions.icon";
 
 export function Transactions() {
   const { areValuesVisible } = useController();

@@ -1,10 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
-
-import { Router } from "./router";
 import { AuthProvider } from "./app/contexts/auth.context";
 import { LanguageProvider } from "./app/contexts/language.context";
+import { Router } from "./router";
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -1,7 +1,6 @@
-import { LANGUAGES, ILanguages } from "../../app/i18n";
-
-import { cn } from "../../app/utils/cn.utils";
 import { useLanguage } from "../../app/hooks/use-language.hook";
+import { ILanguages, LANGUAGES } from "../../app/i18n";
+import { cn } from "../../app/utils/cn.utils";
 import { SelectProps } from "../../types/interfaces";
 
 interface IOnChangeLanguage extends React.ChangeEvent<HTMLSelectElement> {

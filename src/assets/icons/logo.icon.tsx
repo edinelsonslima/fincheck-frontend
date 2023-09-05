@@ -1,5 +1,4 @@
 import { memo } from "react";
-
 import { SVGProps } from "../../types/interfaces";
 
 export const IconLogo = memo((props: SVGProps) => {

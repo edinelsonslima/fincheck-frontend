@@ -1,7 +1,7 @@
 import { PropsWithChildren, createContext, useEffect } from "react";
-import { DEFAULT_LANGUAGE, ILanguages } from "../i18n";
 import { enLocalStorage } from "../../types/enums/local-storage.enum";
 import { useLocalStorage } from "../hooks/use-local-storage.hook";
+import { DEFAULT_LANGUAGE, ILanguages } from "../i18n";
 
 type IContextProps = [
   ILanguages,

@@ -1,10 +1,8 @@
-import { Value } from "../value.component";
+import { t } from "../../../../../app/i18n";
 import { BankAccountType } from "../../../../components/bank-account-type-icon.component";
 import { CategoryIcon } from "../../../../components/category-icon.component";
-
-import { t } from "../../../../../app/i18n";
-
 import { useDashboard } from "../../hook/use-dashboard.hook";
+import { Value } from "../value.component";
 
 interface AccountCardProps {
   color: string;

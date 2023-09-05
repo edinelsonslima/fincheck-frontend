@@ -5,14 +5,11 @@ import {
   useEffect,
 } from "react";
 import { toast } from "react-hot-toast";
-
-import { t } from "../i18n";
+import { enLocalStorage } from "../../types/enums/local-storage.enum";
+import { LaunchScreen } from "../../view/components/launch-screen.component";
 import { useLocalStorage } from "../hooks/use-local-storage.hook";
 import { useUserMe } from "../hooks/use-user.hook";
-
-import { LaunchScreen } from "../../view/components/launch-screen.component";
-
-import { enLocalStorage } from "../../types/enums/local-storage.enum";
+import { t } from "../i18n";
 
 interface AuthContextValue {
   signedIn: boolean;
@@ -60,7 +57,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
       }}
     >
       <LaunchScreen loading={isFetching} />
-      {!isFetching  && children}
+      {!isFetching && children}
     </AuthContext.Provider>
   );
 }

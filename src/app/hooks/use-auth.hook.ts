@@ -1,8 +1,8 @@
-import { useContext } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useContext } from "react";
+import { IAuthSignin, IAuthSignup } from "../../types/interfaces";
 import { AuthContext } from "../contexts/auth.context";
 import { authService } from "../services/auth.service";
-import { IAuthSignin, IAuthSignup } from "../../types/interfaces";
 
 export function useAuthContext() {
   return useContext(AuthContext);

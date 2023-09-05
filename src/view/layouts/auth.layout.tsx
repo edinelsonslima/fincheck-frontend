@@ -1,10 +1,8 @@
 import { Outlet } from "react-router-dom";
-
 import { t } from "../../app/i18n";
-import { SelectLanguage } from "../components/select-language.component";
-
 import { IconLogo } from "../../assets/icons/logo.icon";
 import ImageIllustration from "../../assets/images/illustration.image.png";
+import { SelectLanguage } from "../components/select-language.component";
 
 export function AuthLayout() {
   return (

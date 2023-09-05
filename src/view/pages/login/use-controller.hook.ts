@@ -1,15 +1,13 @@
-import { z } from "zod";
-import toast from "react-hot-toast";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import { t } from "../../../app/i18n";
-
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { z } from "zod";
 import {
   IAuthSignin,
   useAuthContext,
   useAuthSignin,
 } from "../../../app/hooks/use-auth.hook";
+import { t } from "../../../app/i18n";
 
 export const schema = z.object({
   email: z

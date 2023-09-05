@@ -1,6 +1,5 @@
 import { ComponentProps, forwardRef, useId } from "react";
 import { cn } from "../../app/utils/cn.utils";
-
 import { IconCrossCircled } from "../../assets/icons/cross-circled.icon";
 
 interface InputProps extends ComponentProps<"input"> {

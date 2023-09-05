@@ -1,7 +1,5 @@
 import { PropsWithChildren, createContext, useCallback } from "react";
-
 import { useLocalStorage } from "../../../../app/hooks/use-local-storage.hook";
-
 import { enLocalStorage } from "../../../../types/enums/local-storage.enum";
 
 interface DashboardContextProps {

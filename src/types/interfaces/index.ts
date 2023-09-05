@@ -9,6 +9,6 @@ export interface IApiError {
 export type OmitQKeyQFn<T> = Omit<T, "queryKey" | "queryFn">;
 export type OmitMKeyMFn<T> = Omit<T, "mutationKey" | "mutationFn">;
 
-export type * from "./component-props.interface";
 export type * from "./auth.interface";
+export type * from "./component-props.interface";
 export type * from "./user.interface";

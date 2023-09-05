@@ -1,11 +1,9 @@
+import "swiper/css";
+import { IconLogo } from "../../../assets/icons/logo.icon";
 import { UserMenu } from "../../components/user-menu.component";
 import { Accounts } from "./components/accounts";
 import { Transactions } from "./components/transactions";
-
 import { DashboardProvider } from "./contexts/dashboard.context";
-
-import { IconLogo } from "../../../assets/icons/logo.icon";
-import "swiper/css";
 
 export function Dashboard() {
   return (

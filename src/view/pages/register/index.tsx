@@ -1,10 +1,8 @@
-import { useController } from "./use-controller.hook";
-
-import { FormLayout } from "../../layouts/form.layout";
-
+import { t } from "../../../app/i18n";
 import { Button } from "../../components/button.component";
 import { Input } from "../../components/input.component";
-import { t } from "../../../app/i18n";
+import { FormLayout } from "../../layouts/form.layout";
+import { useController } from "./use-controller.hook";
 
 export function Register() {
   const { errors, handleSubmit, register, isLoading } = useController();
