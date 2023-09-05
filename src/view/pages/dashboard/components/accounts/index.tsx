@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { t } from "../../../../../app/i18n";
+import { Spinner } from "../../../../../assets/animations/spinner.animation";
 import { IconEye } from "../../../../../assets/icons/eye-icon";
 import { ButtonChevron } from "../button-chevron.component";
 import { Value } from "../value.component";
@@ -8,12 +8,23 @@ import { useController } from "./use-controller.hook";
 
 export function Accounts() {
   const {
+    t,
     sliderState,
     setSliderState,
     slidesPerView,
     areValuesVisible,
     toggleValuesVisibility,
+    isLoading,
   } = useController();
+
+  if (isLoading) {
+    return (
+      <div className="h-full grid place-items-center">
+        <Spinner className="text-teal-950/50 fill-white w-10 h-10" />
+      </div>
+    );
+  }
+
   return (
     <>
       <header>

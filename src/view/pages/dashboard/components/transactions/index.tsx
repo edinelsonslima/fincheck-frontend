@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { intlDate, intlMonths, t } from "../../../../../app/i18n";
+import { Spinner } from "../../../../../assets/animations/spinner.animation";
 import { IconChevronDown } from "../../../../../assets/icons/chevron-down.icon";
 import { IconFilter } from "../../../../../assets/icons/filter.icon";
 import { IconTransactions } from "../../../../../assets/icons/transactions.icon";
@@ -10,7 +10,16 @@ import { ButtonMonth } from "./button-month.component";
 import { useController } from "./use-controller.hook";
 
 export function Transactions() {
-  const { areValuesVisible } = useController();
+  const { areValuesVisible, isLoading, intlDate, intlMonths, t } =
+    useController();
+
+  if (isLoading) {
+    return (
+      <div className="h-full grid place-items-center">
+        <Spinner className="w-10 h-10" />
+      </div>
+    );
+  }
 
   return (
     <>

@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
 import { useWindowSize } from "../../../../../app/hooks/use-window-size";
+import { languageService } from "../../../../../app/services/language.service";
 import { useDashboard } from "../../hook/use-dashboard.hook";
 
 export function useController() {
+  const { t } = useMemo(() => languageService, []);
   const [windowWidth] = useWindowSize();
   const { areValuesVisible, toggleValuesVisibility } = useDashboard();
 
@@ -17,10 +19,12 @@ export function useController() {
   }, [windowWidth.md, windowWidth.width]);
 
   return {
+    t,
     sliderState,
     setSliderState,
     slidesPerView,
     areValuesVisible,
     toggleValuesVisibility,
+    isLoading: true,
   };
 }
