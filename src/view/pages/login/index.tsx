@@ -1,5 +1,5 @@
 import { t } from "../../../app/i18n";
-import { useController } from "./login.controller";
+import { useController } from "./use-controller.hook";
 
 import { FormLayout } from "../../layouts/form.layout";
 

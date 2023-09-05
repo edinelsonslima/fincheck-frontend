@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
 import { useWindowSize } from "../../../../../app/hooks/use-window-size";
+import { useDashboard } from "../../hook/use-dashboard.hook";
 
 export function useController() {
   const [windowWidth] = useWindowSize();
+  const { areValuesVisible, toggleValuesVisibility } = useDashboard();
 
   const [sliderState, setSliderState] = useState({
     isBeginning: true,
@@ -14,5 +16,11 @@ export function useController() {
     return isLess(500) ? 1.1 : windowWidth.md ? 2.1 : isLess(900) ? 1.1 : 2.1;
   }, [windowWidth.md, windowWidth.width]);
 
-  return { sliderState, setSliderState, slidesPerView };
+  return {
+    sliderState,
+    setSliderState,
+    slidesPerView,
+    areValuesVisible,
+    toggleValuesVisibility,
+  };
 }

@@ -1,4 +1,4 @@
-import { useController } from "./index.controller";
+import { useController } from "./use-controller.hook";
 
 import { FormLayout } from "../../layouts/form.layout";
 
