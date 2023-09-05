@@ -1,10 +1,12 @@
+import { useMemo } from "react";
 import { Outlet } from "react-router-dom";
-import { t } from "../../app/i18n";
+import { languageService } from "../../app/services/language.service";
 import { IconLogo } from "../../assets/icons/logo.icon";
 import ImageIllustration from "../../assets/images/illustration.image.png";
 import { SelectLanguage } from "../components/select-language.component";
 
 export function AuthLayout() {
+  const { t } = useMemo(() => languageService, []);
   return (
     <>
       <SelectLanguage className="fixed right-2 top-2 mr-4 mt-1" />

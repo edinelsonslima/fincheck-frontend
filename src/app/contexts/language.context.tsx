@@ -1,7 +1,7 @@
-import { PropsWithChildren, createContext, useEffect } from "react";
+import { PropsWithChildren, createContext, useEffect, useMemo } from "react";
 import { enLocalStorage } from "../../types/enums/local-storage.enum";
 import { useLocalStorage } from "../hooks/use-local-storage.hook";
-import { DEFAULT_LANGUAGE, ILanguages } from "../i18n";
+import { ILanguages, languageService } from "../services/language.service";
 
 type IContextProps = [
   ILanguages,
@@ -9,14 +9,15 @@ type IContextProps = [
 ];
 
 export const LanguageContext = createContext<IContextProps>([
-  DEFAULT_LANGUAGE,
+  languageService.defaultLanguage(),
   () => {},
 ]);
 
 export function LanguageProvider({ children }: PropsWithChildren) {
+  const { defaultLanguage } = useMemo(() => languageService, []);
   const [language, setLanguage] = useLocalStorage(
     enLocalStorage.LANGUAGE,
-    DEFAULT_LANGUAGE
+    defaultLanguage()
   );
 
   useEffect(() => {

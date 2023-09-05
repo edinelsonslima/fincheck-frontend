@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -7,22 +8,23 @@ import {
   useAuthContext,
   useAuthSignin,
 } from "../../../app/hooks/use-auth.hook";
-import { t } from "../../../app/i18n";
+import { languageService } from "../../../app/services/language.service";
 
 export const schema = z.object({
   email: z
     .string()
-    .nonempty(t("E-mail is required"))
-    .email(t("Use a valid e-mail address")),
+    .nonempty(languageService.t("E-mail is required"))
+    .email(languageService.t("Use a valid e-mail address")),
   password: z
     .string()
-    .nonempty(t("Password is required"))
-    .min(8, t("Password must be at least 8 characters long")),
+    .nonempty(languageService.t("Password is required"))
+    .min(8, languageService.t("Password must be at least 8 characters long")),
 });
 
 export type IFormData = z.infer<typeof schema>;
 
 export function useController() {
+  const { t } = useMemo(() => languageService, []);
   const { mutateAsync, isLoading } = useAuthSignin();
   const { signin } = useAuthContext();
 
@@ -45,6 +47,7 @@ export function useController() {
   });
 
   return {
+    t,
     errors,
     register,
     isLoading,
