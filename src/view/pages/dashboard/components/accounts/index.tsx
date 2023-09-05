@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Spinner } from "../../../../../assets/animations/spinner.animation";
 import { IconEye } from "../../../../../assets/icons/eye-icon";
+import { IconPlus } from "../../../../../assets/icons/plus.icon";
 import { ButtonChevron } from "../button-chevron.component";
 import { Value } from "../value.component";
 import { AccountCard } from "./account-card.component";
@@ -15,6 +16,7 @@ export function Accounts() {
     areValuesVisible,
     toggleValuesVisibility,
     isLoading,
+    accounts,
   } = useController();
 
   if (isLoading) {
@@ -49,73 +51,92 @@ export function Accounts() {
       </header>
 
       <section className="flex-1 flex flex-col justify-end mt-10 md:mt-0">
-        <div>
-          <Swiper
-            spaceBetween={16}
-            slidesPerView={slidesPerView}
-            onSlideChange={({ isBeginning, isEnd }) =>
-              setSliderState({ isBeginning, isEnd })
-            }
-          >
-            <div
-              slot="container-start"
-              className="flex items-center justify-between mb-4"
-            >
-              <h3 className="text-white text-lg tracking-tighter font-bold">
-                {intlTerm("My bills")}
-              </h3>
+        {!accounts.length && (
+          <>
+            <h3 className="text-white text-lg tracking-tighter font-bold">
+              {intlTerm("My bills")}
+            </h3>
 
-              <div>
-                <ButtonChevron
-                  direction="slidePrev"
-                  disabled={sliderState.isBeginning}
-                  className="py-3 pl-2.5 pr-3.5 rounded-full text-white enabled:hover:bg-black/10 transition-colors disabled:opacity-40"
-                />
-                <ButtonChevron
-                  direction="slideNext"
-                  disabled={sliderState.isEnd}
-                  className="py-3 pl-2.5 pr-3.5 rounded-full text-white enabled:hover:bg-black/10 transition-colors disabled:opacity-40"
-                />
+            <button className="flex flex-col items-center justify-center gap-4 mt-4 h-52 rounded-2xl border-2 border-dashed border-teal-600 text-white">
+              <div className="grid place-items-center w-11 h-11 rounded-full border-2 border-dashed border-teal-white">
+                <IconPlus className="w-6 h-6" />
               </div>
-            </div>
+              <span className="font-medium tracking-tighter block w-32 text-center">
+                {intlTerm("Register a new account")}
+              </span>
+            </button>
+          </>
+        )}
 
-            <SwiperSlide>
-              <AccountCard
-                name="NuBank"
-                type="CHECKING"
-                color="#7950F2"
-                balance={6598.23}
-              />
-            </SwiperSlide>
+        {!!accounts.length && (
+          <div>
+            <Swiper
+              spaceBetween={16}
+              slidesPerView={slidesPerView}
+              onSlideChange={({ isBeginning, isEnd }) =>
+                setSliderState({ isBeginning, isEnd })
+              }
+            >
+              <div
+                slot="container-start"
+                className="flex items-center justify-between mb-4"
+              >
+                <h3 className="text-white text-lg tracking-tighter font-bold">
+                  {intlTerm("My bills")}
+                </h3>
 
-            <SwiperSlide>
-              <AccountCard
-                name="Itaú"
-                type="CHECKING"
-                color="#E53935"
-                balance={815.23}
-              />
-            </SwiperSlide>
+                <div>
+                  <ButtonChevron
+                    direction="slidePrev"
+                    disabled={sliderState.isBeginning}
+                    className="py-3 pl-2.5 pr-3.5 rounded-full text-white enabled:hover:bg-black/10 transition-colors disabled:opacity-40"
+                  />
+                  <ButtonChevron
+                    direction="slideNext"
+                    disabled={sliderState.isEnd}
+                    className="py-3 pl-2.5 pr-3.5 rounded-full text-white enabled:hover:bg-black/10 transition-colors disabled:opacity-40"
+                  />
+                </div>
+              </div>
 
-            <SwiperSlide>
-              <AccountCard
-                name="Inter"
-                type="CHECKING"
-                color="#FF6D00"
-                balance={165.23}
-              />
-            </SwiperSlide>
+              <SwiperSlide>
+                <AccountCard
+                  name="NuBank"
+                  type="CHECKING"
+                  color="#7950F2"
+                  balance={6598.23}
+                />
+              </SwiperSlide>
 
-            <SwiperSlide>
-              <AccountCard
-                name="XP Investimentos"
-                type="INVESTMENT"
-                color="#00C853"
-                balance={753.23}
-              />
-            </SwiperSlide>
-          </Swiper>
-        </div>
+              <SwiperSlide>
+                <AccountCard
+                  name="Itaú"
+                  type="CHECKING"
+                  color="#E53935"
+                  balance={815.23}
+                />
+              </SwiperSlide>
+
+              <SwiperSlide>
+                <AccountCard
+                  name="Inter"
+                  type="CHECKING"
+                  color="#FF6D00"
+                  balance={165.23}
+                />
+              </SwiperSlide>
+
+              <SwiperSlide>
+                <AccountCard
+                  name="XP Investimentos"
+                  type="INVESTMENT"
+                  color="#00C853"
+                  balance={753.23}
+                />
+              </SwiperSlide>
+            </Swiper>
+          </div>
+        )}
       </section>
     </>
   );
