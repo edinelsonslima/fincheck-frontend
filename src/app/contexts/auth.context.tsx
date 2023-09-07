@@ -17,9 +17,11 @@ interface AuthContextValue {
   signin: (accessToken: string) => void;
 }
 
-export const AuthContext = createContext<AuthContextValue>(
-  {} as AuthContextValue
-);
+export const AuthContext = createContext<AuthContextValue>({
+  signedIn: false,
+  signout: () => {},
+  signin: () => {},
+});
 
 export function AuthProvider({ children }: PropsWithChildren) {
   const [accessToken, setAccessToken, removeAccessToken] = useLocalStorage(
