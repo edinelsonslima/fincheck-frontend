@@ -4,7 +4,7 @@ import { IAuthSignin, IAuthSignup } from "../../types/interfaces";
 import { AuthContext } from "../contexts/auth.context";
 import { authService } from "../services/auth.service";
 
-export function useAuthContext() {
+export function useAuth() {
   return useContext(AuthContext);
 }
 

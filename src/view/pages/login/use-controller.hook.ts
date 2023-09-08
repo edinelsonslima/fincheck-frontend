@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 import {
   IAuthSignin,
-  useAuthContext,
+  useAuth,
   useAuthSignin,
 } from "../../../app/hooks/use-auth.hook";
 import { intlService } from "../../../app/services/intl.service";
@@ -27,7 +27,7 @@ export type IFormData = z.infer<typeof schema>;
 
 export function useController() {
   const { mutateAsync, isLoading } = useAuthSignin();
-  const { signin } = useAuthContext();
+  const { signin } = useAuth();
 
   const {
     register,
