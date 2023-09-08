@@ -2,6 +2,7 @@ import "swiper/css";
 import { IconLogo } from "../../../assets/icons/logo.icon";
 import { UserMenu } from "../../components/user-menu.component";
 import { Accounts } from "./components/accounts";
+import { Fab } from "./components/fab-component";
 import { Transactions } from "./components/transactions";
 import { DashboardProvider } from "./contexts/dashboard.context";
 
@@ -23,6 +24,8 @@ export function Dashboard() {
             <Transactions />
           </section>
         </main>
+
+        <Fab />
       </div>
     </DashboardProvider>
   );
