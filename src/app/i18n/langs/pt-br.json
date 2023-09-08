@@ -24,5 +24,8 @@
   "Transactions": "Transações",
   "Register a new account": "Cadastrar uma nova conta",
   "We didn't find any transactions": "Não encontramos nenhuma transação",
-  "language": "idioma"
+  "language": "idioma",
+  "incomes": "receitas",
+  "expenses": "despesas",
+  "transactions": "transações"
 }
