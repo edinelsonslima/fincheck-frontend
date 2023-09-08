@@ -27,5 +27,8 @@
   "language": "idioma",
   "incomes": "receitas",
   "expenses": "despesas",
-  "transactions": "transações"
+  "transactions": "transações",
+  "New income": "Nova receita",
+  "New expense": "Nova despesa",
+  "New account": "Nova conta"
 }

@@ -27,5 +27,8 @@
   "language": "language",
   "incomes": "incomes",
   "expenses": "expenses",
-  "transactions": "transactions"
+  "transactions": "transactions",
+  "New income": "New income",
+  "New expense": "New expense",
+  "New account": "New account"
 }
