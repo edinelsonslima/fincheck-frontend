@@ -49,7 +49,7 @@ function DropdownItem({
     <RdxDropdownMenu.Item
       {...props}
       className={cn(
-        "min-h-[3rem] outline-none flex items-center py-2 px-4 text-sm text-gray-800 rounded-lg transition-colors cursor-pointer data-[highlighted]:bg-gray-50",
+        "min-h-[2.5rem] outline-none flex items-center py-2 px-4 text-sm text-gray-800 rounded-lg transition-colors cursor-pointer data-[highlighted]:bg-gray-50",
         className
       )}
     >
@@ -69,7 +69,7 @@ function DropdownSubTrigger({
   return (
     <RdxDropdownMenu.SubTrigger
       className={cn(
-        "min-h-[3rem] outline-none flex items-center py-2 px-4 text-sm text-gray-800 rounded-lg transition-colors cursor-pointer data-[highlighted]:bg-gray-50",
+        "min-h-[2.5rem] outline-none flex items-center py-2 px-4 text-sm text-gray-800 rounded-lg transition-colors cursor-pointer data-[highlighted]:bg-gray-50",
         className
       )}
     >
