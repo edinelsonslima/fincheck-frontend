@@ -1,13 +1,12 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Spinner } from "../../../../../assets/animations/spinner.animation";
-import { IconChevronDown } from "../../../../../assets/icons/chevron-down.icon";
 import { IconFilter } from "../../../../../assets/icons/filter.icon";
-import { IconTransactions } from "../../../../../assets/icons/transactions.icon";
 import { ImageEmptyState } from "../../../../../assets/images/empty-state.image";
 import { CategoryIcon } from "../../../../components/category-icon.component";
 import { ButtonChevron } from "../button-chevron.component";
 import { Value } from "../value.component";
 import { ButtonMonth } from "./button-month.component";
+import { FilterType } from "./filter-type.component";
 import { useController } from "./use-controller.hook";
 
 export function Transactions() {
@@ -33,13 +32,7 @@ export function Transactions() {
     <>
       <header className="space-y-6">
         <div className="flex items-center justify-between">
-          <button className="flex items-center gap-2">
-            <IconTransactions />
-            <span className="text-sm text-gray-800 tracking-tighter font-medium">
-              {intlTerm("Transactions")}
-            </span>
-            <IconChevronDown className="text-gray-900" />
-          </button>
+          <FilterType />
 
           <button>
             <IconFilter />
@@ -76,7 +69,7 @@ export function Transactions() {
           </div>
         )}
 
-        {(!transactions?.length && !isLoading) && (
+        {!transactions?.length && !isLoading && (
           <div className="flex flex-col items-center justify-center h-full">
             <ImageEmptyState />
             <p className="text-gray-700">
