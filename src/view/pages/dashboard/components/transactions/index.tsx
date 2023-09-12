@@ -1,11 +1,11 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Spinner } from "../../../../../assets/animations/spinner.animation";
-import { IconFilter } from "../../../../../assets/icons/filter.icon";
 import { ImageEmptyState } from "../../../../../assets/images/empty-state.image";
 import { CategoryIcon } from "../../../../components/category-icon.component";
 import { ButtonChevron } from "../button-chevron.component";
 import { Value } from "../value.component";
 import { ButtonMonth } from "./button-month.component";
+import { FilterModal } from "./filter-modal.component";
 import { FilterType } from "./filter-type.component";
 import { useController } from "./use-controller.hook";
 
@@ -34,9 +34,7 @@ export function Transactions() {
         <div className="flex items-center justify-between">
           <FilterType />
 
-          <button>
-            <IconFilter />
-          </button>
+          <FilterModal onChange={console.log}/>
         </div>
 
         <div className="relative">
