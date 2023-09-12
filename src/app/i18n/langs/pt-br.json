@@ -30,5 +30,9 @@
   "transactions": "transações",
   "New income": "Nova receita",
   "New expense": "Nova despesa",
-  "New account": "Nova conta"
+  "New account": "Nova conta",
+  "Filters": "Filtros",
+  "Account": "Conta",
+  "Year": "Ano",
+  "Apply Filters": "Aplicar filtros"
 }
