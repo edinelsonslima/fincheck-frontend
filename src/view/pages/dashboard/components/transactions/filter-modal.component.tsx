@@ -21,7 +21,7 @@ const MOCK = [
 ];
 
 export function FilterModal({ onChange }: FilterModalProps) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [bankAccountId, setBankAccountId] = useState("");
   const [year, setYear] = useState(new Date().getFullYear());
 
