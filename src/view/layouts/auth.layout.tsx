@@ -7,7 +7,7 @@ import { SelectLanguage } from "../components/select-language.component";
 export function AuthLayout() {
   return (
     <>
-      <SelectLanguage className="fixed right-2 top-2 mr-4 mt-1" />
+      <SelectLanguage />
 
       <div className="container mx-auto flex h-full max-h-[60rem]">
         <section className="flex-1 flex flex-col justify-center items-center gap-16">
