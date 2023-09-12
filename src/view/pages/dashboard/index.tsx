@@ -24,9 +24,9 @@ export function Dashboard() {
             <Transactions />
           </section>
         </main>
-
-        <Fab />
       </div>
+
+      <Fab />
     </DashboardProvider>
   );
 }
