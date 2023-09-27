@@ -5,7 +5,8 @@ import { useDashboard } from "../../hook/use-dashboard.hook";
 
 export function useController() {
   const [windowWidth] = useWindowSize();
-  const { areValuesVisible, toggleValuesVisibility } = useDashboard();
+  const { areValuesVisible, toggleValuesVisibility, openNewAccountModal } =
+    useDashboard();
 
   const [sliderState, setSliderState] = useState({
     isBeginning: true,
@@ -23,6 +24,7 @@ export function useController() {
     slidesPerView,
     areValuesVisible,
     toggleValuesVisibility,
+    openNewAccountModal,
     intlTerm: intlService.intlTerm,
     isLoading: false,
     accounts: [],

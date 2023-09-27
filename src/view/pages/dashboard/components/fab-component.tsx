@@ -3,8 +3,11 @@ import { IconBankAccount } from "../../../../assets/icons/bank-account.icon";
 import { IconPlus } from "../../../../assets/icons/plus.icon";
 import { CategoryIcon } from "../../../components/category-icon.component";
 import { DropdownMenu } from "../../../components/dropdown-menu.component";
+import { useDashboard } from "../hook/use-dashboard.hook";
 
 export function Fab() {
+  const { openNewAccountModal } = useDashboard();
+
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="fixed right-4 bottom-4 bg-teal-900 w-12 h-12 rounded-full flex items-center justify-center">
@@ -22,7 +25,7 @@ export function Fab() {
           {intlService.intlTerm("New income")}
         </DropdownMenu.Item>
 
-        <DropdownMenu.Item className="gap-2">
+        <DropdownMenu.Item className="gap-2" onSelect={openNewAccountModal}>
           <IconBankAccount />
           {intlService.intlTerm("New account")}
         </DropdownMenu.Item>

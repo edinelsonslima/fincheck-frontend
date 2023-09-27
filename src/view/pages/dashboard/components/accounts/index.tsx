@@ -15,6 +15,7 @@ export function Accounts() {
     slidesPerView,
     areValuesVisible,
     toggleValuesVisibility,
+    openNewAccountModal,
     isLoading,
     accounts,
   } = useController();
@@ -57,7 +58,10 @@ export function Accounts() {
               {intlTerm("My bills")}
             </h3>
 
-            <button className="flex flex-col items-center justify-center gap-4 mt-4 h-52 rounded-2xl border-2 border-dashed border-teal-600 text-white">
+            <button
+              onClick={openNewAccountModal}
+              className="flex flex-col items-center justify-center gap-4 mt-4 h-52 rounded-2xl border-2 border-dashed border-teal-600 text-white"
+            >
               <div className="grid place-items-center w-11 h-11 rounded-full border-2 border-dashed border-teal-white">
                 <IconPlus className="w-6 h-6" />
               </div>
