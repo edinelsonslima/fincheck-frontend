@@ -34,5 +34,12 @@
   "Filters": "Filters",
   "Account": "Account",
   "Year": "Year",
-  "Apply Filters": "Apply Filters"
+  "Apply Filters": "Apply Filters",
+  "Balance": "Balance",
+  "Account name": "Account name",
+  "Type": "Type",
+  "Checking": "Checking",
+  "Investment": "Investment",
+  "Cash": "Cash",
+  "Color": "Color"
 }

@@ -34,5 +34,12 @@
   "Filters": "Filtros",
   "Account": "Conta",
   "Year": "Ano",
-  "Apply Filters": "Aplicar filtros"
+  "Apply Filters": "Aplicar filtros",
+  "Balance": "Saldo",
+  "Account name": "Nome da conta",
+  "Type": "Tipo",
+  "Checking": "Conta Corrente",
+  "Investment": "Investimentos",
+  "Cash": "Dinheiro Físico",
+  "Color": "Cor"
 }
