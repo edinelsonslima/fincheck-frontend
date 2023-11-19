@@ -32,7 +32,7 @@ export function InputCurrency() {
     <input
       ref={inputRef}
       className="w-full text-gray-900 text-[2rem] font-bold tracking-tightest outline-none"
-      placeholder={intlService.intlCurrency(Number(0)).priceValue}
+      placeholder={intlService.intlCurrency(0).priceValue}
       onChange={handleChange}
     />
   );
