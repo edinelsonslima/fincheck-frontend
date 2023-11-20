@@ -1,4 +1,4 @@
-import * as Dialog from "@radix-ui/react-dialog";
+import * as RdxDialog from "@radix-ui/react-dialog";
 import { PropsWithChildren } from "react";
 import { cn } from "../../app/utils/cn.utils";
 import { IconCross } from "../../assets/icons/cross.icon";
@@ -20,15 +20,15 @@ export function Modal({
   rightAction,
 }: PropsWithChildren<ModalProps>) {
   return (
-    <Dialog.Root open={open} onOpenChange={onClose}>
-      <Dialog.Portal>
-        <Dialog.Overlay
+    <RdxDialog.Root open={open} onOpenChange={onClose}>
+      <RdxDialog.Portal>
+        <RdxDialog.Overlay
           className={cn(
             "z-10 fixed inset-0 bg-black/80 backdrop-blur-sm",
             "data-[state=open]:animate-overlay-show"
           )}
         />
-        <Dialog.Content
+        <RdxDialog.Content
           className={cn(
             "z-20 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
             "p-6 space-y-10 w-full max-w-[25rem] bg-white rounded-2xl shadow-[0_11px_20px_0_rgba(0,0,0,0.10)] outline-none",
@@ -51,8 +51,8 @@ export function Modal({
           </header>
 
           <div className={className}>{children}</div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+        </RdxDialog.Content>
+      </RdxDialog.Portal>
+    </RdxDialog.Root>
   );
 }
