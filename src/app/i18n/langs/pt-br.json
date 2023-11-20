@@ -41,5 +41,12 @@
   "Checking": "Conta Corrente",
   "Investment": "Investimentos",
   "Cash": "Dinheiro Físico",
-  "Color": "Cor"
+  "Color": "Cor",
+  "Expense value": "Valor da despesa",
+  "Income value": "Valor da receita",
+  "Expense name": "Nome da despesa",
+  "Income name": "Nome da receita",
+  "Category": "Categoria",
+  "Pay with": "Pagar com",
+  "Receive with": "Receber com"
 }

@@ -41,5 +41,12 @@
   "Checking": "Checking",
   "Investment": "Investment",
   "Cash": "Cash",
-  "Color": "Color"
+  "Color": "Color",
+  "Expense value": "Expense value",
+  "Income value": "Income value",
+  "Expense name": "Expense name",
+  "Income name": "Income name",
+  "Category": "Category",
+  "Pay with": "Pay with",
+  "Receive with": "Receive with"
 }
