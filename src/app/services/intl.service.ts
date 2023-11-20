@@ -27,11 +27,47 @@ class IntlService {
   public intlCurrency(value: number) {
     const language = this.getLocalStorageLanguage();
 
-    return new Intl.NumberFormat(language, {
-      style: "currency",
-      currencyDisplay: "symbol",
+    const intl = new Intl.NumberFormat(language, {
+      style: 'currency',
       currency: langs[language].currencyCode,
-    }).format(value);
+      currencyDisplay: 'narrowSymbol',
+    });
+
+    const initialReduce = {
+      price: '',
+      priceValue: '',
+      currencySymbol: '',
+      isLeftSymbol: false,
+    };
+
+    const callbackReduce = (
+      acc: typeof initialReduce,
+      part: Intl.NumberFormatPart,
+      index: number
+    ) => {
+      acc.price += part.value;
+
+      if (part.type === 'currency') {
+        acc.currencySymbol = part.value;
+        acc.isLeftSymbol = index === 0;
+        return acc
+      }
+
+      acc.priceValue += part.value;
+
+      return acc;
+    };
+
+    const { priceValue, currencySymbol, price, isLeftSymbol } = intl
+      .formatToParts(value)
+      .reduce(callbackReduce, initialReduce);
+
+    return {
+      isLeftSymbol,
+      price: price.trim(),
+      priceValue: priceValue.trim(),
+      currencySymbol: currencySymbol.trim(),
+    };
   }
 
   public intlMonths(
