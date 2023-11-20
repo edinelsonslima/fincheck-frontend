@@ -2,7 +2,7 @@ import { useState } from "react";
 import { intlService } from "../../../../../app/services/intl.service";
 import { cn } from "../../../../../app/utils/cn.utils";
 import { IconChevronLeft } from "../../../../../assets/icons/chevron-left.icon";
-import { IconChevronRight } from "../../../../../assets/icons/chevron-left.right";
+import { IconChevronRight } from "../../../../../assets/icons/chevron-right.icon";
 import { IconFilter } from "../../../../../assets/icons/filter.icon";
 import { Button } from "../../../../components/button.component";
 import { Modal } from "../../../../components/modal.component";
