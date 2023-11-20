@@ -79,21 +79,21 @@ class IntlService {
     return [...Array(12).keys()].map((m) => intl.format(new Date(0, m)));
   }
 
-  public intlDate(date: string | number | Date) {
+  public intlDate(date: Date = new Date()) {
     return new Intl.DateTimeFormat(this.getLocalStorageLanguage(), {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
-    }).format(new Date(date));
+    }).format(date);
+  }
+
+  public getLocalStorageLanguage(): ILanguages {
+    const language = window.localStorage.getItem(enLocalStorage.LANGUAGE);
+    return language ? JSON.parse(language) : this.defaultLanguage();
   }
 
   private getTranslatedTerm<T extends ILanguages>(lang: T, term: ITerms) {
     return langs[lang]["term"][term] || term;
-  }
-
-  private getLocalStorageLanguage(): ILanguages {
-    const language = window.localStorage.getItem(enLocalStorage.LANGUAGE);
-    return language ? JSON.parse(language) : this.defaultLanguage();
   }
 }
 
