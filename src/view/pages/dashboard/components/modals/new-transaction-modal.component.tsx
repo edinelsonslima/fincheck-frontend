@@ -1,4 +1,5 @@
 import { intlService } from "../../../../../app/services/intl.service";
+import { DatePickerInput } from "../../../../components/date-picker-input.component";
 import { InputCurrency } from "../../../../components/input-currency.component";
 import { Input } from "../../../../components/input.component";
 import { Modal } from "../../../../components/modal.component";
@@ -77,6 +78,8 @@ export function NewTransactionModal() {
               },
             ]}
           />
+
+          <DatePickerInput />
         </div>
       </form>
     </Modal>
