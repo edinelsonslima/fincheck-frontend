@@ -9,7 +9,7 @@ interface ValueProps {
 }
 
 export function Value({ value, className, visible, blur = "md" }: ValueProps) {
-  const formattedValue = intlService.intlCurrency(value);
+  const { price } = intlService.intlCurrency(value);
   return (
     <span
       className={cn(
@@ -18,8 +18,8 @@ export function Value({ value, className, visible, blur = "md" }: ValueProps) {
         !visible && blur === "sm" && "blur-sm"
       )}
     >
-      {visible && formattedValue}
-      {!visible && formattedValue.replace(/[0-9]/g, "0")}
+      {visible && price}
+      {!visible && price.replace(/[0-9]/g, "0")}
     </span>
   );
 }
