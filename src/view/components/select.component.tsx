@@ -33,7 +33,6 @@ export function Select({
     <div>
       <div className="relative">
         <label
-          htmlFor=""
           className={cn(
             "absolute z-10 left-3 top-1/2 -translate-y-1/2 text-gray-700 pointer-events-none",
             !!selectedValue && "text-xs left-[.8125rem] top-3.5 transition-all"
@@ -63,17 +62,15 @@ export function Select({
               </RdxSelect.ScrollUpButton>
 
               <RdxSelect.Viewport className="p-2">
-                {options.map(({ label, value }) => {
-                  return (
-                    <RdxSelect.Item
-                      key={value}
-                      value={value}
-                      className="cursor-default p-2 text-gray-800 text-sm rounded-lg transition-colors data-[state=checked]:font-bold data-[highlighted]:bg-gray-50 outline-none"
-                    >
-                      <RdxSelect.ItemText>{label}</RdxSelect.ItemText>
-                    </RdxSelect.Item>
-                  );
-                })}
+                {options.map(({ label, value }) => (
+                  <RdxSelect.Item
+                    key={value}
+                    value={value}
+                    className="cursor-default p-2 text-gray-800 text-sm rounded-lg transition-colors data-[state=checked]:font-bold data-[highlighted]:bg-gray-50 outline-none"
+                  >
+                    <RdxSelect.ItemText>{label}</RdxSelect.ItemText>
+                  </RdxSelect.Item>
+                ))}
               </RdxSelect.Viewport>
 
               <RdxSelect.ScrollDownButton className="flex items-center justify-center h-[25px] bg-white text-gray-800 cursor-default">
