@@ -1,6 +1,6 @@
 import { useSwiper } from "swiper/react";
 import { IconChevronLeft } from "../../../../assets/icons/chevron-left.icon";
-import { IconChevronRight } from "../../../../assets/icons/chevron-left.right";
+import { IconChevronRight } from "../../../../assets/icons/chevron-right.icon";
 import { ButtonProps } from "../../../../types/interfaces";
 
 interface ButtonChevronProps extends ButtonProps {
