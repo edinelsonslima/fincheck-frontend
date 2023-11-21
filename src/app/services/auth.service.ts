@@ -1,4 +1,4 @@
-import { IAuthSignin, IAuthSignup } from "../hooks/use-auth.hook";
+import { IAuthSignin, IAuthSignup } from "../../types/interfaces";
 import httpClient, { HttpClient } from "./http-client.service";
 
 class AuthService {
