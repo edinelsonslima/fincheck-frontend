@@ -12,8 +12,8 @@ interface InputCurrencyEvent extends FormEvent<HTMLInputElement> {
 
 interface InputCurrencyProps {
   error?: string;
-  value?: string;
-  onChange?(value: string): void;
+  value?: number;
+  onChange?(value: number | undefined): void;
 }
 
 const { intlCurrency } = intlService;
@@ -21,24 +21,24 @@ const { intlCurrency } = intlService;
 export function InputCurrency({ error, onChange, value }: InputCurrencyProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const getFormattedPrice = (value = "") => {
-    const { priceValue } = intlCurrency(currencyStringToNumber(value));
+  const getFormattedPrice = (value = 0) => {
+    const { priceValue } = intlCurrency(value);
     return priceValue;
   };
 
   const handleChange = (e: InputCurrencyEvent) => {
     const hasValue = Number(e.target.value.replace(/\D/g, ""));
-    if (!hasValue) {
-      onChange?.("");
+
+    if (!hasValue || !inputRef.current) {
+      onChange?.(undefined);
       return (e.target.value = "");
     }
 
-    if (!inputRef.current) return;
     const { selectionStart, selectionEnd } = inputRef.current;
 
-    const price = getFormattedPrice(e.target.value);
+    const price = getFormattedPrice(currencyStringToNumber(e.target.value));
+    onChange?.(currencyStringToNumber(price));
     e.target.value = price;
-    onChange?.(price);
 
     inputRef.current.setSelectionRange((selectionStart || 0) + 1, selectionEnd);
   };
