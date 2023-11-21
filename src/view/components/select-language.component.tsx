@@ -4,6 +4,8 @@ import { ILanguages, intlService } from "../../app/services/intl.service";
 import { IconCheck } from "../../assets/icons/check.icon";
 import { DropdownMenu } from "./dropdown-menu.component";
 
+const { languages } = intlService;
+
 export function SelectLanguage() {
   const [language] = useLanguage();
 
@@ -27,7 +29,7 @@ export function SelectLanguageRadioGroup() {
       value={language}
       onValueChange={(lang) => setLanguage(lang as ILanguages)}
     >
-      {intlService.languages().map((language) => (
+      {languages().map((language) => (
         <RdxDropdownMenu.RadioItem
           value={language}
           key={language}

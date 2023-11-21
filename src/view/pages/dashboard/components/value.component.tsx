@@ -8,8 +8,10 @@ interface ValueProps {
   blur?: "sm" | "md";
 }
 
+const { intlCurrency } = intlService;
+
 export function Value({ value, className, visible, blur = "md" }: ValueProps) {
-  const { price } = intlService.intlCurrency(value);
+  const { price } = intlCurrency(value);
   return (
     <span
       className={cn(

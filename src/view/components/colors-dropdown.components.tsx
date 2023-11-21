@@ -33,6 +33,8 @@ interface ColorsDropdownInputProps {
   className?: string;
 }
 
+const { intlTerm } = intlService;
+
 export function ColorsDropdownInput({
   className,
   error,
@@ -53,7 +55,7 @@ export function ColorsDropdownInput({
             className
           )}
         >
-          {intlService.intlTerm("Color")}
+          {intlTerm("Color")}
 
           <div className="absolute right-3 top-1/2 -translate-y-1/2">
             {!selectedColor && (

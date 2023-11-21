@@ -20,6 +20,8 @@ const MOCK = [
   { id: "06", name: "BTG Pactual" },
 ];
 
+const { intlTerm } = intlService;
+
 export function FilterModal({ onChange }: FilterModalProps) {
   const [open, setOpen] = useState(false);
   const [bankAccountId, setBankAccountId] = useState("");
@@ -34,12 +36,12 @@ export function FilterModal({ onChange }: FilterModalProps) {
       <Modal
         open={open}
         onClose={() => setOpen(false)}
-        title={intlService.intlTerm("Filters")}
+        title={intlTerm("Filters")}
         className="space-y-10 text-gray-800"
       >
         <div className="space-y-2">
           <span className="text-lg tracking-tightest font-bold">
-            {intlService.intlTerm("Account")}
+            {intlTerm("Account")}
           </span>
 
           {MOCK.map(({ id, name }) => (
@@ -58,7 +60,7 @@ export function FilterModal({ onChange }: FilterModalProps) {
 
         <div className="space-y-2">
           <span className="text-lg tracking-tightest font-bold">
-            {intlService.intlTerm("Year")}
+            {intlTerm("Year")}
           </span>
 
           <div className="w-52 flex items-center justify-between">
@@ -86,7 +88,7 @@ export function FilterModal({ onChange }: FilterModalProps) {
           className="w-full"
           onClick={() => onChange({ bankAccountId, year })}
         >
-          {intlService.intlTerm("Apply Filters")}
+          {intlTerm("Apply Filters")}
         </Button>
       </Modal>
     </>

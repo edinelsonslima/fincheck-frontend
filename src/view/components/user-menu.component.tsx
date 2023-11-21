@@ -5,6 +5,8 @@ import { IconExit } from "../../assets/icons/exit.icon";
 import { DropdownMenu } from "./dropdown-menu.component";
 import { SelectLanguageRadioGroup } from "./select-language.component";
 
+const { intlTerm } = intlService;
+
 export function UserMenu() {
   const { signout } = useAuth();
 
@@ -17,7 +19,7 @@ export function UserMenu() {
       <DropdownMenu.Content className="mr-5 mt-2 w-32">
         <DropdownMenu.Sub>
           <DropdownMenu.SubTrigger className="flex items-center justify-between">
-            {intlService.intlTerm("language")}
+            {intlTerm("language")}
             <IconChevronLeft className="w-4 h-4" />
           </DropdownMenu.SubTrigger>
 

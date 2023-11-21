@@ -10,12 +10,13 @@ import { LaunchScreen } from "../../view/components/launch-screen.component";
 import { useLocalStorage } from "../hooks/use-local-storage.hook";
 import { useUserMe } from "../hooks/use-user.hook";
 import { intlService } from "../services/intl.service";
-
 interface AuthContextValue {
   signedIn: boolean;
   signout: () => void;
   signin: (accessToken: string) => void;
 }
+
+const { intlTerm } = intlService;
 
 export const AuthContext = createContext<AuthContextValue>({
   signedIn: false,
@@ -46,7 +47,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (!isError) return;
-    toast.error(intlService.intlTerm("Session expired, please login again"));
+    toast.error(intlTerm("Session expired, please login again"));
     signout();
   }, [isError, signout]);
 

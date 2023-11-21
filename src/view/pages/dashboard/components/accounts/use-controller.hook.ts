@@ -3,6 +3,8 @@ import { useWindowSize } from "../../../../../app/hooks/use-window-size";
 import { intlService } from "../../../../../app/services/intl.service";
 import { useDashboard } from "../../hook/use-dashboard.hook";
 
+const { intlTerm } = intlService;
+
 export function useController() {
   const [windowWidth] = useWindowSize();
   const { areValuesVisible, toggleValuesVisibility, openNewAccountModal } =
@@ -25,7 +27,7 @@ export function useController() {
     areValuesVisible,
     toggleValuesVisibility,
     openNewAccountModal,
-    intlTerm: intlService.intlTerm,
+    intlTerm,
     isLoading: false,
     accounts: [],
   };

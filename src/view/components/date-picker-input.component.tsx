@@ -10,6 +10,8 @@ interface DatePickerInputProps {
   className?: string;
 }
 
+const { intlTerm, intlDate } = intlService;
+
 export function DatePickerInput({ className, error }: DatePickerInputProps) {
   const [selectedDate, setSelectDate] = useState(new Date());
 
@@ -24,9 +26,9 @@ export function DatePickerInput({ className, error }: DatePickerInputProps) {
           )}
         >
           <span className="absolute text-gray-700 text-xs left-[.8125rem] top-2">
-            {intlService.intlTerm("Date")}
+            {intlTerm("Date")}
           </span>
-          <span>{intlService.intlDate(selectedDate)}</span>
+          <span>{intlDate(selectedDate)}</span>
         </Popover.Trigger>
 
         <Popover.Content className="p-4">

@@ -9,11 +9,13 @@ interface DatePickerProps {
   onChange(date: Date): void;
 }
 
+const { getLocalStorageLanguage } = intlService;
+
 export function DatePicker({ value, onChange }: DatePickerProps) {
   return (
     <DayPicker
       selected={value}
-      locale={intlService.getLocalStorageLanguage() === "en-us" ? enUS : ptBR}
+      locale={getLocalStorageLanguage() === "en-us" ? enUS : ptBR}
       onSelect={(date) => onChange(date ?? new Date())}
       mode="single"
       classNames={{

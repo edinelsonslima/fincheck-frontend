@@ -8,15 +8,17 @@ type IContextProps = [
   (value: ILanguages | ((val: ILanguages) => ILanguages)) => void
 ];
 
+const { defaultLanguage } = intlService;
+
 export const LanguageContext = createContext<IContextProps>([
-  intlService.defaultLanguage(),
+  defaultLanguage(),
   () => {},
 ]);
 
 export function LanguageProvider({ children }: PropsWithChildren) {
   const [language, setLanguage] = useLocalStorage(
     enLocalStorage.LANGUAGE,
-    intlService.defaultLanguage()
+    defaultLanguage()
   );
 
   useEffect(() => {

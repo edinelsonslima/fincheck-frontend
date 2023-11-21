@@ -7,6 +7,8 @@ interface InputCurrencyEvent extends FormEvent<HTMLInputElement> {
   };
 }
 
+const { intlCurrency } = intlService;
+
 export function InputCurrency() {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -20,7 +22,7 @@ export function InputCurrency() {
       .replace(/\.0+$/g, "")
       .replace(/[^\d.]/g, "");
 
-    const { priceValue } = intlService.intlCurrency(Number(value));
+    const { priceValue } = intlCurrency(Number(value));
     e.target.value = priceValue;
 
     inputRef.current.setSelectionRange((selectionStart || 0) + 1, selectionEnd);
@@ -32,7 +34,7 @@ export function InputCurrency() {
     <input
       ref={inputRef}
       className="w-full text-gray-900 text-[2rem] font-bold tracking-tightest outline-none"
-      placeholder={intlService.intlCurrency(0).priceValue}
+      placeholder={intlCurrency(0).priceValue}
       onChange={handleChange}
     />
   );
