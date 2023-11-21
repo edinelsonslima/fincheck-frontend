@@ -6,6 +6,7 @@ import { ButtonChevron } from "../button-chevron.component";
 import { Value } from "../value.component";
 import { AccountCard } from "./account-card.component";
 import { useController } from "./use-controller.hook";
+import { enBankAccountType } from "../../../../../types/enums/bank-account-type.enum";
 
 export function Accounts() {
   const {
@@ -106,7 +107,7 @@ export function Accounts() {
               <SwiperSlide>
                 <AccountCard
                   name="NuBank"
-                  type="CHECKING"
+                  type={enBankAccountType.CHECKING}
                   color="#7950F2"
                   balance={6598.23}
                 />
@@ -115,7 +116,7 @@ export function Accounts() {
               <SwiperSlide>
                 <AccountCard
                   name="Itaú"
-                  type="CHECKING"
+                  type={enBankAccountType.CHECKING}
                   color="#E53935"
                   balance={815.23}
                 />
@@ -124,7 +125,7 @@ export function Accounts() {
               <SwiperSlide>
                 <AccountCard
                   name="Inter"
-                  type="CHECKING"
+                  type={enBankAccountType.CHECKING}
                   color="#FF6D00"
                   balance={165.23}
                 />
@@ -133,7 +134,7 @@ export function Accounts() {
               <SwiperSlide>
                 <AccountCard
                   name="XP Investimentos"
-                  type="INVESTMENT"
+                  type={enBankAccountType.INVESTMENT}
                   color="#00C853"
                   balance={753.23}
                 />

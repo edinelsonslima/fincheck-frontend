@@ -1,17 +1,16 @@
 import { IconCash } from "../../assets/icons/cash.icon";
 import { IconChecking } from "../../assets/icons/checking.icon";
 import { IconInvestment } from "../../assets/icons/investment.icon";
+import { enBankAccountType } from "../../types/enums/bank-account-type.enum";
 
 const iconsMap = {
-  CHECKING: IconChecking,
-  INVESTMENT: IconInvestment,
-  CASH: IconCash,
+  [enBankAccountType.CHECKING]: IconChecking,
+  [enBankAccountType.INVESTMENT]: IconInvestment,
+  [enBankAccountType.CASH]: IconCash,
 };
 
-export type BankAccountType = keyof typeof iconsMap;
-
 interface BankAccountTypeIconProps {
-  type: BankAccountType;
+  type: keyof typeof enBankAccountType;
 }
 
 export function BankAccountTypeIcon({ type }: BankAccountTypeIconProps) {

@@ -1,5 +1,5 @@
 import { intlService } from "../../../../../app/services/intl.service";
-import { BankAccountType } from "../../../../components/bank-account-type-icon.component";
+import { enBankAccountType } from "../../../../../types/enums/bank-account-type.enum";
 import { CategoryIcon } from "../../../../components/category-icon.component";
 import { useDashboard } from "../../hook/use-dashboard.hook";
 import { Value } from "../value.component";
@@ -8,8 +8,10 @@ interface AccountCardProps {
   color: string;
   name: string;
   balance: number;
-  type: BankAccountType;
+  type: keyof typeof enBankAccountType;
 }
+
+const { intlTerm } = intlService;
 
 export function AccountCard({ balance, color, name }: AccountCardProps) {
   const { areValuesVisible } = useDashboard();
@@ -32,7 +34,7 @@ export function AccountCard({ balance, color, name }: AccountCardProps) {
         />
 
         <small className="text-gray-600 text-sm">
-          {intlService.intlTerm("Current balance")}
+          {intlTerm("Current balance")}
         </small>
       </main>
 
