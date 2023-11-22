@@ -35,7 +35,7 @@
   "Account": "Conta",
   "Year": "Ano",
   "Apply Filters": "Aplicar filtros",
-  "Balance": "Saldo",
+  "Initial balance": "Saldo inicial",
   "Account name": "Nome da conta",
   "Type": "Tipo",
   "Checking": "Conta Corrente",
@@ -49,5 +49,9 @@
   "Category": "Categoria",
   "Pay with": "Pagar com",
   "Receive with": "Receber com",
-  "Date": "Data"
+  "Date": "Data",
+  "Initial balance is required": "Saldo inicial é obrigatório",
+  "Account name is required": "Nome da conta é obrigatório",
+  "Color is required": "Cor é obrigatória",
+  "Create": "Criar"
 }
