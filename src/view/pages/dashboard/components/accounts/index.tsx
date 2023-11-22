@@ -6,7 +6,6 @@ import { ButtonChevron } from "../button-chevron.component";
 import { Value } from "../value.component";
 import { AccountCard } from "./account-card.component";
 import { useController } from "./use-controller.hook";
-import { enBankAccountType } from "../../../../../types/enums/bank-account-type.enum";
 
 export function Accounts() {
   const {
@@ -19,6 +18,7 @@ export function Accounts() {
     openNewAccountModal,
     isLoading,
     accounts,
+    currentBalance,
   } = useController();
 
   if (isLoading) {
@@ -38,7 +38,7 @@ export function Accounts() {
 
         <div className="flex items-center gap-2">
           <Value
-            value={598.23}
+            value={currentBalance}
             visible={areValuesVisible}
             className="text-2xl text-white tracking-tightest font-medium"
           />
@@ -104,41 +104,16 @@ export function Accounts() {
                 </div>
               </div>
 
-              <SwiperSlide>
-                <AccountCard
-                  name="NuBank"
-                  type={enBankAccountType.CHECKING}
-                  color="#7950F2"
-                  balance={6598.23}
-                />
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <AccountCard
-                  name="Itaú"
-                  type={enBankAccountType.CHECKING}
-                  color="#E53935"
-                  balance={815.23}
-                />
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <AccountCard
-                  name="Inter"
-                  type={enBankAccountType.CHECKING}
-                  color="#FF6D00"
-                  balance={165.23}
-                />
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <AccountCard
-                  name="XP Investimentos"
-                  type={enBankAccountType.INVESTMENT}
-                  color="#00C853"
-                  balance={753.23}
-                />
-              </SwiperSlide>
+              {accounts.map((account) => (
+                <SwiperSlide key={account.id}>
+                  <AccountCard
+                    name={account.name}
+                    type={account.type}
+                    color={account.color}
+                    balance={account.initialBalance}
+                  />
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
         )}
