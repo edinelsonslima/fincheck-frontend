@@ -5,8 +5,8 @@ import { Accounts } from "./components/accounts";
 import { Fab } from "./components/fab-component";
 import { Transactions } from "./components/transactions";
 import { DashboardProvider } from "./contexts/dashboard.context";
-import { NewAccountModal } from "./components/modals/new-account-modal.component";
-import { NewTransactionModal } from "./components/modals/new-transaction-modal.component";
+import { NewAccountModal } from "./components/modals/new-account-modal";
+import { NewTransactionModal } from "./components/modals/new-transaction-modal";
 
 export function Dashboard() {
   return (
