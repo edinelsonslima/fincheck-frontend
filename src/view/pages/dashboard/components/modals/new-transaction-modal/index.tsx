@@ -1,10 +1,12 @@
-import { intlService } from "../../../../../app/services/intl.service";
-import { DatePickerInput } from "../../../../components/date-picker-input.component";
-import { InputCurrency } from "../../../../components/input-currency.component";
-import { Input } from "../../../../components/input.component";
-import { Modal } from "../../../../components/modal.component";
-import { Select } from "../../../../components/select.component";
-import { useDashboard } from "../../hook/use-dashboard.hook";
+import { intlService } from "../../../../../../app/services/intl.service";
+import { enBankAccountType } from "../../../../../../types/enums/bank-account-type.enum";
+import { Button } from "../../../../../components/button.component";
+import { DatePickerInput } from "../../../../../components/date-picker-input.component";
+import { InputCurrency } from "../../../../../components/input-currency.component";
+import { Input } from "../../../../../components/input.component";
+import { Modal } from "../../../../../components/modal.component";
+import { Select } from "../../../../../components/select.component";
+import { useDashboard } from "../../../hook/use-dashboard.hook";
 
 export function NewTransactionModal() {
   const {
@@ -48,15 +50,15 @@ export function NewTransactionModal() {
             options={[
               {
                 label: intlTerm("Checking"),
-                value: "CHECKING",
+                value: enBankAccountType.CHECKING,
               },
               {
                 label: intlTerm("Investment"),
-                value: "INVESTMENT",
+                value: enBankAccountType.INVESTMENT,
               },
               {
                 label: intlTerm("Cash"),
-                value: "CASH",
+                value: enBankAccountType.CASH,
               },
             ]}
           />
@@ -66,21 +68,25 @@ export function NewTransactionModal() {
             options={[
               {
                 label: intlTerm("Checking"),
-                value: "CHECKING",
+                value: enBankAccountType.CHECKING,
               },
               {
                 label: intlTerm("Investment"),
-                value: "INVESTMENT",
+                value: enBankAccountType.INVESTMENT,
               },
               {
                 label: intlTerm("Cash"),
-                value: "CASH",
+                value: enBankAccountType.CASH,
               },
             ]}
           />
 
           <DatePickerInput />
         </div>
+
+        <Button type="submit" className="w-full mt-6">
+          {intlTerm("Create")}
+        </Button>
       </form>
     </Modal>
   );
