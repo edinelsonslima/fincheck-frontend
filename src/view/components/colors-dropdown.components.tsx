@@ -31,6 +31,8 @@ interface Color {
 interface ColorsDropdownInputProps {
   error?: string;
   className?: string;
+  value?: string;
+  onChange?(color: string): void;
 }
 
 const { intlTerm } = intlService;
@@ -38,10 +40,15 @@ const { intlTerm } = intlService;
 export function ColorsDropdownInput({
   className,
   error,
+  onChange,
+  value,
 }: ColorsDropdownInputProps) {
-  const [selectedColor, setSelectedColor] = useState<null | Color>(null);
+  const [selectedColor, setSelectedColor] = useState<null | Color>(() => {
+    return colors.find((c) => c.color === value) ?? null;
+  });
 
   const handleSelect = (color: Color) => {
+    onChange?.(color.color);
     setSelectedColor(color);
   };
 
