@@ -53,5 +53,7 @@
   "Initial balance is required": "Saldo inicial é obrigatório",
   "Account name is required": "Nome da conta é obrigatório",
   "Color is required": "Cor é obrigatória",
-  "Create": "Criar"
+  "Create": "Criar",
+  "Account registered successfully!": "Conta foi cadastrada com sucesso!",
+  "Error while registering the account!": "Erro ao cadastrar a conta!"
 }
