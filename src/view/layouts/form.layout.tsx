@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import { Link } from "react-router-dom";
 
-interface FormLayoutProps {
+interface IFormLayoutProps {
   title: string;
   subtitle: string;
   link: {
@@ -15,7 +15,7 @@ export function FormLayout({
   subtitle,
   title,
   children,
-}: PropsWithChildren<FormLayoutProps>) {
+}: PropsWithChildren<IFormLayoutProps>) {
   return (
     <>
       <header className="space-y-4 text-center">
