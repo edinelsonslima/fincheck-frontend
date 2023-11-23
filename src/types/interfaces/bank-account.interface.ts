@@ -43,6 +43,7 @@ export module IBankAccount {
 
   export module Update {
     export interface Params {
+      id: string;
       name: string;
       initialBalance: number;
       color: string;
