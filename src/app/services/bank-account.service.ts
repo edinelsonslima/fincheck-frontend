@@ -17,9 +17,9 @@ class BankAccountService {
     return data;
   }
 
-  public async update(params: IBankAccount.Update.Params) {
+  public async update({ id, ...params }: IBankAccount.Update.Params) {
     const { data } = await this._httpClient.put<IBankAccount.Update.Response>(
-      "/bank-accounts",
+      `/bank-accounts/${id}`,
       params
     );
 
