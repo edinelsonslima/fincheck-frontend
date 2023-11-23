@@ -8,6 +8,7 @@ export const enKeys = Object.freeze({
   }),
   bankAccount: Object.freeze({
     create: ["bank", "account", "create"],
+    update: ["bank", "account", "update"],
     getAll: ["bank", "account", "get", "all"],
   }),
 });
