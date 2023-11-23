@@ -7,6 +7,18 @@ import {
 } from "@tanstack/react-query";
 import { enBankAccountType } from "../enums/bank-account-type.enum";
 
+export module IBankAccount {
+  export interface Entity {
+    color: string;
+    id: string;
+    initialBalance: number;
+    name: string;
+    type: keyof typeof enBankAccountType;
+    userId: string;
+    currentBalance: number;
+  }
+}
+
 export module IBankAccountCreate {
   export interface Params {
     name: string;
@@ -31,16 +43,7 @@ export module IBankAccountCreate {
 }
 
 export module IBankAccountGetAll {
-  export interface Response
-    extends Array<{
-      color: string;
-      id: string;
-      initialBalance: number;
-      name: string;
-      type: keyof typeof enBankAccountType;
-      userId: string;
-      currentBalance: number;
-    }> {}
+  export interface Response extends Array<IBankAccount.Entity> {}
 
   export interface Error extends AxiosError<IApiError> {}
 
