@@ -85,7 +85,7 @@ export function Transactions() {
                 <div>
                   <strong className="block font-bold">Almoço</strong>
                   <span className="text-sm text-gray-600">
-                    {intlDate("12/05/2023")}
+                    {intlDate(new Date("12/05/2023"))}
                   </span>
                 </div>
               </div>
@@ -101,7 +101,7 @@ export function Transactions() {
                 <div>
                   <strong className="block font-bold">Almoço</strong>
                   <span className="text-sm text-gray-600">
-                    {intlDate("12/05/2023")}
+                    {intlDate(new Date("12/05/2023"))}
                   </span>
                 </div>
               </div>
