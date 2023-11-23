@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { cn } from "../../app/utils/cn.utils";
-import { SVGProps } from "../../types/interfaces";
+import { ISVGProps } from "../../types/interfaces";
 
-export const Spinner = memo(({ className, ...props }: SVGProps) => (
+export const Spinner = memo(({ className, ...props }: ISVGProps) => (
   <>
     <svg
       aria-hidden="true"

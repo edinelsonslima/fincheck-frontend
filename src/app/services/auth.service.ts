@@ -1,4 +1,4 @@
-import { IAuthSignin, IAuthSignup } from "../../types/interfaces";
+import { IAuth } from "../../types/interfaces";
 import httpClient, { HttpClient } from "./http-client.service";
 
 class AuthService {
@@ -7,8 +7,8 @@ class AuthService {
     this.signup = this.signup.bind(this);
   }
 
-  public async signup(params: IAuthSignup.Params) {
-    const { data } = await this._httpClient.post<IAuthSignup.Response>(
+  public async signup(params: IAuth.Signup.Params) {
+    const { data } = await this._httpClient.post<IAuth.Signup.Response>(
       "/auth/signup",
       params
     );
@@ -16,8 +16,8 @@ class AuthService {
     return data;
   }
 
-  public async signin(params: IAuthSignin.Params) {
-    const { data } = await this._httpClient.post<IAuthSignin.Response>(
+  public async signin(params: IAuth.Signin.Params) {
+    const { data } = await this._httpClient.post<IAuth.Signin.Response>(
       "/auth/signin",
       params
     );

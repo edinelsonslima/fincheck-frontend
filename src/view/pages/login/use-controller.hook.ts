@@ -2,12 +2,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
-import {
-  IAuthSignin,
-  useAuth,
-  useAuthSignin,
-} from "../../../app/hooks/use-auth.hook";
+import { useAuth, useAuthSignin } from "../../../app/hooks/use-auth.hook";
 import { intlService } from "../../../app/services/intl.service";
+import { IAuth } from "../../../types/interfaces";
 
 const { intlTerm } = intlService;
 
@@ -41,7 +38,7 @@ export function useController() {
       const { accessToken } = await mutateAsync(data);
       return signin(accessToken);
     } catch (error) {
-      const err = error as IAuthSignin.Error;
+      const err = error as IAuth.Signin.Error;
       toast.error(
         intlTerm(err?.response?.data?.message || "Something went wrong")
       );

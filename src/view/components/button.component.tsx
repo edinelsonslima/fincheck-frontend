@@ -2,7 +2,7 @@ import { ComponentProps } from "react";
 import { cn } from "../../app/utils/cn.utils";
 import { Spinner } from "../../assets/animations/spinner.animation";
 
-interface ButtonProps extends ComponentProps<"button"> {
+interface IButtonProps extends ComponentProps<"button"> {
   loading?: boolean;
 }
 
@@ -12,7 +12,7 @@ export function Button({
   disabled,
   children,
   ...props
-}: ButtonProps) {
+}: IButtonProps) {
   return (
     <>
       <button

@@ -2,11 +2,11 @@ import { Transition } from "@headlessui/react";
 import { Spinner } from "../../assets/animations/spinner.animation";
 import { IconLogo } from "../../assets/icons/logo.icon";
 
-interface LaunchScreenProps {
+interface ILaunchScreenProps {
   loading: boolean;
 }
 
-export function LaunchScreen({ loading }: LaunchScreenProps) {
+export function LaunchScreen({ loading }: ILaunchScreenProps) {
   return (
     <Transition
       show={loading}

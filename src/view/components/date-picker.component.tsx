@@ -4,14 +4,14 @@ import { DayPicker } from "react-day-picker";
 import { intlService } from "../../app/services/intl.service";
 import { capitalizeFirstLetter } from "../../app/utils/capitalize-first-letter.utils";
 
-interface DatePickerProps {
+interface IDatePickerProps {
   value: Date;
   onChange(date: Date): void;
 }
 
 const { getLocalStorageLanguage } = intlService;
 
-export function DatePicker({ value, onChange }: DatePickerProps) {
+export function DatePicker({ value, onChange }: IDatePickerProps) {
   return (
     <DayPicker
       selected={value}

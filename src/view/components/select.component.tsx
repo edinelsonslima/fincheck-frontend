@@ -5,17 +5,17 @@ import { IconChevronUp } from "../../assets/icons/chevron-up.icon";
 import { IconCrossCircled } from "../../assets/icons/cross-circled.icon";
 import { useState } from "react";
 
-interface OptionProps {
+interface IOptionProps {
   value: string;
   label: string;
 }
 
-interface SelectProps {
+interface ISelectProps {
   error?: string;
   className?: string;
   placeholder?: string;
   value?: string;
-  options: OptionProps[];
+  options: IOptionProps[];
   onChange?(value: string): void;
 }
 
@@ -26,7 +26,7 @@ export function Select({
   options,
   onChange,
   value,
-}: SelectProps) {
+}: ISelectProps) {
   const [selectedValue, setSelectedValue] = useState(value);
 
   const handleSelect = (value: string) => {

@@ -3,7 +3,7 @@ import { PropsWithChildren } from "react";
 import { cn } from "../../app/utils/cn.utils";
 import { IconCross } from "../../assets/icons/cross.icon";
 
-interface ModalProps {
+interface IModalProps {
   open: boolean;
   title: string;
   onClose?(): void;
@@ -18,7 +18,7 @@ export function Modal({
   children,
   className,
   rightAction,
-}: PropsWithChildren<ModalProps>) {
+}: PropsWithChildren<IModalProps>) {
   return (
     <RdxDialog.Root open={open} onOpenChange={onClose}>
       <RdxDialog.Portal>

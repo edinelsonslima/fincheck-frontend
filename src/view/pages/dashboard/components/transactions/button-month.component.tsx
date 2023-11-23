@@ -1,6 +1,6 @@
 import { useSwiper } from "swiper/react";
 
-interface ButtonMonthProps {
+interface IButtonMonthProps {
   isActive: boolean;
   month: { month: string; index: number };
 }
@@ -8,7 +8,7 @@ interface ButtonMonthProps {
 export function ButtonMonth({
   isActive,
   month: { index, month },
-}: ButtonMonthProps) {
+}: IButtonMonthProps) {
   const swiper = useSwiper();
 
   return (

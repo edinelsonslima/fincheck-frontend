@@ -7,7 +7,7 @@ import { IconFilter } from "../../../../../assets/icons/filter.icon";
 import { Button } from "../../../../components/button.component";
 import { Modal } from "../../../../components/modal.component";
 
-interface FilterModalProps {
+interface IFilterModalProps {
   onChange(values: { bankAccountId: string; year: number }): void;
 }
 
@@ -22,7 +22,7 @@ const MOCK = [
 
 const { intlTerm } = intlService;
 
-export function FilterModal({ onChange }: FilterModalProps) {
+export function FilterModal({ onChange }: IFilterModalProps) {
   const [open, setOpen] = useState(false);
   const [bankAccountId, setBankAccountId] = useState("");
   const [year, setYear] = useState(new Date().getFullYear());

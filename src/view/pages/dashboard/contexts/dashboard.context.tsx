@@ -4,17 +4,17 @@ import { enLocalStorage } from "../../../../types/enums/local-storage.enum";
 import { useReducer } from "../../../../app/hooks/use-reducer";
 import { IBankAccount } from "../../../../types/interfaces/bank-account.interface";
 
-type TransactionType = "INCOME" | "EXPENSE";
+type ITransactionType = "INCOME" | "EXPENSE";
 
-interface States {
+interface IStates {
   isNewAccountModalOpen: boolean;
   isEditAccountModalOpen: boolean;
   isNewTransactionModalOpen: boolean;
-  newTransactionType: TransactionType | null;
+  newTransactionType: ITransactionType | null;
   accountBeingEdited: IBankAccount.Entity | null;
 }
 
-interface DashboardContextProps extends States {
+interface IDashboardContextProps extends IStates {
   areValuesVisible: boolean;
   toggleValuesVisibility(): void;
 
@@ -22,16 +22,16 @@ interface DashboardContextProps extends States {
   closeNewAccountModal(): void;
 
   closeNewTransactionModal(): void;
-  openNewTransactionModal(type: TransactionType): void;
+  openNewTransactionModal(type: ITransactionType): void;
 
   openEditAccountModal(bankAccount: IBankAccount.Entity): void;
   closeEditAccountModal(): void;
 }
 
-export const DashboardContext = createContext({} as DashboardContextProps);
+export const DashboardContext = createContext({} as IDashboardContextProps);
 
 export function DashboardProvider({ children }: PropsWithChildren) {
-  const [states, dispatch] = useReducer<States>({
+  const [states, dispatch] = useReducer<IStates>({
     isNewAccountModalOpen: false,
     isEditAccountModalOpen: false,
     isNewTransactionModalOpen: false,
@@ -69,7 +69,7 @@ export function DashboardProvider({ children }: PropsWithChildren) {
     dispatch({ action: "accountBeingEdited", value: null });
   }, []);
 
-  const openNewTransactionModal = useCallback((type: TransactionType) => {
+  const openNewTransactionModal = useCallback((type: ITransactionType) => {
     dispatch({ action: "newTransactionType", value: type });
     dispatch({ action: "isNewTransactionModalOpen", value: true });
   }, []);

@@ -6,7 +6,7 @@ import { IconColor } from "../../assets/icons/colors.icon";
 import { IconCrossCircled } from "../../assets/icons/cross-circled.icon";
 import { DropdownMenu } from "./dropdown-menu.component";
 
-const colors: Color[] = [
+const colors: IColor[] = [
   { color: "#868E96", bg: "#F8F9FA" },
   { color: "#FA5252", bg: "#FFF5F5" },
   { color: "#E64980", bg: "#FFF0F6" },
@@ -23,12 +23,12 @@ const colors: Color[] = [
   { color: "#212529", bg: "#F8F9FA" },
 ];
 
-interface Color {
+interface IColor {
   color: string;
   bg: string;
 }
 
-interface ColorsDropdownInputProps {
+interface IColorsDropdownInputProps {
   error?: string;
   className?: string;
   value?: string;
@@ -42,12 +42,12 @@ export function ColorsDropdownInput({
   error,
   onChange,
   value,
-}: ColorsDropdownInputProps) {
-  const [selectedColor, setSelectedColor] = useState<null | Color>(() => {
+}: IColorsDropdownInputProps) {
+  const [selectedColor, setSelectedColor] = useState<null | IColor>(() => {
     return colors.find((c) => c.color === value) ?? null;
   });
 
-  const handleSelect = (color: Color) => {
+  const handleSelect = (color: IColor) => {
     onChange?.(color.color);
     setSelectedColor(color);
   };

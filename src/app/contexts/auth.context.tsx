@@ -10,7 +10,7 @@ import { LaunchScreen } from "../../view/components/launch-screen.component";
 import { useLocalStorage } from "../hooks/use-local-storage.hook";
 import { useUserMe } from "../hooks/use-user.hook";
 import { intlService } from "../services/intl.service";
-interface AuthContextValue {
+interface IAuthContextValue {
   signedIn: boolean;
   signout: () => void;
   signin: (accessToken: string) => void;
@@ -18,7 +18,7 @@ interface AuthContextValue {
 
 const { intlTerm } = intlService;
 
-export const AuthContext = createContext<AuthContextValue>({
+export const AuthContext = createContext<IAuthContextValue>({
   signedIn: false,
   signout: () => {},
   signin: () => {},

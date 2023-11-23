@@ -4,13 +4,13 @@ import { CategoryIcon } from "../../../../components/category-icon.component";
 import { useDashboard } from "../../hook/use-dashboard.hook";
 import { Value } from "../value.component";
 
-interface AccountCardProps {
+interface IAccountCardProps {
   data: IBankAccount.Entity;
 }
 
 const { intlTerm } = intlService;
 
-export function AccountCard({ data }: AccountCardProps) {
+export function AccountCard({ data }: IAccountCardProps) {
   const { name, currentBalance, color } = data;
   const { areValuesVisible, openEditAccountModal } = useDashboard();
   return (

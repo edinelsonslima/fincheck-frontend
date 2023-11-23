@@ -1,7 +1,7 @@
 import { memo } from "react";
-import { SVGProps } from "../../types/interfaces";
+import { ISVGProps } from "../../types/interfaces";
 
-export const IconLogo = memo((props: SVGProps) => {
+export const IconLogo = memo((props: ISVGProps) => {
   return (
     <svg
       fill="none"

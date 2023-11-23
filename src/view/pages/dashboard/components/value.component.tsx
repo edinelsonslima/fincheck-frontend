@@ -1,7 +1,7 @@
 import { intlService } from "../../../../app/services/intl.service";
 import { cn } from "../../../../app/utils/cn.utils";
 
-interface ValueProps {
+interface IValueProps {
   value: number;
   visible: boolean;
   className?: string;
@@ -10,7 +10,7 @@ interface ValueProps {
 
 const { intlCurrency } = intlService;
 
-export function Value({ value, className, visible, blur = "md" }: ValueProps) {
+export function Value({ value, className, visible, blur = "md" }: IValueProps) {
   const { price } = intlCurrency(value);
   return (
     <span

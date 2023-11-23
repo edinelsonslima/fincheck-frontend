@@ -4,13 +4,13 @@ import { IconCrossCircled } from "../../assets/icons/cross-circled.icon";
 import { cn } from "../../app/utils/cn.utils";
 import { currencyStringToNumber } from "../../app/utils/currency-string-to-number";
 
-interface InputCurrencyEvent extends FormEvent<HTMLInputElement> {
+interface IInputCurrencyEvent extends FormEvent<HTMLInputElement> {
   target: HTMLInputElement & {
     value: string;
   };
 }
 
-interface InputCurrencyProps {
+interface IInputCurrencyProps {
   error?: string;
   value?: number;
   onChange?(value: number | undefined): void;
@@ -18,7 +18,7 @@ interface InputCurrencyProps {
 
 const { intlCurrency } = intlService;
 
-export function InputCurrency({ error, onChange, value }: InputCurrencyProps) {
+export function InputCurrency({ error, onChange, value }: IInputCurrencyProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const getFormattedPrice = (value = 0) => {
@@ -26,7 +26,7 @@ export function InputCurrency({ error, onChange, value }: InputCurrencyProps) {
     return priceValue;
   };
 
-  const handleChange = (e: InputCurrencyEvent) => {
+  const handleChange = (e: IInputCurrencyEvent) => {
     const hasValue = Number(e.target.value.replace(/\D/g, ""));
 
     if (!hasValue || !inputRef.current) {

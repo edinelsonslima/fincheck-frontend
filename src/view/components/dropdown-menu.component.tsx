@@ -2,7 +2,7 @@ import * as RdxDropdownMenu from "@radix-ui/react-dropdown-menu";
 import { PropsWithChildren } from "react";
 import { cn } from "../../app/utils/cn.utils";
 
-interface DropdownMenuProps {
+interface IDropdownMenuProps {
   className?: string;
 }
 
@@ -13,7 +13,7 @@ function DropdownMenuRoot({ children }: PropsWithChildren) {
 function DropdownTrigger({
   children,
   className,
-}: PropsWithChildren<DropdownMenuProps>) {
+}: PropsWithChildren<IDropdownMenuProps>) {
   return (
     <RdxDropdownMenu.Trigger className={cn("outline-none", className)}>
       {children}
@@ -24,7 +24,7 @@ function DropdownTrigger({
 function DropdownContent({
   children,
   className,
-}: PropsWithChildren<DropdownMenuProps>) {
+}: PropsWithChildren<IDropdownMenuProps>) {
   return (
     <RdxDropdownMenu.Portal>
       <RdxDropdownMenu.Content
@@ -66,7 +66,7 @@ function DropdownSub({ children }: PropsWithChildren) {
 function DropdownSubTrigger({
   children,
   className,
-}: PropsWithChildren<DropdownMenuProps>) {
+}: PropsWithChildren<IDropdownMenuProps>) {
   return (
     <RdxDropdownMenu.SubTrigger
       className={cn(

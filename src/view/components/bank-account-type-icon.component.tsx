@@ -9,11 +9,11 @@ const iconsMap = {
   [enBankAccountType.CASH]: IconCash,
 };
 
-interface BankAccountTypeIconProps {
+interface IBankAccountTypeIconProps {
   type: keyof typeof enBankAccountType;
 }
 
-export function BankAccountTypeIcon({ type }: BankAccountTypeIconProps) {
+export function BankAccountTypeIcon({ type }: IBankAccountTypeIconProps) {
   const Icon = iconsMap[type];
   return <Icon />;
 }

@@ -1,7 +1,7 @@
 import { memo } from "react";
-import { SVGProps } from "../../types/interfaces";
+import { ISVGProps } from "../../types/interfaces";
 
-export const IconCross = memo(({ className, ...props }: SVGProps) => (
+export const IconCross = memo(({ className, ...props }: ISVGProps) => (
   <svg
     {...props}
     width="15"

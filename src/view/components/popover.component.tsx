@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 import * as RdxPopover from "@radix-ui/react-popover";
 import { cn } from "../../app/utils/cn.utils";
 
-interface PopoverProps {
+interface IPopoverProps {
   className?: string;
 }
 
@@ -13,7 +13,7 @@ function PopoverRoot({ children }: PropsWithChildren) {
 function PopoverTrigger({
   children,
   className,
-}: PropsWithChildren<PopoverProps>) {
+}: PropsWithChildren<IPopoverProps>) {
   return (
     <RdxPopover.Trigger className={cn("outline-none", className)}>
       {children}
@@ -24,7 +24,7 @@ function PopoverTrigger({
 function PopoverContent({
   children,
   className,
-}: PropsWithChildren<PopoverProps>) {
+}: PropsWithChildren<IPopoverProps>) {
   return (
     <RdxPopover.Content
       className={cn(

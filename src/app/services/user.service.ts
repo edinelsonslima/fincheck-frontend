@@ -1,4 +1,4 @@
-import { IUserMe } from "../../types/interfaces";
+import { IUser} from "../../types/interfaces";
 import httpClient, { HttpClient } from "./http-client.service";
 
 export class UserService {
@@ -6,8 +6,8 @@ export class UserService {
     this.me = this.me.bind(this);
   }
 
-  public async me({ signal }: IUserMe.QueryFnProps) {
-    const { data } = await this._httpClient.get<IUserMe.Response>("/users/me", {
+  public async me({ signal }: IUser.Me.QueryFnProps) {
+    const { data } = await this._httpClient.get<IUser.Me.Response>("/users/me", {
       signal,
     });
 

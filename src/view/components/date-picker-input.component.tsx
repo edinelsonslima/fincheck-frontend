@@ -5,14 +5,14 @@ import { IconCrossCircled } from "../../assets/icons/cross-circled.icon";
 import { Popover } from "./popover.component";
 import { DatePicker } from "./date-picker.component";
 
-interface DatePickerInputProps {
+interface IDatePickerInputProps {
   error?: string;
   className?: string;
 }
 
 const { intlTerm, intlDate } = intlService;
 
-export function DatePickerInput({ className, error }: DatePickerInputProps) {
+export function DatePickerInput({ className, error }: IDatePickerInputProps) {
   const [selectedDate, setSelectDate] = useState(new Date());
 
   return (

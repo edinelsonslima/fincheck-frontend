@@ -2,11 +2,11 @@ import { ComponentProps, forwardRef, useId } from "react";
 import { cn } from "../../app/utils/cn.utils";
 import { IconCrossCircled } from "../../assets/icons/cross-circled.icon";
 
-interface InputProps extends ComponentProps<"input"> {
+interface IInputProps extends ComponentProps<"input"> {
   error?: string;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(function (
+const Input = forwardRef<HTMLInputElement, IInputProps>(function (
   { placeholder, error, className, ...props },
   ref
 ) {

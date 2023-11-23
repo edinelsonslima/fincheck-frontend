@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { IApiError, OmitMKeyMFn, OmitQKeyQFn } from ".";
+import { IApiError, IOmitMKeyMFn, IOmitQKeyQFn } from ".";
 import {
   QueryFunctionContext,
   UseMutationOptions,
@@ -17,38 +17,63 @@ export module IBankAccount {
     userId: string;
     currentBalance: number;
   }
-}
 
-export module IBankAccountCreate {
-  export interface Params {
-    name: string;
-    initialBalance: number;
-    color: string;
-    type: keyof typeof enBankAccountType;
+  export module Create {
+    export interface Params {
+      name: string;
+      initialBalance: number;
+      color: string;
+      type: keyof typeof enBankAccountType;
+    }
+
+    export interface Response {
+      color: string;
+      id: string;
+      initialBalance: number;
+      name: string;
+      type: keyof typeof enBankAccountType;
+      userId: string;
+    }
+
+    export interface Error extends AxiosError<IApiError, Params> {}
+
+    export interface MutationOptions
+      extends IOmitMKeyMFn<UseMutationOptions<Response, Error, Params>> {}
   }
 
-  export interface Response {
-    color: string;
-    id: string;
-    initialBalance: number;
-    name: string;
-    type: keyof typeof enBankAccountType;
-    userId: string;
+  export module Update {
+    export interface Params {
+      name: string;
+      initialBalance: number;
+      color: string;
+      type: keyof typeof enBankAccountType;
+    }
+
+    export interface Response {
+      color: string;
+      id: string;
+      initialBalance: number;
+      name: string;
+      type: keyof typeof enBankAccountType;
+      userId: string;
+    }
+
+    export interface Error extends AxiosError<IApiError, Params> {}
+
+    export interface MutationOptions
+      extends IOmitMKeyMFn<UseMutationOptions<Response, Error, Params>> {}
   }
 
-  export interface Error extends AxiosError<IApiError, Params> {}
+  export module GetAll {
+    export interface Response extends Array<IBankAccount.Entity> {}
 
-  export interface MutationOptions
-    extends OmitMKeyMFn<UseMutationOptions<Response, Error, Params>> {}
-}
+    export interface Error extends AxiosError<IApiError> {}
 
-export module IBankAccountGetAll {
-  export interface Response extends Array<IBankAccount.Entity> {}
+    export interface QueryOptions
+      extends IOmitQKeyQFn<
+        UseQueryOptions<Response, Error, Response, string[]>
+      > {}
 
-  export interface Error extends AxiosError<IApiError> {}
-
-  export interface QueryOptions
-    extends OmitQKeyQFn<UseQueryOptions<Response, Error, Response, string[]>> {}
-
-  export interface QueryFnProps extends QueryFunctionContext {}
+    export interface QueryFnProps extends QueryFunctionContext {}
+  }
 }

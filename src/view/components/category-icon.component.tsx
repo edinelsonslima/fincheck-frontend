@@ -26,7 +26,7 @@ const iconsMap = {
   },
 };
 
-interface CategoryIconProps<T extends keyof typeof iconsMap> {
+interface ICategoryIconProps<T extends keyof typeof iconsMap> {
   type: T;
   category?: keyof (typeof iconsMap)[T];
 }
@@ -34,7 +34,7 @@ interface CategoryIconProps<T extends keyof typeof iconsMap> {
 export function CategoryIcon<T extends keyof typeof iconsMap>({
   type,
   category,
-}: CategoryIconProps<T>) {
+}: ICategoryIconProps<T>) {
   const Icon = iconsMap[type][category ?? "default"];
   return <Icon />;
 }
