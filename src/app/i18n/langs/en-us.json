@@ -55,5 +55,8 @@
   "Color is required": "Color is required",
   "Create": "Create",
   "Account registered successfully!": "Account registered successfully!",
-  "Error while registering the account!": "Error while registering the account!"
+  "Error while registering the account!": "Error while registering the account!",
+  "Edit account": "Edit account",
+  "Account edited successfully!": "Account edited successfully!",
+  "Error while editing the account!": "Error while editing the account!"
 }

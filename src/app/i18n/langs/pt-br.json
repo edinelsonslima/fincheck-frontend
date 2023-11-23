@@ -55,5 +55,8 @@
   "Color is required": "Cor é obrigatória",
   "Create": "Criar",
   "Account registered successfully!": "Conta foi cadastrada com sucesso!",
-  "Error while registering the account!": "Erro ao cadastrar a conta!"
+  "Error while registering the account!": "Erro ao cadastrar a conta!",
+  "Edit account": "Editar conta",
+  "Account edited successfully!": "Conta foi editada com sucesso!",
+  "Error while editing the account!": "Erro ao editar a conta!"
 }
