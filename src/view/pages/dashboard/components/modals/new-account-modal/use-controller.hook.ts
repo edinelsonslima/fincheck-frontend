@@ -8,6 +8,7 @@ import { useBankAccountCreate } from "../../../../../../app/hooks/use-bank-accou
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { enKeys } from "../../../../../../types/enums/requests-keys.enum";
+import { IBankAccount } from "../../../../../../types/interfaces/bank-account.interface";
 
 const { intlCurrency, intlTerm } = intlService;
 
@@ -56,8 +57,13 @@ export function useController() {
       toast.success(intlTerm("Account registered successfully!"));
       closeNewAccountModal();
       reset();
-    } catch {
-      toast.error(intlTerm("Error while registering the account!"));
+    } catch (error) {
+      const err = error as IBankAccount.Create.Error;
+      toast.error(
+        intlTerm(
+          err.response?.data.message || "Error while registering the account!"
+        )
+      );
     }
   });
 
