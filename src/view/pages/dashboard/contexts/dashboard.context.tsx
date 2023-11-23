@@ -1,32 +1,43 @@
-import { PropsWithChildren, createContext, useCallback, useState } from "react";
+import { PropsWithChildren, createContext, useCallback } from "react";
 import { useLocalStorage } from "../../../../app/hooks/use-local-storage.hook";
 import { enLocalStorage } from "../../../../types/enums/local-storage.enum";
+import { useReducer } from "../../../../app/hooks/use-reducer";
+import { IBankAccount } from "../../../../types/interfaces/bank-account.interface";
 
 type TransactionType = "INCOME" | "EXPENSE";
 
-interface DashboardContextProps {
-  areValuesVisible: boolean;
-  toggleValuesVisibility: () => void;
-
+interface States {
   isNewAccountModalOpen: boolean;
-  openNewAccountModal: () => void;
-  closeNewAccountModal: () => void;
-
+  isEditAccountModalOpen: boolean;
   isNewTransactionModalOpen: boolean;
   newTransactionType: TransactionType | null;
-  openNewTransactionModal: (type: TransactionType) => void;
-  closeNewTransactionModal: () => void;
+  accountBeingEdited: IBankAccount.Entity | null;
+}
+
+interface DashboardContextProps extends States {
+  areValuesVisible: boolean;
+  toggleValuesVisibility(): void;
+
+  openNewAccountModal(): void;
+  closeNewAccountModal(): void;
+
+  closeNewTransactionModal(): void;
+  openNewTransactionModal(type: TransactionType): void;
+
+  openEditAccountModal(bankAccount: IBankAccount.Entity): void;
+  closeEditAccountModal(): void;
 }
 
 export const DashboardContext = createContext({} as DashboardContextProps);
 
 export function DashboardProvider({ children }: PropsWithChildren) {
-  const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState(false);
-  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] =
-    useState(false);
-
-  const [newTransactionType, setNewTransactionType] =
-    useState<TransactionType | null>(null);
+  const [states, dispatch] = useReducer<States>({
+    isNewAccountModalOpen: false,
+    isEditAccountModalOpen: false,
+    isNewTransactionModalOpen: false,
+    accountBeingEdited: null,
+    newTransactionType: null,
+  });
 
   const [areValuesVisible, setAreValuesVisible] = useLocalStorage(
     enLocalStorage.VALUE_VISIBILITY,
@@ -38,21 +49,34 @@ export function DashboardProvider({ children }: PropsWithChildren) {
   }, [setAreValuesVisible]);
 
   const openNewAccountModal = useCallback(() => {
-    setIsNewAccountModalOpen(true);
+    dispatch({ action: "isNewAccountModalOpen", value: true });
   }, []);
 
   const closeNewAccountModal = useCallback(() => {
-    setIsNewAccountModalOpen(false);
+    dispatch({ action: "isNewAccountModalOpen", value: false });
+  }, []);
+
+  const openEditAccountModal = useCallback(
+    (bankAccount: IBankAccount.Entity) => {
+      dispatch({ action: "isEditAccountModalOpen", value: true });
+      dispatch({ action: "accountBeingEdited", value: bankAccount });
+    },
+    []
+  );
+
+  const closeEditAccountModal = useCallback(() => {
+    dispatch({ action: "isEditAccountModalOpen", value: false });
+    dispatch({ action: "accountBeingEdited", value: null });
   }, []);
 
   const openNewTransactionModal = useCallback((type: TransactionType) => {
-    setNewTransactionType(type);
-    setIsNewTransactionModalOpen(true);
+    dispatch({ action: "newTransactionType", value: type });
+    dispatch({ action: "isNewTransactionModalOpen", value: true });
   }, []);
 
   const closeNewTransactionModal = useCallback(() => {
-    setNewTransactionType(null);
-    setIsNewTransactionModalOpen(false);
+    dispatch({ action: "newTransactionType", value: null });
+    dispatch({ action: "isNewTransactionModalOpen", value: false });
   }, []);
 
   return (
@@ -61,14 +85,16 @@ export function DashboardProvider({ children }: PropsWithChildren) {
         areValuesVisible,
         toggleValuesVisibility,
 
-        isNewAccountModalOpen,
         openNewAccountModal,
         closeNewAccountModal,
 
-        isNewTransactionModalOpen,
-        newTransactionType,
         openNewTransactionModal,
         closeNewTransactionModal,
+
+        closeEditAccountModal,
+        openEditAccountModal,
+
+        ...states,
       }}
     >
       {children}
