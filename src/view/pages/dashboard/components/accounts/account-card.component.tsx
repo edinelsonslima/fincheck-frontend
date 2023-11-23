@@ -1,22 +1,24 @@
 import { intlService } from "../../../../../app/services/intl.service";
-import { enBankAccountType } from "../../../../../types/enums/bank-account-type.enum";
+import { IBankAccount } from "../../../../../types/interfaces/bank-account.interface";
 import { CategoryIcon } from "../../../../components/category-icon.component";
 import { useDashboard } from "../../hook/use-dashboard.hook";
 import { Value } from "../value.component";
 
 interface AccountCardProps {
-  color: string;
-  name: string;
-  balance: number;
-  type: keyof typeof enBankAccountType;
+  data: IBankAccount.Entity;
 }
 
 const { intlTerm } = intlService;
 
-export function AccountCard({ balance, color, name }: AccountCardProps) {
-  const { areValuesVisible } = useDashboard();
+export function AccountCard({ data }: AccountCardProps) {
+  const { name, currentBalance, color } = data;
+  const { areValuesVisible, openEditAccountModal } = useDashboard();
   return (
-    <div className="relative overflow-hidden p-4 bg-white rounded-2xl h-[12.5rem] flex flex-col justify-between">
+    <div
+      className="relative overflow-hidden p-4 bg-white rounded-2xl h-[12.5rem] flex flex-col justify-between"
+      role="button"
+      onClick={() => openEditAccountModal(data)}
+    >
       <header>
         <CategoryIcon type="income" />
 
@@ -27,7 +29,7 @@ export function AccountCard({ balance, color, name }: AccountCardProps) {
 
       <main>
         <Value
-          value={balance}
+          value={currentBalance}
           visible={areValuesVisible}
           blur="sm"
           className="text-gray-800 font-medium tracking-tighter mt-4 block"
