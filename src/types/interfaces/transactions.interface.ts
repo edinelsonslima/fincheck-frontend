@@ -5,7 +5,6 @@ import { UseMutationOptions } from "@tanstack/react-query";
 
 export module ITransactions {
   export type Types = keyof typeof enTransactionType;
-
   interface Entity {
     id: string;
     userId: string;

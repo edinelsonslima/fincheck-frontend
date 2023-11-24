@@ -8,7 +8,7 @@ import {
 import { enBankAccountType } from "../enums/bank-account-type.enum";
 
 export module IBankAccount {
-  export interface Entity {
+  interface Entity {
     color: string;
     id: string;
     initialBalance: number;
@@ -19,7 +19,7 @@ export module IBankAccount {
   }
 
   export module GetAll {
-    export interface Response extends Array<IBankAccount.Entity> {}
+    export interface Response extends Array<Entity> {}
 
     export interface Error extends AxiosError<IApiError> {}
 
@@ -39,14 +39,7 @@ export module IBankAccount {
       type: keyof typeof enBankAccountType;
     }
 
-    export interface Response {
-      color: string;
-      id: string;
-      initialBalance: number;
-      name: string;
-      type: keyof typeof enBankAccountType;
-      userId: string;
-    }
+    export interface Response extends Omit<Entity, "currentBalance"> {}
 
     export interface Error extends AxiosError<IApiError, Params> {}
 
@@ -63,14 +56,7 @@ export module IBankAccount {
       type: keyof typeof enBankAccountType;
     }
 
-    export interface Response {
-      color: string;
-      id: string;
-      initialBalance: number;
-      name: string;
-      type: keyof typeof enBankAccountType;
-      userId: string;
-    }
+    export interface Response extends Omit<Entity, "currentBalance"> {}
 
     export interface Error extends AxiosError<IApiError, Params> {}
 
