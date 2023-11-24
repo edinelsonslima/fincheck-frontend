@@ -66,5 +66,9 @@
   "Cancel": "Cancel",
   "When deleting the account, all records of related income and expenses will also be deleted.": "When deleting the account, all records of related income and expenses will also be deleted.",
   "Account successfully deleted!": "Account successfully deleted!",
-  "Error deleting the account!": "Error deleting the account!"
+  "Error deleting the account!": "Error deleting the account!",
+  "Provide the value.": "Provide the value.",
+  "Provide the name.": "Provide the name.",
+  "Provide the category.": "Provide the category.",
+  "Provide the bank account ID.": "Provide the bank account ID."
 }

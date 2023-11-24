@@ -66,5 +66,9 @@
   "Cancel": "Cancel",
   "When deleting the account, all records of related income and expenses will also be deleted.": "Ao excluir a conta, também serão excluídos todos os registros de receita e despesas relacionadas.",
   "Account successfully deleted!": "Conta foi deletada com sucesso!",
-  "Error deleting the account!": "Erro ao deletar a conta!"
+  "Error deleting the account!": "Erro ao deletar a conta!",
+  "Provide the value.": "Informe o valor.",
+  "Provide the name.": "Informe o nome.",
+  "Provide the category.": "Informe o categoria.",
+  "Provide the bank account ID.": "Informe o id da conta do banco."
 }
