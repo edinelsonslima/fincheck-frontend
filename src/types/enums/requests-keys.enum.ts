@@ -12,4 +12,10 @@ export const enKeys = Object.freeze({
     update: ["bank", "account", "update"],
     delete: ["bank", "account", "delete"],
   }),
+  categories: Object.freeze({
+    getAll: ["categories", "get", "all"],
+  }),
+  transactions: Object.freeze({
+    create: ["transactions", "create"],
+  }),
 });
