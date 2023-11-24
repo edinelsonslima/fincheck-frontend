@@ -1,5 +1,4 @@
 import { Controller } from "react-hook-form";
-import { enBankAccountType } from "../../../../../../types/enums/bank-account-type.enum";
 import { Button } from "../../../../../components/button.component";
 import { DatePickerInput } from "../../../../../components/date-picker-input.component";
 import { InputCurrency } from "../../../../../components/input-currency.component";
@@ -19,6 +18,9 @@ export function NewTransactionModal() {
     errors,
     handleSubmit,
     register,
+    accounts,
+    categories,
+    isLoading,
   } = useController();
 
   return (
@@ -68,20 +70,10 @@ export function NewTransactionModal() {
                 onChange={onChange}
                 error={errors.categoryId?.message}
                 placeholder={intlTerm("Category")}
-                options={[
-                  {
-                    label: intlTerm("Checking"),
-                    value: enBankAccountType.CHECKING,
-                  },
-                  {
-                    label: intlTerm("Investment"),
-                    value: enBankAccountType.INVESTMENT,
-                  },
-                  {
-                    label: intlTerm("Cash"),
-                    value: enBankAccountType.CASH,
-                  },
-                ]}
+                options={categories.map((category) => ({
+                  value: category.id,
+                  label: category.name,
+                }))}
               />
             )}
           />
@@ -95,20 +87,10 @@ export function NewTransactionModal() {
                 onChange={onChange}
                 error={errors.bankAccountId?.message}
                 placeholder={intlTerm(isExpense ? "Pay with" : "Receive with")}
-                options={[
-                  {
-                    label: intlTerm("Checking"),
-                    value: enBankAccountType.CHECKING,
-                  },
-                  {
-                    label: intlTerm("Investment"),
-                    value: enBankAccountType.INVESTMENT,
-                  },
-                  {
-                    label: intlTerm("Cash"),
-                    value: enBankAccountType.CASH,
-                  },
-                ]}
+                options={accounts.map((account) => ({
+                  value: account.id,
+                  label: account.name,
+                }))}
               />
             )}
           />
@@ -126,7 +108,7 @@ export function NewTransactionModal() {
           />
         </div>
 
-        <Button type="submit" className="w-full mt-6">
+        <Button type="submit" className="w-full mt-6" loading={isLoading}>
           {intlTerm("Create")}
         </Button>
       </form>
