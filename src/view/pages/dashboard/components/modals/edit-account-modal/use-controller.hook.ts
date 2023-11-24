@@ -8,7 +8,11 @@ import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { enKeys } from "../../../../../../types/enums/requests-keys.enum";
 import { IBankAccount } from "../../../../../../types/interfaces/bank-account.interface";
-import { useBankAccountUpdate } from "../../../../../../app/hooks/use-bank-account.hook";
+import {
+  useBankAccountDelete,
+  useBankAccountUpdate,
+} from "../../../../../../app/hooks/use-bank-account.hook";
+import { useState } from "react";
 
 const { intlCurrency, intlTerm } = intlService;
 
@@ -26,11 +30,14 @@ const schema = z.object({
 type IFormData = z.infer<typeof schema>;
 
 export function useController() {
-  const { mutateAsync, isLoading } = useBankAccountUpdate();
+  const bankAccountUpdate = useBankAccountUpdate();
+  const bankAccountDelete = useBankAccountDelete();
   const queryClient = useQueryClient();
 
   const { isEditAccountModalOpen, closeEditAccountModal, accountBeingEdited } =
     useDashboard();
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const {
     register,
@@ -51,7 +58,10 @@ export function useController() {
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      await mutateAsync({ ...data, id: accountBeingEdited!.id });
+      await bankAccountUpdate.mutateAsync({
+        ...data,
+        id: accountBeingEdited!.id,
+      });
 
       queryClient.invalidateQueries({ queryKey: enKeys.bankAccount.getAll });
       toast.success(intlTerm("Account edited successfully!"));
@@ -66,6 +76,31 @@ export function useController() {
     }
   });
 
+  const handleDeleteAccount = async () => {
+    try {
+      await bankAccountDelete.mutateAsync(accountBeingEdited!.id);
+
+      queryClient.invalidateQueries({
+        queryKey: enKeys.bankAccount.getAll,
+      });
+      toast.success(intlTerm("Account successfully deleted!"));
+      closeEditAccountModal();
+    } catch (error) {
+      const err = error as IBankAccount.Delete.Error;
+      toast.error(
+        intlTerm(err.response?.data.message || "Error deleting the account!")
+      );
+    }
+  };
+
+  const handleOpenDeleteModal = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+  };
+
   return {
     isEditAccountModalOpen,
     closeEditAccountModal,
@@ -75,6 +110,11 @@ export function useController() {
     errors,
     handleSubmit,
     control,
-    isLoading,
+    isLoadingUpdate: bankAccountUpdate.isLoading,
+    isLoadingDelete: bankAccountDelete.isLoading,
+    isDeleteModalOpen,
+    handleCloseDeleteModal,
+    handleOpenDeleteModal,
+    handleDeleteAccount,
   };
 }

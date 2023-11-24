@@ -7,6 +7,8 @@ import { Input } from "../../../../../components/input.component";
 import { Modal } from "../../../../../components/modal.component";
 import { Select } from "../../../../../components/select.component";
 import { useController } from "./use-controller.hook";
+import { IconTrash } from "../../../../../../assets/icons/trash.icon";
+import { ConfirmDeleteModal } from "../../../../../components/confirm-delete-modal.component";
 
 export function EditAccountModal() {
   const {
@@ -18,14 +20,38 @@ export function EditAccountModal() {
     handleSubmit,
     register,
     control,
-    isLoading,
+    isLoadingUpdate,
+    handleCloseDeleteModal,
+    handleOpenDeleteModal,
+    isDeleteModalOpen,
+    handleDeleteAccount,
+    isLoadingDelete,
   } = useController();
+
+  if (isDeleteModalOpen) {
+    return (
+      <ConfirmDeleteModal
+        onConfirm={handleDeleteAccount}
+        onClose={handleCloseDeleteModal}
+        loading={isLoadingDelete}
+        title={intlTerm("Are you sure you want to delete this account?")}
+        description={intlTerm(
+          "When deleting the account, all records of related income and expenses will also be deleted."
+        )}
+      />
+    );
+  }
 
   return (
     <Modal
       open={isEditAccountModalOpen}
       onClose={closeEditAccountModal}
       title={intlTerm("Edit account")}
+      rightAction={
+        <button onClick={handleOpenDeleteModal}>
+          <IconTrash className="w-6 h-6 stroke-red-900" />
+        </button>
+      }
     >
       <form onSubmit={handleSubmit}>
         <div>
@@ -99,7 +125,7 @@ export function EditAccountModal() {
           />
         </div>
 
-        <Button type="submit" className="w-full mt-6" loading={isLoading}>
+        <Button type="submit" className="w-full mt-6" loading={isLoadingUpdate}>
           {intlTerm("Save")}
         </Button>
       </form>
