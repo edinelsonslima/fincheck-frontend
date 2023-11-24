@@ -70,5 +70,9 @@
   "Provide the value.": "Provide the value.",
   "Provide the name.": "Provide the name.",
   "Provide the category.": "Provide the category.",
-  "Provide the bank account ID.": "Provide the bank account ID."
+  "Provide the bank account ID.": "Provide the bank account ID.",
+  "Expense successfully registered!": "Expense successfully registered!",
+  "Income successfully registered!": "Income successfully registered!",
+  "Error registering expense!": "Error registering expense!",
+  "Error registering income!": "Error registering income!"
 }

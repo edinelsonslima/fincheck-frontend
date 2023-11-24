@@ -70,5 +70,9 @@
   "Provide the value.": "Informe o valor.",
   "Provide the name.": "Informe o nome.",
   "Provide the category.": "Informe o categoria.",
-  "Provide the bank account ID.": "Informe o id da conta do banco."
+  "Provide the bank account ID.": "Informe o id da conta do banco.",
+  "Expense successfully registered!": "Despesa cadastrada com sucesso!",
+  "Income successfully registered!": "Receita cadastrada com sucesso!",
+  "Error registering expense!": "Erro ao cadastrar despesa!",
+  "Error registering income!": "Erro ao cadastrar receita!"
 }
