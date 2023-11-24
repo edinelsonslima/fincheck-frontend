@@ -18,6 +18,19 @@ export module IBankAccount {
     currentBalance: number;
   }
 
+  export module GetAll {
+    export interface Response extends Array<IBankAccount.Entity> {}
+
+    export interface Error extends AxiosError<IApiError> {}
+
+    export interface QueryOptions
+      extends IOmitQKeyQFn<
+        UseQueryOptions<Response, Error, Response, string[]>
+      > {}
+
+    export interface QueryFnProps extends QueryFunctionContext {}
+  }
+
   export module Create {
     export interface Params {
       name: string;
@@ -65,16 +78,12 @@ export module IBankAccount {
       extends IOmitMKeyMFn<UseMutationOptions<Response, Error, Params>> {}
   }
 
-  export module GetAll {
-    export interface Response extends Array<IBankAccount.Entity> {}
+  export module Delete {
+    export type Params = string;
 
-    export interface Error extends AxiosError<IApiError> {}
+    export interface Error extends AxiosError<IApiError, Params> {}
 
-    export interface QueryOptions
-      extends IOmitQKeyQFn<
-        UseQueryOptions<Response, Error, Response, string[]>
-      > {}
-
-    export interface QueryFnProps extends QueryFunctionContext {}
+    export interface MutationOptions
+      extends IOmitMKeyMFn<UseMutationOptions<unknown, Error, Params>> {}
   }
 }

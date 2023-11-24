@@ -3,6 +3,16 @@ import { IBankAccount } from "../../types/interfaces/bank-account.interface";
 import { bankAccountService } from "../services/bank-account.service";
 import { enKeys } from "../../types/enums/requests-keys.enum";
 
+export function useBankAccountGetAll(
+  options?: IBankAccount.GetAll.QueryOptions
+) {
+  return useQuery(
+    enKeys.bankAccount.getAll,
+    bankAccountService.getAll,
+    options
+  );
+}
+
 export function useBankAccountCreate(
   mutationOptions?: IBankAccount.Create.MutationOptions
 ) {
@@ -23,12 +33,12 @@ export function useBankAccountUpdate(
   );
 }
 
-export function useBankAccountGetAll(
-  options?: IBankAccount.GetAll.QueryOptions
+export function useBankAccountDelete(
+  mutationOptions?: IBankAccount.Delete.MutationOptions
 ) {
-  return useQuery(
-    enKeys.bankAccount.getAll,
-    bankAccountService.getAll,
-    options
+  return useMutation(
+    enKeys.bankAccount.delete,
+    bankAccountService.delete,
+    mutationOptions
   );
 }

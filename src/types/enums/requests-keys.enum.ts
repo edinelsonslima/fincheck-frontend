@@ -7,8 +7,9 @@ export const enKeys = Object.freeze({
     me: ["user", "me"],
   }),
   bankAccount: Object.freeze({
+    getAll: ["bank", "account", "get", "all"],
     create: ["bank", "account", "create"],
     update: ["bank", "account", "update"],
-    getAll: ["bank", "account", "get", "all"],
+    delete: ["bank", "account", "delete"],
   }),
 });
