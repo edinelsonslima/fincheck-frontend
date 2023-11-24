@@ -8,12 +8,24 @@ import { DatePicker } from "./date-picker.component";
 interface IDatePickerInputProps {
   error?: string;
   className?: string;
+  value?: Date;
+  onChange?(date: Date): void;
 }
 
 const { intlTerm, intlDate } = intlService;
 
-export function DatePickerInput({ className, error }: IDatePickerInputProps) {
-  const [selectedDate, setSelectDate] = useState(new Date());
+export function DatePickerInput({
+  className,
+  error,
+  onChange,
+  value,
+}: IDatePickerInputProps) {
+  const [selectedDate, setSelectDate] = useState(value ?? new Date());
+
+  const handleOnChange = (date: Date) => {
+    setSelectDate(date);
+    onChange?.(date);
+  };
 
   return (
     <div>
@@ -32,7 +44,7 @@ export function DatePickerInput({ className, error }: IDatePickerInputProps) {
         </Popover.Trigger>
 
         <Popover.Content className="p-4">
-          <DatePicker value={selectedDate} onChange={setSelectDate} />
+          <DatePicker value={selectedDate} onChange={handleOnChange} />
         </Popover.Content>
       </Popover.Root>
 
