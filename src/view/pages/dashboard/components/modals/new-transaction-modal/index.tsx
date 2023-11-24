@@ -1,4 +1,4 @@
-import { intlService } from "../../../../../../app/services/intl.service";
+import { Controller } from "react-hook-form";
 import { enBankAccountType } from "../../../../../../types/enums/bank-account-type.enum";
 import { Button } from "../../../../../components/button.component";
 import { DatePickerInput } from "../../../../../components/date-picker-input.component";
@@ -6,17 +6,20 @@ import { InputCurrency } from "../../../../../components/input-currency.componen
 import { Input } from "../../../../../components/input.component";
 import { Modal } from "../../../../../components/modal.component";
 import { Select } from "../../../../../components/select.component";
-import { useDashboard } from "../../../hook/use-dashboard.hook";
+import { useController } from "./use-controller.hook";
 
 export function NewTransactionModal() {
   const {
-    isNewTransactionModalOpen,
     closeNewTransactionModal,
-    newTransactionType,
-  } = useDashboard();
-  const { intlCurrency, intlTerm } = intlService;
-  const { currencySymbol } = intlCurrency(0);
-  const isExpense = newTransactionType === "EXPENSE";
+    currencySymbol,
+    intlTerm,
+    isExpense,
+    isNewTransactionModalOpen,
+    control,
+    errors,
+    handleSubmit,
+    register,
+  } = useController();
 
   return (
     <Modal
@@ -24,7 +27,7 @@ export function NewTransactionModal() {
       onClose={closeNewTransactionModal}
       title={intlTerm(isExpense ? "New expense" : "New income")}
     >
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <span className="text-gray-600 tracking-tighter text-xs">
             {intlTerm(isExpense ? "Expense value" : "Income value")}
@@ -34,54 +37,93 @@ export function NewTransactionModal() {
             <span className="text-gray-600 tracking-tighter text-lg">
               {currencySymbol}
             </span>
-            <InputCurrency />
+            <Controller
+              control={control}
+              name="value"
+              render={({ field: { onChange, value } }) => (
+                <InputCurrency
+                  value={value}
+                  onChange={onChange}
+                  error={errors.value?.message}
+                />
+              )}
+            />
           </div>
         </div>
 
         <div className="mt-10 flex flex-col gap-4">
           <Input
             type="text"
-            name={intlTerm(isExpense ? "Expense name" : "Income name")}
+            error={errors.name?.message}
             placeholder={intlTerm(isExpense ? "Expense name" : "Income name")}
+            {...register("name")}
           />
 
-          <Select
-            placeholder={intlTerm("Category")}
-            options={[
-              {
-                label: intlTerm("Checking"),
-                value: enBankAccountType.CHECKING,
-              },
-              {
-                label: intlTerm("Investment"),
-                value: enBankAccountType.INVESTMENT,
-              },
-              {
-                label: intlTerm("Cash"),
-                value: enBankAccountType.CASH,
-              },
-            ]}
+          <Controller
+            control={control}
+            name="categoryId"
+            render={({ field: { onChange, value } }) => (
+              <Select
+                value={value}
+                onChange={onChange}
+                error={errors.categoryId?.message}
+                placeholder={intlTerm("Category")}
+                options={[
+                  {
+                    label: intlTerm("Checking"),
+                    value: enBankAccountType.CHECKING,
+                  },
+                  {
+                    label: intlTerm("Investment"),
+                    value: enBankAccountType.INVESTMENT,
+                  },
+                  {
+                    label: intlTerm("Cash"),
+                    value: enBankAccountType.CASH,
+                  },
+                ]}
+              />
+            )}
           />
 
-          <Select
-            placeholder={intlTerm(isExpense ? "Pay with" : "Receive with")}
-            options={[
-              {
-                label: intlTerm("Checking"),
-                value: enBankAccountType.CHECKING,
-              },
-              {
-                label: intlTerm("Investment"),
-                value: enBankAccountType.INVESTMENT,
-              },
-              {
-                label: intlTerm("Cash"),
-                value: enBankAccountType.CASH,
-              },
-            ]}
+          <Controller
+            control={control}
+            name="bankAccountId"
+            render={({ field: { onChange, value } }) => (
+              <Select
+                value={value}
+                onChange={onChange}
+                error={errors.bankAccountId?.message}
+                placeholder={intlTerm(isExpense ? "Pay with" : "Receive with")}
+                options={[
+                  {
+                    label: intlTerm("Checking"),
+                    value: enBankAccountType.CHECKING,
+                  },
+                  {
+                    label: intlTerm("Investment"),
+                    value: enBankAccountType.INVESTMENT,
+                  },
+                  {
+                    label: intlTerm("Cash"),
+                    value: enBankAccountType.CASH,
+                  },
+                ]}
+              />
+            )}
           />
 
-          <DatePickerInput />
+          <Controller
+            control={control}
+            name="date"
+            render={({ field: { value, onChange } }) => (
+              <DatePickerInput
+                value={value}
+                onChange={onChange}
+                error={errors.date?.message}
+              />
+            )}
+          />
         </div>
 
         <Button type="submit" className="w-full mt-6">
