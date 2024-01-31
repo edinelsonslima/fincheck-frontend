@@ -1,3 +1,4 @@
+import { MemoExoticComponent, isValidElement } from "react";
 import { IconClothes } from "../../assets/icons/categories/expense/clothes.icon";
 import { IconEducation } from "../../assets/icons/categories/expense/education.icon";
 import { IconExpense } from "../../assets/icons/categories/expense/expense.icon";
@@ -10,10 +11,10 @@ import { IconTravel } from "../../assets/icons/categories/expense/travel.icon";
 import { IconIncome } from "../../assets/icons/categories/income/income.icon";
 
 const iconsMap = {
-  income: {
+  INCOME: {
     default: IconIncome,
   },
-  expense: {
+  EXPENSE: {
     default: IconExpense,
     food: IconFood,
     fun: IconFun,
@@ -26,15 +27,26 @@ const iconsMap = {
   },
 };
 
-interface ICategoryIconProps<T extends keyof typeof iconsMap> {
+type IKeyofIconsMap = keyof typeof iconsMap;
+
+type ICategoriesValid<T extends IKeyofIconsMap> = keyof (typeof iconsMap)[T];
+
+interface ICategoryIconProps<T extends IKeyofIconsMap> {
   type: T;
-  category?: keyof (typeof iconsMap)[T];
+  category?: ICategoriesValid<T> | string;
 }
 
-export function CategoryIcon<T extends keyof typeof iconsMap>({
+export function CategoryIcon<T extends IKeyofIconsMap>({
   type,
   category,
 }: ICategoryIconProps<T>) {
-  const Icon = iconsMap[type][category ?? "default"];
-  return <Icon />;
+  const DefaultIcon = iconsMap[type].default;
+
+  if (!category) return <DefaultIcon />;
+
+  const Icon = iconsMap[type][
+    category as ICategoriesValid<T>
+  ] as MemoExoticComponent<() => JSX.Element>;
+
+  return isValidElement(Icon) ? <Icon /> : <DefaultIcon />;
 }
