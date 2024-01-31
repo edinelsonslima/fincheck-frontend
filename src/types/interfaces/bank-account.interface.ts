@@ -8,7 +8,7 @@ import {
 import { enBankAccountType } from "../enums/bank-account-type.enum";
 
 export module IBankAccount {
-  interface Entity {
+  export interface Entity {
     color: string;
     id: string;
     initialBalance: number;
