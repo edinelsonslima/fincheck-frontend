@@ -41,12 +41,11 @@ export function CategoryIcon<T extends IKeyofIconsMap>({
   category,
 }: ICategoryIconProps<T>) {
   const DefaultIcon = iconsMap[type].default;
+  const selectedIcon = (category ?? "default") as ICategoriesValid<T>;
 
-  if (!category) return <DefaultIcon />;
+  const Icon =
+    (iconsMap[type][selectedIcon] as MemoExoticComponent<() => JSX.Element>) ||
+    DefaultIcon;
 
-  const Icon = iconsMap[type][
-    category as ICategoriesValid<T>
-  ] as MemoExoticComponent<() => JSX.Element>;
-
-  return isValidElement(Icon) ? <Icon /> : <DefaultIcon />;
+  return <Icon />;
 }
