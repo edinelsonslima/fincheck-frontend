@@ -16,6 +16,7 @@ export const enKeys = Object.freeze({
     getAll: ["categories", "get", "all"],
   }),
   transactions: Object.freeze({
+    getAll: ["transactions", "get", "all"],
     create: ["transactions", "create"],
   }),
 });
