@@ -1,7 +1,11 @@
 import { enTransactionType } from "../enums/transaction-type.enum";
 import { AxiosError } from "axios";
-import { IApiError, IOmitMKeyMFn } from ".";
-import { UseMutationOptions } from "@tanstack/react-query";
+import { IApiError, IOmitMKeyMFn, IOmitQKeyQFn } from ".";
+import {
+  QueryFunctionContext,
+  UseMutationOptions,
+  UseQueryOptions,
+} from "@tanstack/react-query";
 
 export module ITransactions {
   export type Types = keyof typeof enTransactionType;
@@ -14,6 +18,31 @@ export module ITransactions {
     date: string;
     type: Types;
     value: number;
+    category?: {
+      id: string;
+      name: string;
+      icon: string;
+    };
+  }
+
+  export module GetAll {
+    export interface Params {
+      month: number;
+      year: number;
+      bankAccountId?: string;
+      type?: Types;
+    }
+
+    export interface Response extends Array<Entity> {}
+
+    export interface Error extends AxiosError<IApiError> {}
+
+    export interface QueryOptions
+      extends IOmitQKeyQFn<
+        UseQueryOptions<Response, Error, Response, string[]>
+      > {}
+
+    export interface QueryFnProps extends QueryFunctionContext {}
   }
 
   export module Create {
