@@ -4,11 +4,12 @@ import { ITransactions } from "../../types/interfaces/transactions.interface";
 import { transactionsService } from "../services/transactions.service";
 
 export function useTransactionsGetAll(
+  filters: ITransactions.GetAll.Params,
   options?: ITransactions.GetAll.QueryOptions
 ) {
   return useQuery(
-    enKeys.transactions.getAll,
-    transactionsService.getAll({ month: 1, year: 2024 }),
+    enKeys.transactions.getAll(filters),
+    transactionsService.getAll(filters),
     options
   );
 }
