@@ -1,4 +1,4 @@
-import { MemoExoticComponent, isValidElement } from "react";
+import { MemoExoticComponent } from "react";
 import { IconClothes } from "../../assets/icons/categories/expense/clothes.icon";
 import { IconEducation } from "../../assets/icons/categories/expense/education.icon";
 import { IconExpense } from "../../assets/icons/categories/expense/expense.icon";
