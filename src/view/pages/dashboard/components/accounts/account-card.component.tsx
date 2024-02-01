@@ -20,7 +20,7 @@ export function AccountCard({ data }: IAccountCardProps) {
       onClick={() => openEditAccountModal(data)}
     >
       <header>
-        <CategoryIcon type="income" />
+        <CategoryIcon type="INCOME" />
 
         <span className="text-gray-800 font-medium tracking-tighter mt-4 block">
           {name}

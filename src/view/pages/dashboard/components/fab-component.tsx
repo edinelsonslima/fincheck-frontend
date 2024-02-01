@@ -21,7 +21,7 @@ export function Fab() {
           className="gap-2"
           onSelect={() => openNewTransactionModal("EXPENSE")}
         >
-          <CategoryIcon type="expense" />
+          <CategoryIcon type="EXPENSE" />
           {intlTerm("New expense")}
         </DropdownMenu.Item>
 
@@ -29,7 +29,7 @@ export function Fab() {
           className="gap-2"
           onSelect={() => openNewTransactionModal("INCOME")}
         >
-          <CategoryIcon type="income" />
+          <CategoryIcon type="INCOME" />
           {intlTerm("New income")}
         </DropdownMenu.Item>
 
