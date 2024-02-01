@@ -67,7 +67,7 @@ export function useController() {
       queryClient.setQueryData<IBankAccount.GetAll.Response>(
         enKeys.bankAccount.getAll,
         (currentBankAccounts) => {
-          if (!currentBankAccounts?.length) {
+          if (!currentBankAccounts) {
             return currentBankAccounts;
           }
 
