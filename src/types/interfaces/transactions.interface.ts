@@ -9,7 +9,7 @@ import {
 
 export module ITransactions {
   export type Types = keyof typeof enTransactionType;
-  interface Entity {
+  export interface Entity {
     id: string;
     userId: string;
     categoryId: string;
