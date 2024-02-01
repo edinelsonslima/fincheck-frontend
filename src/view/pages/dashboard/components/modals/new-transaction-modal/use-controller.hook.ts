@@ -73,10 +73,10 @@ export function useController() {
         date: data.date.toISOString(),
       });
 
-      queryClient.invalidateQueries({ queryKey: enKeys.bankAccount.getAll });
+      queryClient.invalidateQueries({ queryKey: enKeys.transactions.getAll });
       toast.success(intlTerm(successMessage));
-      closeNewTransactionModal();
       reset();
+      closeNewTransactionModal();
     } catch (error) {
       const err = error as ITransactions.Create.Error;
       toast.error(intlTerm(err.response?.data.message || errorMessage));
