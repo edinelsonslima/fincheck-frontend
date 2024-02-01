@@ -8,6 +8,7 @@ import { ButtonMonth } from "./button-month.component";
 import { FilterModal } from "./filter-modal.component";
 import { FilterType } from "./filter-type.component";
 import { useController } from "./use-controller.hook";
+import { cn } from "../../../../../app/utils/cn.utils";
 
 export function Transactions() {
   const {
@@ -34,7 +35,7 @@ export function Transactions() {
         <div className="flex items-center justify-between">
           <FilterType />
 
-          <FilterModal onChange={console.log}/>
+          <FilterModal onChange={console.log} />
         </div>
 
         <div className="relative">
@@ -76,41 +77,46 @@ export function Transactions() {
           </div>
         )}
 
-        {!!transactions?.length && !isLoading && (
-          <>
-            <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-              <div className="flex flex-1 items-center gap-2">
-                <CategoryIcon type="expense" />
+        {!!transactions?.length &&
+          !isLoading &&
+          transactions
+            .map((transaction) => (
+              <div
+                key={transaction.id}
+                className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
+              >
+                <div className="flex flex-1 items-center gap-2">
+                  <CategoryIcon
+                    type={transaction.type}
+                    category={transaction.category?.icon}
+                  />
 
-                <div>
-                  <strong className="block font-bold">Almoço</strong>
-                  <span className="text-sm text-gray-600">
-                    {intlDate(new Date("12/05/2023"))}
-                  </span>
+                  <div>
+                    <strong className="block font-bold">
+                      {transaction.name}
+                    </strong>
+                    <span className="text-sm text-gray-600">
+                      {intlDate(new Date(transaction.date))}
+                    </span>
+                  </div>
                 </div>
+                <span
+                  className={cn(
+                    "tracking-tighter font-medium",
+                    transaction.type === "EXPENSE" && "text-red-800",
+                    transaction.type === "INCOME" && "text-green-800"
+                  )}
+                >
+                  {transaction.type === "EXPENSE" ? "- " : "+ "}
+                  <Value
+                    value={transaction.value}
+                    visible={areValuesVisible}
+                    blur="sm"
+                  />
+                </span>
               </div>
-              <span className="text-red-800 tracking-tighter font-medium">
-                - <Value value={656.89} visible={areValuesVisible} blur="sm" />
-              </span>
-            </div>
-
-            <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-              <div className="flex flex-1 items-center gap-2">
-                <CategoryIcon type="income" />
-
-                <div>
-                  <strong className="block font-bold">Almoço</strong>
-                  <span className="text-sm text-gray-600">
-                    {intlDate(new Date("12/05/2023"))}
-                  </span>
-                </div>
-              </div>
-              <span className="text-green-800 tracking-tighter font-medium">
-                + <Value value={656.89} visible={areValuesVisible} blur="sm" />
-              </span>
-            </div>
-          </>
-        )}
+            ))
+            .reverse()}
       </section>
     </>
   );
