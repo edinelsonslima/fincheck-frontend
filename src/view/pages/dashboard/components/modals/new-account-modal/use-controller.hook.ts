@@ -51,9 +51,14 @@ export function useController() {
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      await mutateAsync(data);
+      const newBankAccount = await mutateAsync(data);
 
-      queryClient.invalidateQueries({ queryKey: enKeys.bankAccount.getAll });
+      queryClient.setQueryData<IBankAccount.GetAll.Response>(
+        enKeys.bankAccount.getAll,
+        (currencyBankAccount) =>
+          currencyBankAccount?.concat({ ...newBankAccount, currentBalance: 0 })
+      );
+
       toast.success(intlTerm("Account registered successfully!"));
       closeNewAccountModal();
       reset();

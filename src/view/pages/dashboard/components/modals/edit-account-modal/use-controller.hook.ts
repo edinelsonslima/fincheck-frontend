@@ -59,12 +59,35 @@ export function useController() {
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      await bankAccountUpdate.mutateAsync({
+      const newBankAccount = await bankAccountUpdate.mutateAsync({
         ...data,
         id: accountBeingEdited!.id,
       });
 
-      queryClient.invalidateQueries({ queryKey: enKeys.bankAccount.getAll });
+      queryClient.setQueryData<IBankAccount.GetAll.Response>(
+        enKeys.bankAccount.getAll,
+        (currentBankAccounts) => {
+          if (!currentBankAccounts?.length) {
+            return currentBankAccounts;
+          }
+
+          const matchedBankAccountIndex = currentBankAccounts.findIndex(
+            ({ id }) => id === accountBeingEdited?.id
+          );
+
+          if (matchedBankAccountIndex === -1) {
+            return currentBankAccounts;
+          }
+
+          currentBankAccounts[matchedBankAccountIndex] = {
+            ...currentBankAccounts[matchedBankAccountIndex],
+            ...newBankAccount,
+          };
+
+          return currentBankAccounts;
+        }
+      );
+
       toast.success(intlTerm("Account edited successfully!"));
       reset();
       closeEditAccountModal();
@@ -82,9 +105,12 @@ export function useController() {
     try {
       await bankAccountDelete.mutateAsync(accountBeingEdited!.id);
 
-      queryClient.invalidateQueries({
-        queryKey: enKeys.bankAccount.getAll,
-      });
+      queryClient.setQueryData<IBankAccount.GetAll.Response>(
+        enKeys.bankAccount.getAll,
+        (currentBankAccounts) =>
+          currentBankAccounts?.filter(({ id }) => id !== accountBeingEdited?.id)
+      );
+
       toast.success(intlTerm("Account successfully deleted!"));
       closeEditAccountModal();
     } catch (error) {
