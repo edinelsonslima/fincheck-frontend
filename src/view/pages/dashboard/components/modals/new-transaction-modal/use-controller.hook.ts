@@ -12,6 +12,7 @@ import { ITransactions } from "../../../../../../types/interfaces/transactions.i
 import { enTransactionType } from "../../../../../../types/enums/transaction-type.enum";
 import { enKeys } from "../../../../../../types/enums/requests-keys.enum";
 import { useQueryClient } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
 
 const { intlCurrency, intlTerm } = intlService;
 
@@ -26,11 +27,13 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export function useController() {
+  const queryClient = useQueryClient();
+
   const { isLoading, mutateAsync } = useTransactionsCreate();
   const { data: accounts } = useBankAccountGetAll();
   const { data: categoriesList } = useCategoriesGetAll();
 
-  const queryClient = useQueryClient();
+  const [searchParams] = useSearchParams();
 
   const {
     isNewTransactionModalOpen,
@@ -67,13 +70,22 @@ export function useController() {
       : "Error registering income!";
 
     try {
-      await mutateAsync({
+      const newTransaction = await mutateAsync({
         ...data,
         type: newTransactionType!,
         date: data.date.toISOString(),
       });
 
-      queryClient.invalidateQueries({ queryKey: enKeys.transactions.getAll });
+      const queryKey = enKeys.transactions.getAll({
+        month: Number(searchParams.get("month")),
+        year: Number(searchParams.get("year")),
+      });
+
+      queryClient.setQueryData<ITransactions.GetAll.Response>(
+        queryKey,
+        (currentTransactions) => currentTransactions?.concat(newTransaction)
+      );
+
       toast.success(intlTerm(successMessage));
       reset();
       closeNewTransactionModal();
