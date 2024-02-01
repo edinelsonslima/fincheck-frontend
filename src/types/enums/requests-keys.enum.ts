@@ -1,3 +1,6 @@
+import { ITransactions } from "../interfaces/transactions.interface";
+import { formatKeys } from "../../app/utils/format-query-keys.utils";
+
 export const enKeys = Object.freeze({
   auth: Object.freeze({
     signin: ["auth", "signin"],
@@ -7,16 +10,17 @@ export const enKeys = Object.freeze({
     me: ["user", "me"],
   }),
   bankAccount: Object.freeze({
-    getAll: ["bank", "account", "get", "all"],
+    getAll: ["bank", "account", "get_all"],
     create: ["bank", "account", "create"],
     update: ["bank", "account", "update"],
     delete: ["bank", "account", "delete"],
   }),
   categories: Object.freeze({
-    getAll: ["categories", "get", "all"],
+    getAll: ["categories", "get_all"],
   }),
   transactions: Object.freeze({
-    getAll: ["transactions", "get", "all"],
+    getAll: (params: ITransactions.GetAll.Params) =>
+      formatKeys(params, "transactions", "get_all"),
     create: ["transactions", "create"],
   }),
 });
