@@ -44,6 +44,7 @@ export function useController() {
     formState: { errors },
     handleSubmit: hookFormHandleSubmit,
     control,
+    reset,
   } = useForm<IFormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -65,6 +66,7 @@ export function useController() {
 
       queryClient.invalidateQueries({ queryKey: enKeys.bankAccount.getAll });
       toast.success(intlTerm("Account edited successfully!"));
+      reset();
       closeEditAccountModal();
     } catch (error) {
       const err = error as IBankAccount.Update.Error;
