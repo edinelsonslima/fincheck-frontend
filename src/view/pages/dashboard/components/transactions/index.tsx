@@ -35,7 +35,10 @@ export function Transactions() {
     <>
       <header className="space-y-6">
         <div className="flex items-center justify-between">
-          <FilterType onSelect={(value) => handleChangeFilter("type", value)} />
+          <FilterType
+            onSelect={(value) => handleChangeFilter("type", value)}
+            selectedType={getFilter("type")}
+          />
 
           <FilterModal
             onChange={({ year, bankAccountId }) => {
