@@ -5,9 +5,13 @@ import { IconIncome } from "../../../../../assets/icons/income.icon";
 import { IconTransactions } from "../../../../../assets/icons/transactions.icon";
 import { DropdownMenu } from "../../../../components/dropdown-menu.component";
 
+interface IFilterType {
+  onSelect(type?: "INCOME" | "EXPENSE"): void;
+}
+
 const { intlTerm } = intlService;
 
-export function FilterType() {
+export function FilterType({ onSelect }: IFilterType) {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="flex items-center gap-2">
@@ -19,17 +23,23 @@ export function FilterType() {
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Content className="w-[17.4375rem] mt-2 ml-12 md:ml-28">
-        <DropdownMenu.Item className="gap-2">
+        <DropdownMenu.Item
+          className="gap-2"
+          onSelect={() => onSelect("INCOME")}
+        >
           <IconIncome />
           {intlTerm("incomes")}
         </DropdownMenu.Item>
 
-        <DropdownMenu.Item className="gap-2">
+        <DropdownMenu.Item
+          className="gap-2"
+          onSelect={() => onSelect("EXPENSE")}
+        >
           <IconExpenses />
           {intlTerm("expenses")}
         </DropdownMenu.Item>
 
-        <DropdownMenu.Item className="gap-2">
+        <DropdownMenu.Item className="gap-2" onSelect={() => onSelect()}>
           <IconTransactions />
           {intlTerm("transactions")}
         </DropdownMenu.Item>
