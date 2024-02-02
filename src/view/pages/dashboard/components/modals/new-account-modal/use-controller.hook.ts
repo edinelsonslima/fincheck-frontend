@@ -26,7 +26,10 @@ const schema = z.object({
 type IFormData = z.infer<typeof schema>;
 
 export function useController() {
-  const { mutateAsync, isLoading } = useBankAccountCreate();
+  const { isNewAccountModalOpen, closeNewAccountModal } = useDashboard();
+  const { currencySymbol } = intlCurrency(0);
+
+  const bankAccountCreate = useBankAccountCreate();
   const queryClient = useQueryClient();
 
   const {
@@ -45,23 +48,24 @@ export function useController() {
     },
   });
 
-  const { isNewAccountModalOpen, closeNewAccountModal } = useDashboard();
-
-  const { currencySymbol } = intlCurrency(0);
+  const updateCacheBankAccounts = (
+    bankAccount: IBankAccount.Create.Response
+  ) => {
+    queryClient.setQueryData<IBankAccount.GetAll.Response>(
+      enKeys.bankAccount.getAll,
+      (currencyBankAccount) =>
+        currencyBankAccount?.concat({ ...bankAccount, currentBalance: 0 })
+    );
+  };
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      const newBankAccount = await mutateAsync(data);
+      const newBankAccount = await bankAccountCreate.mutateAsync(data);
 
-      queryClient.setQueryData<IBankAccount.GetAll.Response>(
-        enKeys.bankAccount.getAll,
-        (currencyBankAccount) =>
-          currencyBankAccount?.concat({ ...newBankAccount, currentBalance: 0 })
-      );
-
+      reset();
+      updateCacheBankAccounts(newBankAccount);
       toast.success(intlTerm("Account registered successfully!"));
       closeNewAccountModal();
-      reset();
     } catch (error) {
       const err = error as IBankAccount.Create.Error;
       toast.error(
@@ -81,6 +85,6 @@ export function useController() {
     errors,
     handleSubmit,
     control,
-    isLoading,
+    isLoading: bankAccountCreate.isLoading,
   };
 }
