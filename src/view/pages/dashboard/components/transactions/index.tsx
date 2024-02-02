@@ -19,6 +19,8 @@ export function Transactions() {
     intlDate,
     intlMonths,
     intlTerm,
+    getFilter,
+    handleChangeFilter,
   } = useController();
 
   if (isInitialLoading) {
@@ -33,13 +35,25 @@ export function Transactions() {
     <>
       <header className="space-y-6">
         <div className="flex items-center justify-between">
-          <FilterType />
+          <FilterType onSelect={(value) => handleChangeFilter("type", value)} />
 
-          <FilterModal onChange={console.log} />
+          <FilterModal
+            onChange={({ year, bankAccountId }) => {
+              handleChangeFilter("year", year);
+              handleChangeFilter("bankAccountId", bankAccountId);
+            }}
+          />
         </div>
 
         <div className="relative">
-          <Swiper slidesPerView={3} centeredSlides>
+          <Swiper
+            slidesPerView={3}
+            centeredSlides
+            initialSlide={getFilter("month")}
+            onSlideChange={(swiper) => {
+              handleChangeFilter("month", swiper.realIndex);
+            }}
+          >
             <ButtonChevron
               direction="slidePrev"
               className="z-10 absolute left-0 top-1/2 -translate-y-1/2 bg-gray-100 text-gray-800 w-12 h-12 flex items-center justify-center bg-gradient-to-r from-gray-100 to-transparent"
