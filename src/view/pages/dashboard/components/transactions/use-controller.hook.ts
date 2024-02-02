@@ -33,7 +33,9 @@ export function useController() {
     filter: T,
     value: IFilters[T]
   ) => {
-    if ([undefined, null].includes(value as undefined)) {
+    const invalidValues = [undefined, null, ""];
+
+    if (invalidValues.includes(value as undefined)) {
       return setSearchParams((params) => {
         params.delete(filter);
         return params;
