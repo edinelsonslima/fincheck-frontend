@@ -13,6 +13,7 @@ import { enTransactionType } from "../../../../../../types/enums/transaction-typ
 import { enKeys } from "../../../../../../types/enums/requests-keys.enum";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
+import { IBankAccount } from "../../../../../../types/interfaces/bank-account.interface";
 
 const { intlCurrency, intlTerm } = intlService;
 
@@ -27,21 +28,19 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export function useController() {
-  const queryClient = useQueryClient();
-
-  const { isLoading, mutateAsync } = useTransactionsCreate();
-  const { data: accounts } = useBankAccountGetAll();
-  const { data: categoriesList } = useCategoriesGetAll();
-
-  const [searchParams] = useSearchParams();
-
   const {
     isNewTransactionModalOpen,
     closeNewTransactionModal,
     newTransactionType,
   } = useDashboard();
-
   const { currencySymbol } = intlCurrency(0);
+
+  const [searchParams] = useSearchParams();
+
+  const bankAccountGetAll = useBankAccountGetAll();
+  const transactionsCreate = useTransactionsCreate();
+  const categoriesGetAll = useCategoriesGetAll();
+  const queryClient = useQueryClient();
   const isExpense = newTransactionType === enTransactionType.EXPENSE;
 
   const {
@@ -60,6 +59,53 @@ export function useController() {
     },
   });
 
+  const updateCacheTransactions = (
+    transaction: ITransactions.Create.Response
+  ) => {
+    queryClient.setQueryData<ITransactions.GetAll.Response>(
+      enKeys.transactions.getAll({
+        month: Number(searchParams.get("month")),
+        year: Number(searchParams.get("year")),
+      }),
+      (currentTransactions) => {
+        return currentTransactions?.concat(transaction);
+      }
+    );
+  };
+
+  const updateCacheBankAccounts = (
+    transaction: ITransactions.Create.Response
+  ) => {
+    queryClient.setQueriesData<IBankAccount.GetAll.Response>(
+      enKeys.bankAccount.getAll,
+      (currentBankAccounts) => {
+        if (!currentBankAccounts) {
+          return currentBankAccounts;
+        }
+
+        const matchedBankAccountIndex = currentBankAccounts?.findIndex(
+          ({ id }) => transaction.bankAccountId === id
+        );
+
+        if (matchedBankAccountIndex === -1) {
+          return currentBankAccounts;
+        }
+
+        const editedBankAccount = currentBankAccounts[matchedBankAccountIndex];
+
+        currentBankAccounts[matchedBankAccountIndex] = {
+          ...editedBankAccount,
+          currentBalance:
+            transaction.type === "EXPENSE"
+              ? editedBankAccount.currentBalance - transaction.value
+              : editedBankAccount.currentBalance + transaction.value,
+        };
+
+        return currentBankAccounts;
+      }
+    );
+  };
+
   const handleSubmit = hookFormSubmit(async (data) => {
     const successMessage = isExpense
       ? "Expense successfully registered!"
@@ -70,24 +116,16 @@ export function useController() {
       : "Error registering income!";
 
     try {
-      const newTransaction = await mutateAsync({
+      const newTransaction = await transactionsCreate.mutateAsync({
         ...data,
         type: newTransactionType!,
         date: data.date.toISOString(),
       });
 
-      const queryKey = enKeys.transactions.getAll({
-        month: Number(searchParams.get("month")),
-        year: Number(searchParams.get("year")),
-      });
-
-      queryClient.setQueryData<ITransactions.GetAll.Response>(
-        queryKey,
-        (currentTransactions) => currentTransactions?.concat(newTransaction)
-      );
-
-      toast.success(intlTerm(successMessage));
       reset();
+      updateCacheTransactions(newTransaction);
+      updateCacheBankAccounts(newTransaction);
+      toast.success(intlTerm(successMessage));
       closeNewTransactionModal();
     } catch (error) {
       const err = error as ITransactions.Create.Error;
@@ -96,8 +134,10 @@ export function useController() {
   });
 
   const categories = useMemo(() => {
-    return categoriesList?.filter(({ type }) => type === newTransactionType);
-  }, [categoriesList, newTransactionType]);
+    return categoriesGetAll.data?.filter(
+      ({ type }) => type === newTransactionType
+    );
+  }, [categoriesGetAll.data, newTransactionType]);
 
   return {
     register,
@@ -109,8 +149,8 @@ export function useController() {
     handleSubmit,
     isNewTransactionModalOpen,
     closeNewTransactionModal,
-    accounts: accounts ?? [],
+    accounts: bankAccountGetAll.data ?? [],
     categories: categories ?? [],
-    isLoading,
+    isLoading: transactionsCreate.isLoading,
   };
 }
