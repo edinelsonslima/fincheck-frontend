@@ -21,6 +21,7 @@ export function Transactions() {
     intlTerm,
     getFilter,
     handleChangeFilter,
+    accounts,
   } = useController();
 
   if (isInitialLoading) {
@@ -41,6 +42,9 @@ export function Transactions() {
           />
 
           <FilterModal
+            accounts={accounts}
+            initialYear={getFilter("year")}
+            initialBankAccountId={getFilter("bankAccountId")}
             onChange={({ year, bankAccountId }) => {
               handleChangeFilter("year", year);
               handleChangeFilter("bankAccountId", bankAccountId);

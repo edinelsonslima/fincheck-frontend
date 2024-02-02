@@ -4,6 +4,7 @@ import { intlService } from "../../../../../app/services/intl.service";
 import { useDashboard } from "../../hook/use-dashboard.hook";
 import { useEffect, useRef } from "react";
 import { ITransactions } from "../../../../../types/interfaces/transactions.interface";
+import { useBankAccountGetAll } from "../../../../../app/hooks/use-bank-account.hook";
 
 interface IFilters extends ITransactions.GetAll.Params {}
 
@@ -22,6 +23,7 @@ export function useController() {
     return searchParams.get(key) as IFilters[T];
   };
 
+  const bankAccountGetAll = useBankAccountGetAll();
   const transactionsGetAll = useTransactionsGetAll({
     month: getFilter("month"),
     year: getFilter("year"),
@@ -61,6 +63,7 @@ export function useController() {
     intlMonths,
     getFilter,
     handleChangeFilter,
+    accounts: bankAccountGetAll.data ?? [],
     transactions: transactionsGetAll.data ?? [],
     isLoading: transactionsGetAll.isLoading,
     isInitialLoading: isFirstRender.current

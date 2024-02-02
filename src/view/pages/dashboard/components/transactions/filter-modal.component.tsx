@@ -6,26 +6,26 @@ import { IconChevronRight } from "../../../../../assets/icons/chevron-right.icon
 import { IconFilter } from "../../../../../assets/icons/filter.icon";
 import { Button } from "../../../../components/button.component";
 import { Modal } from "../../../../components/modal.component";
+import { IBankAccount } from "../../../../../types/interfaces/bank-account.interface";
 
 interface IFilterModalProps {
-  onChange(values: { bankAccountId: string; year: number }): void;
+  accounts: IBankAccount.GetAll.Response;
+  initialYear: number;
+  initialBankAccountId?: string;
+  onChange(values: { bankAccountId?: string; year: number }): void;
 }
-
-const MOCK = [
-  { id: "01", name: "NuBank" },
-  { id: "02", name: "Xp Investimento" },
-  { id: "03", name: "Dinheiro" },
-  { id: "04", name: "Inter" },
-  { id: "05", name: "Banco do Brasil" },
-  { id: "06", name: "BTG Pactual" },
-];
 
 const { intlTerm } = intlService;
 
-export function FilterModal({ onChange }: IFilterModalProps) {
+export function FilterModal({
+  onChange,
+  accounts,
+  initialYear,
+  initialBankAccountId,
+}: IFilterModalProps) {
   const [open, setOpen] = useState(false);
-  const [bankAccountId, setBankAccountId] = useState("");
-  const [year, setYear] = useState(new Date().getFullYear());
+  const [year, setYear] = useState(Number(initialYear));
+  const [bankAccountId, setBankAccountId] = useState(initialBankAccountId);
 
   return (
     <>
@@ -44,10 +44,12 @@ export function FilterModal({ onChange }: IFilterModalProps) {
             {intlTerm("Account")}
           </span>
 
-          {MOCK.map(({ id, name }) => (
+          {accounts.map(({ id, name }) => (
             <button
               key={id}
-              onClick={() => setBankAccountId(id)}
+              onClick={() =>
+                setBankAccountId((prevId) => (id === prevId ? undefined : id))
+              }
               className={cn(
                 "p-2 rounded-2xl w-full text-left transition-colors hover:bg-gray-50",
                 bankAccountId === id && " !bg-gray-200"
