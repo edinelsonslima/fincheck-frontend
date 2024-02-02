@@ -74,5 +74,7 @@
   "Expense successfully registered!": "Expense successfully registered!",
   "Income successfully registered!": "Income successfully registered!",
   "Error registering expense!": "Error registering expense!",
-  "Error registering income!": "Error registering income!"
+  "Error registering income!": "Error registering income!",
+  "Incomes": "Incomes",
+  "Expenses": "Expenses"
 }

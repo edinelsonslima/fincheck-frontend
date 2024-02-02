@@ -74,5 +74,7 @@
   "Expense successfully registered!": "Despesa cadastrada com sucesso!",
   "Income successfully registered!": "Receita cadastrada com sucesso!",
   "Error registering expense!": "Erro ao cadastrar despesa!",
-  "Error registering income!": "Erro ao cadastrar receita!"
+  "Error registering income!": "Erro ao cadastrar receita!",
+  "Incomes": "Receitas",
+  "Expenses": "Despesas"
 }
