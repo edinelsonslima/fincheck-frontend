@@ -30,14 +30,15 @@ const schema = z.object({
 type IFormData = z.infer<typeof schema>;
 
 export function useController() {
+  const { isEditAccountModalOpen, closeEditAccountModal, accountBeingEdited } =
+    useDashboard();
+  const { currencySymbol } = intlCurrency(0);
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const bankAccountUpdate = useBankAccountUpdate();
   const bankAccountDelete = useBankAccountDelete();
   const queryClient = useQueryClient();
-
-  const { isEditAccountModalOpen, closeEditAccountModal, accountBeingEdited } =
-    useDashboard();
-
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const {
     register,
@@ -55,41 +56,53 @@ export function useController() {
     },
   });
 
-  const { currencySymbol } = intlCurrency(0);
+  const updateCacheBankAccountsEdited = (
+    bankAccount: IBankAccount.Update.Response
+  ) => {
+    queryClient.setQueryData<IBankAccount.GetAll.Response>(
+      enKeys.bankAccount.getAll,
+      (currentBankAccounts) => {
+        if (!currentBankAccounts) {
+          return currentBankAccounts;
+        }
+
+        const matchedBankAccountIndex = currentBankAccounts.findIndex(
+          ({ id }) => id === accountBeingEdited?.id
+        );
+
+        if (matchedBankAccountIndex === -1) {
+          return currentBankAccounts;
+        }
+
+        currentBankAccounts[matchedBankAccountIndex] = {
+          ...currentBankAccounts[matchedBankAccountIndex],
+          ...bankAccount,
+          currentBalance: bankAccount.initialBalance,
+        };
+
+        return currentBankAccounts;
+      }
+    );
+  };
+
+  const updateCacheBankAccountsDeleted = () => {
+    queryClient.setQueryData<IBankAccount.GetAll.Response>(
+      enKeys.bankAccount.getAll,
+      (currentBankAccounts) =>
+        currentBankAccounts?.filter(({ id }) => id !== accountBeingEdited?.id)
+    );
+  };
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      const newBankAccount = await bankAccountUpdate.mutateAsync({
+      const editedBankAccount = await bankAccountUpdate.mutateAsync({
         ...data,
         id: accountBeingEdited!.id,
       });
 
-      queryClient.setQueryData<IBankAccount.GetAll.Response>(
-        enKeys.bankAccount.getAll,
-        (currentBankAccounts) => {
-          if (!currentBankAccounts) {
-            return currentBankAccounts;
-          }
-
-          const matchedBankAccountIndex = currentBankAccounts.findIndex(
-            ({ id }) => id === accountBeingEdited?.id
-          );
-
-          if (matchedBankAccountIndex === -1) {
-            return currentBankAccounts;
-          }
-
-          currentBankAccounts[matchedBankAccountIndex] = {
-            ...currentBankAccounts[matchedBankAccountIndex],
-            ...newBankAccount,
-          };
-
-          return currentBankAccounts;
-        }
-      );
-
-      toast.success(intlTerm("Account edited successfully!"));
       reset();
+      updateCacheBankAccountsEdited(editedBankAccount);
+      toast.success(intlTerm("Account edited successfully!"));
       closeEditAccountModal();
     } catch (error) {
       const err = error as IBankAccount.Update.Error;
@@ -105,12 +118,7 @@ export function useController() {
     try {
       await bankAccountDelete.mutateAsync(accountBeingEdited!.id);
 
-      queryClient.setQueryData<IBankAccount.GetAll.Response>(
-        enKeys.bankAccount.getAll,
-        (currentBankAccounts) =>
-          currentBankAccounts?.filter(({ id }) => id !== accountBeingEdited?.id)
-      );
-
+      updateCacheBankAccountsDeleted();
       toast.success(intlTerm("Account successfully deleted!"));
       closeEditAccountModal();
     } catch (error) {
