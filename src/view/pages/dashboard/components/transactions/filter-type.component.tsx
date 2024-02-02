@@ -7,18 +7,42 @@ import { DropdownMenu } from "../../../../components/dropdown-menu.component";
 
 interface IFilterType {
   onSelect(type?: "INCOME" | "EXPENSE"): void;
+  selectedType?: "INCOME" | "EXPENSE";
+}
+
+interface IConfig {
+  EXPENSE: { name: string; icon: JSX.Element };
+  INCOME: { name: string; icon: JSX.Element };
+  null: { name: string; icon: JSX.Element };
 }
 
 const { intlTerm } = intlService;
 
-export function FilterType({ onSelect }: IFilterType) {
+const config: IConfig = {
+  EXPENSE: {
+    name: intlTerm("Expenses"),
+    icon: <IconExpenses />,
+  },
+  INCOME: {
+    name: intlTerm("Incomes"),
+    icon: <IconIncome />,
+  },
+  null: {
+    name: intlTerm("Transactions"),
+    icon: <IconTransactions />,
+  },
+};
+
+export function FilterType({ onSelect, selectedType }: IFilterType) {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="flex items-center gap-2">
-        <IconTransactions />
+        {config[selectedType as keyof IConfig].icon}
+
         <span className="text-sm text-gray-800 tracking-tighter font-medium">
-          {intlTerm("Transactions")}
+          {config[selectedType as keyof IConfig].name}
         </span>
+
         <IconChevronDown className="text-gray-900" />
       </DropdownMenu.Trigger>
 
@@ -27,21 +51,21 @@ export function FilterType({ onSelect }: IFilterType) {
           className="gap-2"
           onSelect={() => onSelect("INCOME")}
         >
-          <IconIncome />
-          {intlTerm("incomes")}
+          {config.INCOME.icon}
+          {config.INCOME.name}
         </DropdownMenu.Item>
 
         <DropdownMenu.Item
           className="gap-2"
           onSelect={() => onSelect("EXPENSE")}
         >
-          <IconExpenses />
-          {intlTerm("expenses")}
+          {config.EXPENSE.icon}
+          {config.EXPENSE.name}
         </DropdownMenu.Item>
 
         <DropdownMenu.Item className="gap-2" onSelect={() => onSelect()}>
-          <IconTransactions />
-          {intlTerm("transactions")}
+          {config.null.icon}
+          {config.null.name}
         </DropdownMenu.Item>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
