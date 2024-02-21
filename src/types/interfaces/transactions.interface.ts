@@ -8,7 +8,6 @@ import {
 } from "@tanstack/react-query";
 
 export module ITransactions {
-  export type Types = keyof typeof enTransactionType;
   export interface Entity {
     id: string;
     userId: string;
@@ -16,7 +15,7 @@ export module ITransactions {
     bankAccountId: string;
     name: string;
     date: string;
-    type: Types;
+    type: enTransactionType;
     value: number;
     category?: {
       id: string;
@@ -30,7 +29,7 @@ export module ITransactions {
       month: number;
       year: number;
       bankAccountId?: string;
-      type?: Types;
+      type?: enTransactionType;
     }
 
     export interface Response extends Array<Entity> {}
@@ -52,7 +51,7 @@ export module ITransactions {
       name: string;
       value: number;
       date: string;
-      type: Types;
+      type: enTransactionType;
     }
 
     export interface Response extends Entity {}

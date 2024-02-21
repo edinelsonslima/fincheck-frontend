@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { IApiError, IOmitQKeyQFn } from ".";
 import { QueryFunctionContext, UseQueryOptions } from "@tanstack/react-query";
-import { ITransactions } from "./transactions.interface";
+import { enTransactionType } from "../enums/transaction-type.enum";
 
 export module ICategories {
   interface Entity {
@@ -9,7 +9,7 @@ export module ICategories {
     userId: string;
     name: string;
     icon: string;
-    type: ITransactions.Types;
+    type: enTransactionType;
   }
 
   export module GetAll {

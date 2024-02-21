@@ -3,13 +3,13 @@ import { useLocalStorage } from "../../../../app/hooks/use-local-storage.hook";
 import { enLocalStorage } from "../../../../types/enums/local-storage.enum";
 import { useReducer } from "../../../../app/hooks/use-reducer";
 import { IBankAccount } from "../../../../types/interfaces/bank-account.interface";
-import { ITransactions } from "../../../../types/interfaces/transactions.interface";
+import { enTransactionType } from "../../../../types/enums/transaction-type.enum";
 
 interface IStates {
   isNewAccountModalOpen: boolean;
   isEditAccountModalOpen: boolean;
   isNewTransactionModalOpen: boolean;
-  newTransactionType: ITransactions.Types | null;
+  newTransactionType: enTransactionType | null;
   accountBeingEdited: IBankAccount.Entity | null;
 }
 
@@ -21,7 +21,7 @@ interface IDashboardContextProps extends IStates {
   closeNewAccountModal(): void;
 
   closeNewTransactionModal(): void;
-  openNewTransactionModal(type: ITransactions.Types): void;
+  openNewTransactionModal(type: enTransactionType): void;
 
   openEditAccountModal(bankAccount: IBankAccount.Entity): void;
   closeEditAccountModal(): void;
@@ -68,7 +68,7 @@ export function DashboardProvider({ children }: PropsWithChildren) {
     dispatch({ action: "accountBeingEdited", value: null });
   }, []);
 
-  const openNewTransactionModal = useCallback((type: ITransactions.Types) => {
+  const openNewTransactionModal = useCallback((type: enTransactionType) => {
     dispatch({ action: "newTransactionType", value: type });
     dispatch({ action: "isNewTransactionModalOpen", value: true });
   }, []);

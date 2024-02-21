@@ -1,6 +1,7 @@
 import { intlService } from "../../../../app/services/intl.service";
 import { IconBankAccount } from "../../../../assets/icons/bank-account.icon";
 import { IconPlus } from "../../../../assets/icons/plus.icon";
+import { enTransactionType } from "../../../../types/enums/transaction-type.enum";
 import { CategoryIcon } from "../../../components/category-icon.component";
 import { DropdownMenu } from "../../../components/dropdown-menu.component";
 import { useDashboard } from "../hook/use-dashboard.hook";
@@ -19,17 +20,17 @@ export function Fab() {
       <DropdownMenu.Content className="mb-2 mr-6">
         <DropdownMenu.Item
           className="gap-2"
-          onSelect={() => openNewTransactionModal("EXPENSE")}
+          onSelect={() => openNewTransactionModal(enTransactionType.EXPENSE)}
         >
-          <CategoryIcon type="EXPENSE" />
+          <CategoryIcon type={enTransactionType.EXPENSE} />
           {intlTerm("New expense")}
         </DropdownMenu.Item>
 
         <DropdownMenu.Item
           className="gap-2"
-          onSelect={() => openNewTransactionModal("INCOME")}
+          onSelect={() => openNewTransactionModal(enTransactionType.INCOME)}
         >
-          <CategoryIcon type="INCOME" />
+          <CategoryIcon type={enTransactionType.INCOME} />
           {intlTerm("New income")}
         </DropdownMenu.Item>
 
