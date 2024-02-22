@@ -7,7 +7,7 @@ import { useBankAccountGetAll } from "../../../../../app/hooks/use-bank-account.
 const { intlTerm } = intlService;
 
 export function useController() {
-  const { data, isFetching } = useBankAccountGetAll();
+  const { data = [], isFetching } = useBankAccountGetAll();
   const [windowWidth] = useWindowSize();
   const { areValuesVisible, toggleValuesVisibility, openNewAccountModal } =
     useDashboard();
@@ -34,7 +34,7 @@ export function useController() {
     openNewAccountModal,
     intlTerm,
     isLoading: isFetching,
-    accounts: data ?? [],
+    accounts: data,
     currentBalance,
   };
 }
