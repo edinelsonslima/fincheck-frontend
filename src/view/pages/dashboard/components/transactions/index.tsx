@@ -9,6 +9,7 @@ import { FilterModal } from "./filter-modal.component";
 import { FilterType } from "./filter-type.component";
 import { useController } from "./use-controller.hook";
 import { cn } from "../../../../../app/utils/cn.utils";
+import { enTransactionType } from "../../../../../types/enums/transaction-type.enum";
 
 export function Transactions() {
   const {
@@ -19,9 +20,8 @@ export function Transactions() {
     intlDate,
     intlMonths,
     intlTerm,
-    getFilter,
-    handleChangeFilter,
-    accounts,
+    parameters,
+    setParameters,
   } = useController();
 
   if (isInitialLoading) {
@@ -36,29 +36,18 @@ export function Transactions() {
     <>
       <header className="space-y-6">
         <div className="flex items-center justify-between">
-          <FilterType
-            onSelect={(value) => handleChangeFilter("type", value)}
-            selectedType={getFilter("type")}
-          />
+          <FilterType />
 
-          <FilterModal
-            accounts={accounts}
-            initialYear={getFilter("year")}
-            initialBankAccountId={getFilter("bankAccountId")}
-            onChange={({ year, bankAccountId }) => {
-              handleChangeFilter("year", year);
-              handleChangeFilter("bankAccountId", bankAccountId);
-            }}
-          />
+          <FilterModal />
         </div>
 
         <div className="relative">
           <Swiper
             slidesPerView={3}
             centeredSlides
-            initialSlide={getFilter("month")}
+            initialSlide={parameters.month}
             onSlideChange={(swiper) => {
-              handleChangeFilter("month", swiper.realIndex);
+              setParameters("month", swiper.realIndex);
             }}
           >
             <ButtonChevron
@@ -124,11 +113,13 @@ export function Transactions() {
                 <span
                   className={cn(
                     "tracking-tighter font-medium",
-                    transaction.type === "EXPENSE" && "text-red-800",
-                    transaction.type === "INCOME" && "text-green-800"
+                    transaction.type === enTransactionType.EXPENSE &&
+                      "text-red-800",
+                    transaction.type === enTransactionType.INCOME &&
+                      "text-green-800"
                   )}
                 >
-                  {transaction.type === "EXPENSE" ? "- " : "+ "}
+                  {transaction.type === enTransactionType.EXPENSE ? "- " : "+ "}
                   <Value
                     value={transaction.value}
                     visible={areValuesVisible}
