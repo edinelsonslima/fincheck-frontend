@@ -13,6 +13,8 @@ import {
   useBankAccountUpdate,
 } from "../../../../../../app/hooks/use-bank-account.hook";
 import { useState } from "react";
+import { ITransactions } from "../../../../../../types/interfaces/transactions.interface";
+import { useParameters } from "../../../../../../app/hooks/use-parameters.hook";
 
 const { intlCurrency, intlTerm } = intlService;
 
@@ -35,6 +37,7 @@ export function useController() {
   const { currencySymbol } = intlCurrency(0);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [parameters] = useParameters();
 
   const bankAccountUpdate = useBankAccountUpdate();
   const bankAccountDelete = useBankAccountDelete();
@@ -86,6 +89,19 @@ export function useController() {
   };
 
   const updateCacheBankAccountsDeleted = () => {
+    queryClient.setQueryData<ITransactions.GetAll.Response>(
+      enKeys.transactions.getAll({
+        month: parameters.month,
+        year: parameters.year,
+        type: parameters.type,
+        bankAccountId: parameters.bankAccountId,
+      }),
+      (currentTransactions) =>
+        currentTransactions?.filter(
+          ({ bankAccountId }) => bankAccountId !== accountBeingEdited?.id
+        )
+    );
+
     queryClient.setQueryData<IBankAccount.GetAll.Response>(
       enKeys.bankAccount.getAll,
       (currentBankAccounts) =>
