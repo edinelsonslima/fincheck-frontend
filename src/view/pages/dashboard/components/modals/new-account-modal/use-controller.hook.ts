@@ -54,7 +54,10 @@ export function useController() {
     queryClient.setQueryData<IBankAccount.GetAll.Response>(
       enKeys.bankAccount.getAll,
       (currencyBankAccount) =>
-        currencyBankAccount?.concat({ ...bankAccount, currentBalance: 0 })
+        currencyBankAccount?.concat({
+          ...bankAccount,
+          currentBalance: bankAccount.initialBalance,
+        })
     );
   };
 
