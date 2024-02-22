@@ -11,9 +11,9 @@ import toast from "react-hot-toast";
 import { ITransactions } from "../../../../../../types/interfaces/transactions.interface";
 import { enTransactionType } from "../../../../../../types/enums/transaction-type.enum";
 import { enKeys } from "../../../../../../types/enums/requests-keys.enum";
-import { useQueryClient } from "@tanstack/react-query";
 import { IBankAccount } from "../../../../../../types/interfaces/bank-account.interface";
 import { useParameters } from "../../../../../../app/hooks/use-parameters.hook";
+import { useCache } from "../../../../../../app/hooks/use-cache.hook";
 
 const { intlCurrency, intlTerm } = intlService;
 
@@ -36,11 +36,22 @@ export function useController() {
   const { currencySymbol } = intlCurrency(0);
 
   const [parameters] = useParameters();
+  const [, setCacheBankAccounts] = useCache<IBankAccount.GetAll.Response>(
+    enKeys.bankAccount.getAll
+  );
+  const [, setCacheTransactions] = useCache<ITransactions.GetAll.Response>(
+    enKeys.transactions.getAll({
+      month: parameters.month,
+      year: parameters.year,
+      type: parameters.type,
+      bankAccountId: parameters.bankAccountId,
+    })
+  );
 
   const bankAccountGetAll = useBankAccountGetAll();
   const transactionsCreate = useTransactionsCreate();
   const categoriesGetAll = useCategoriesGetAll();
-  const queryClient = useQueryClient();
+
   const isExpense = newTransactionType === enTransactionType.EXPENSE;
 
   const {
@@ -62,50 +73,39 @@ export function useController() {
   const updateCacheTransactions = (
     transaction: ITransactions.Create.Response
   ) => {
-    queryClient.setQueryData<ITransactions.GetAll.Response>(
-      enKeys.transactions.getAll({
-        month:parameters.month,
-        year: parameters.year,
-        type: parameters.type,
-        bankAccountId: parameters.bankAccountId,
-      }),
-      (currentTransactions) => {
-        return currentTransactions?.concat(transaction);
-      }
-    );
+    setCacheTransactions((transactions) => transactions?.concat(transaction));
   };
 
   const updateCacheBankAccounts = (
     transaction: ITransactions.Create.Response
   ) => {
-    queryClient.setQueriesData<IBankAccount.GetAll.Response>(
-      enKeys.bankAccount.getAll,
-      (currentBankAccounts) => {
-        if (!currentBankAccounts) {
-          return currentBankAccounts;
-        }
-
-        const matchedBankAccountIndex = currentBankAccounts?.findIndex(
-          ({ id }) => transaction.bankAccountId === id
-        );
-
-        if (matchedBankAccountIndex === -1) {
-          return currentBankAccounts;
-        }
-
-        const editedBankAccount = currentBankAccounts[matchedBankAccountIndex];
-
-        currentBankAccounts[matchedBankAccountIndex] = {
-          ...editedBankAccount,
-          currentBalance:
-            transaction.type === "EXPENSE"
-              ? editedBankAccount.currentBalance - transaction.value
-              : editedBankAccount.currentBalance + transaction.value,
-        };
-
-        return currentBankAccounts;
+    setCacheBankAccounts((bankAccounts) => {
+      if (!bankAccounts) {
+        return bankAccounts;
       }
-    );
+
+      const matchedBankAccountIndex = bankAccounts?.findIndex(({ id }) => {
+        return transaction.bankAccountId === id;
+      });
+
+      if (matchedBankAccountIndex === -1) {
+        return bankAccounts;
+      }
+
+      const editedBankAccount = bankAccounts[matchedBankAccountIndex];
+
+      if (transaction.type === enTransactionType.EXPENSE) {
+        editedBankAccount.currentBalance -= transaction.value;
+      }
+
+      if (transaction.type === enTransactionType.INCOME) {
+        editedBankAccount.currentBalance += transaction.value;
+      }
+
+      bankAccounts[matchedBankAccountIndex] = editedBankAccount;
+
+      return bankAccounts;
+    });
   };
 
   const handleSubmit = hookFormSubmit(async (data) => {

@@ -6,12 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useBankAccountCreate } from "../../../../../../app/hooks/use-bank-account.hook";
 import toast from "react-hot-toast";
-import { useQueryClient } from "@tanstack/react-query";
 import { enKeys } from "../../../../../../types/enums/requests-keys.enum";
 import { IBankAccount } from "../../../../../../types/interfaces/bank-account.interface";
 import { ITransactions } from "../../../../../../types/interfaces/transactions.interface";
 import { useParameters } from "../../../../../../app/hooks/use-parameters.hook";
 import { enTransactionType } from "../../../../../../types/enums/transaction-type.enum";
+import { useCache } from "../../../../../../app/hooks/use-cache.hook";
 
 const { intlCurrency, intlTerm } = intlService;
 
@@ -35,9 +35,19 @@ export function useController() {
   const { currencySymbol } = intlCurrency(0);
 
   const [parameters] = useParameters();
+  const [, setCacheBankAccounts] = useCache<IBankAccount.GetAll.Response>(
+    enKeys.bankAccount.getAll
+  );
+  const [getCacheTransactions] = useCache<ITransactions.GetAll.Response>(
+    enKeys.transactions.getAll({
+      month: parameters.month,
+      year: parameters.year,
+      type: parameters.type,
+      bankAccountId: parameters.bankAccountId,
+    })
+  );
 
   const bankAccountCreate = useBankAccountCreate();
-  const queryClient = useQueryClient();
 
   const {
     register,
@@ -58,17 +68,7 @@ export function useController() {
   const updateCacheBankAccounts = (
     bankAccount: IBankAccount.Create.Response
   ) => {
-    const transactions =
-      queryClient.getQueryData<ITransactions.GetAll.Response>(
-        enKeys.transactions.getAll({
-          month: parameters.month,
-          year: parameters.year,
-          type: parameters.type,
-          bankAccountId: parameters.bankAccountId,
-        })
-      );
-
-    const currentBalance = transactions
+    const currentBalance = getCacheTransactions()
       ?.filter(({ bankAccountId }) => bankAccountId === bankAccount.id)
       .reduce((total, { value, type }) => {
         if (type === enTransactionType.INCOME) {
@@ -82,13 +82,11 @@ export function useController() {
         return total;
       }, bankAccount.initialBalance);
 
-    queryClient.setQueryData<IBankAccount.GetAll.Response>(
-      enKeys.bankAccount.getAll,
-      (currencyBankAccount) =>
-        currencyBankAccount?.concat({
-          ...bankAccount,
-          currentBalance: currentBalance ?? 0,
-        })
+    setCacheBankAccounts((bankAccounts) =>
+      bankAccounts?.concat({
+        ...bankAccount,
+        currentBalance: currentBalance ?? bankAccount.initialBalance,
+      })
     );
   };
 
