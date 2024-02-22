@@ -2,11 +2,20 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { enKeys } from "../../types/enums/requests-keys.enum";
 import { ITransactions } from "../../types/interfaces/transactions.interface";
 import { transactionsService } from "../services/transactions.service";
+import { useParameters } from "./use-parameters.hook";
 
 export function useTransactionsGetAll(
-  filters: ITransactions.GetAll.Params,
   options?: ITransactions.GetAll.QueryOptions
 ) {
+  const [parameters] = useParameters();
+
+  const filters: ITransactions.GetAll.Params = {
+    month: parameters.month,
+    year: parameters.year,
+    type: parameters.type,
+    bankAccountId: parameters.bankAccountId,
+  };
+
   return useQuery(
     enKeys.transactions.getAll(filters),
     transactionsService.getAll(filters),
