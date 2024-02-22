@@ -18,9 +18,11 @@ const schema = z.object({
   }),
   name: z.string().nonempty(intlTerm("Account name is required")),
   color: z.string().nonempty(intlTerm("Color is required")),
-  type: z.enum(
-    Object.values(enBankAccountType) as [keyof typeof enBankAccountType]
-  ),
+  type: z.enum([
+    enBankAccountType.CASH,
+    enBankAccountType.CHECKING,
+    enBankAccountType.INVESTMENT,
+  ]),
 });
 
 type IFormData = z.infer<typeof schema>;
@@ -48,25 +50,12 @@ export function useController() {
     },
   });
 
-  const updateCacheBankAccounts = (
-    bankAccount: IBankAccount.Create.Response
-  ) => {
-    queryClient.setQueryData<IBankAccount.GetAll.Response>(
-      enKeys.bankAccount.getAll,
-      (currencyBankAccount) =>
-        currencyBankAccount?.concat({
-          ...bankAccount,
-          currentBalance: bankAccount.initialBalance,
-        })
-    );
-  };
-
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      const newBankAccount = await bankAccountCreate.mutateAsync(data);
+      await bankAccountCreate.mutateAsync(data);
 
       reset();
-      updateCacheBankAccounts(newBankAccount);
+      queryClient.invalidateQueries({ queryKey: enKeys.bankAccount.getAll });
       toast.success(intlTerm("Account registered successfully!"));
       closeNewAccountModal();
     } catch (error) {
