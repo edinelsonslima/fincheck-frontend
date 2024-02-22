@@ -12,8 +12,8 @@ import { ITransactions } from "../../../../../../types/interfaces/transactions.i
 import { enTransactionType } from "../../../../../../types/enums/transaction-type.enum";
 import { enKeys } from "../../../../../../types/enums/requests-keys.enum";
 import { useQueryClient } from "@tanstack/react-query";
-import { useSearchParams } from "react-router-dom";
 import { IBankAccount } from "../../../../../../types/interfaces/bank-account.interface";
+import { useParameters } from "../../../../../../app/hooks/use-parameters.hook";
 
 const { intlCurrency, intlTerm } = intlService;
 
@@ -35,7 +35,7 @@ export function useController() {
   } = useDashboard();
   const { currencySymbol } = intlCurrency(0);
 
-  const [searchParams] = useSearchParams();
+  const [parameters] = useParameters();
 
   const bankAccountGetAll = useBankAccountGetAll();
   const transactionsCreate = useTransactionsCreate();
@@ -64,8 +64,10 @@ export function useController() {
   ) => {
     queryClient.setQueryData<ITransactions.GetAll.Response>(
       enKeys.transactions.getAll({
-        month: Number(searchParams.get("month")),
-        year: Number(searchParams.get("year")),
+        month:parameters.month,
+        year: parameters.year,
+        type: parameters.type,
+        bankAccountId: parameters.bankAccountId,
       }),
       (currentTransactions) => {
         return currentTransactions?.concat(transaction);
