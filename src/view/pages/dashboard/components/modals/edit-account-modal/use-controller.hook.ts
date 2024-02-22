@@ -5,7 +5,6 @@ import { enBankAccountType } from "../../../../../../types/enums/bank-account-ty
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useQueryClient } from "@tanstack/react-query";
 import { enKeys } from "../../../../../../types/enums/requests-keys.enum";
 import { IBankAccount } from "../../../../../../types/interfaces/bank-account.interface";
 import {
@@ -15,6 +14,8 @@ import {
 import { useState } from "react";
 import { ITransactions } from "../../../../../../types/interfaces/transactions.interface";
 import { useParameters } from "../../../../../../app/hooks/use-parameters.hook";
+import { useCache } from "../../../../../../app/hooks/use-cache.hook";
+import { enTransactionType } from "../../../../../../types/enums/transaction-type.enum";
 
 const { intlCurrency, intlTerm } = intlService;
 
@@ -39,9 +40,22 @@ export function useController() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [parameters] = useParameters();
 
+  const [, setCacheBankAccounts] = useCache<IBankAccount.GetAll.Response>(
+    enKeys.bankAccount.getAll
+  );
+
+  const [getCacheTransactions, setCacheTransactions] =
+    useCache<ITransactions.GetAll.Response>(
+      enKeys.transactions.getAll({
+        month: parameters.month,
+        year: parameters.year,
+        type: parameters.type,
+        bankAccountId: parameters.bankAccountId,
+      })
+    );
+
   const bankAccountUpdate = useBankAccountUpdate();
   const bankAccountDelete = useBankAccountDelete();
-  const queryClient = useQueryClient();
 
   const {
     register,
@@ -62,50 +76,52 @@ export function useController() {
   const updateCacheBankAccountsEdited = (
     bankAccount: IBankAccount.Update.Response
   ) => {
-    queryClient.setQueryData<IBankAccount.GetAll.Response>(
-      enKeys.bankAccount.getAll,
-      (currentBankAccounts) => {
-        if (!currentBankAccounts) {
-          return currentBankAccounts;
-        }
-
-        const matchedBankAccountIndex = currentBankAccounts.findIndex(
-          ({ id }) => id === accountBeingEdited?.id
-        );
-
-        if (matchedBankAccountIndex === -1) {
-          return currentBankAccounts;
-        }
-
-        currentBankAccounts[matchedBankAccountIndex] = {
-          ...currentBankAccounts[matchedBankAccountIndex],
-          ...bankAccount,
-          currentBalance: bankAccount.initialBalance,
-        };
-
-        return currentBankAccounts;
+    setCacheBankAccounts((bankAccounts) => {
+      if (!bankAccounts) {
+        return bankAccounts;
       }
-    );
+
+      const bankAccountIndex = bankAccounts.findIndex(({ id }) => {
+        return id === accountBeingEdited?.id;
+      });
+
+      if (bankAccountIndex === -1) {
+        return bankAccounts;
+      }
+
+      const currentBalance = getCacheTransactions()
+        ?.filter(({ bankAccountId }) => bankAccountId === bankAccount.id)
+        .reduce((total, { value, type }) => {
+          if (type === enTransactionType.INCOME) {
+            total += value;
+          }
+
+          if (type === enTransactionType.EXPENSE) {
+            total -= value;
+          }
+
+          return total;
+        }, bankAccount.initialBalance);
+
+      bankAccounts[bankAccountIndex] = {
+        ...bankAccounts[bankAccountIndex],
+        ...bankAccount,
+        currentBalance: currentBalance ?? bankAccount.initialBalance,
+      };
+
+      return bankAccounts;
+    });
   };
 
   const updateCacheBankAccountsDeleted = () => {
-    queryClient.setQueryData<ITransactions.GetAll.Response>(
-      enKeys.transactions.getAll({
-        month: parameters.month,
-        year: parameters.year,
-        type: parameters.type,
-        bankAccountId: parameters.bankAccountId,
-      }),
-      (currentTransactions) =>
-        currentTransactions?.filter(
-          ({ bankAccountId }) => bankAccountId !== accountBeingEdited?.id
-        )
+    setCacheTransactions((transactions) =>
+      transactions?.filter(
+        ({ bankAccountId }) => bankAccountId !== accountBeingEdited?.id
+      )
     );
 
-    queryClient.setQueryData<IBankAccount.GetAll.Response>(
-      enKeys.bankAccount.getAll,
-      (currentBankAccounts) =>
-        currentBankAccounts?.filter(({ id }) => id !== accountBeingEdited?.id)
+    setCacheBankAccounts((bankAccounts) =>
+      bankAccounts?.filter(({ id }) => id !== accountBeingEdited?.id)
     );
   };
 
