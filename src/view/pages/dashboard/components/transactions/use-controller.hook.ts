@@ -1,54 +1,18 @@
-import { useSearchParams } from "react-router-dom";
 import { useTransactionsGetAll } from "../../../../../app/hooks/use-transactions.hook";
 import { intlService } from "../../../../../app/services/intl.service";
 import { useDashboard } from "../../hook/use-dashboard.hook";
 import { useEffect, useRef } from "react";
-import { ITransactions } from "../../../../../types/interfaces/transactions.interface";
-import { useBankAccountGetAll } from "../../../../../app/hooks/use-bank-account.hook";
-
-interface IFilters extends ITransactions.GetAll.Params {}
+import { useParameters } from "../../../../../app/hooks/use-parameters.hook";
 
 const { intlDate, intlMonths, intlTerm } = intlService;
 
 export function useController() {
-  const isFirstRender = useRef(true);
+  const [parameters, setParameters] = useParameters();
+
   const { areValuesVisible } = useDashboard();
 
-  const [searchParams, setSearchParams] = useSearchParams({
-    month: String(new Date().getMonth()),
-    year: String(new Date().getFullYear()),
-  });
-
-  const getFilter = <T extends keyof IFilters>(key: T) => {
-    return searchParams.get(key) as IFilters[T];
-  };
-
-  const bankAccountGetAll = useBankAccountGetAll();
-  const transactionsGetAll = useTransactionsGetAll({
-    month: getFilter("month"),
-    year: getFilter("year"),
-    type: getFilter("type"),
-    bankAccountId: getFilter("bankAccountId"),
-  });
-
-  const handleChangeFilter = <T extends keyof IFilters>(
-    filter: T,
-    value: IFilters[T]
-  ) => {
-    const invalidValues = [undefined, null, ""];
-
-    if (invalidValues.includes(value as undefined)) {
-      return setSearchParams((params) => {
-        params.delete(filter);
-        return params;
-      });
-    }
-
-    setSearchParams((params) => {
-      params.set(filter, String(value));
-      return params;
-    });
-  };
+  const isFirstRender = useRef(true);
+  const transactionsGetAll = useTransactionsGetAll();
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -61,9 +25,8 @@ export function useController() {
     intlTerm,
     intlDate,
     intlMonths,
-    getFilter,
-    handleChangeFilter,
-    accounts: bankAccountGetAll.data ?? [],
+    parameters,
+    setParameters,
     transactions: transactionsGetAll.data ?? [],
     isLoading: transactionsGetAll.isLoading,
     isInitialLoading: isFirstRender.current
