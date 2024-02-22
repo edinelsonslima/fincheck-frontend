@@ -3,44 +3,43 @@ import { IconChevronDown } from "../../../../../assets/icons/chevron-down.icon";
 import { IconExpenses } from "../../../../../assets/icons/expenses.icon";
 import { IconIncome } from "../../../../../assets/icons/income.icon";
 import { IconTransactions } from "../../../../../assets/icons/transactions.icon";
+import { enTransactionType } from "../../../../../types/enums/transaction-type.enum";
 import { DropdownMenu } from "../../../../components/dropdown-menu.component";
-
-interface IFilterType {
-  onSelect(type?: "INCOME" | "EXPENSE"): void;
-  selectedType?: "INCOME" | "EXPENSE";
-}
+import { useParameters } from "../../../../../app/hooks/use-parameters.hook";
 
 interface IConfig {
-  EXPENSE: { name: string; icon: JSX.Element };
-  INCOME: { name: string; icon: JSX.Element };
-  null: { name: string; icon: JSX.Element };
+  [enTransactionType.EXPENSE]: { name: string; icon: JSX.Element };
+  [enTransactionType.INCOME]: { name: string; icon: JSX.Element };
+  transactions: { name: string; icon: JSX.Element };
 }
 
 const { intlTerm } = intlService;
 
 const config: IConfig = {
-  EXPENSE: {
+  [enTransactionType.EXPENSE]: {
     name: intlTerm("Expenses"),
     icon: <IconExpenses />,
   },
-  INCOME: {
+  [enTransactionType.INCOME]: {
     name: intlTerm("Incomes"),
     icon: <IconIncome />,
   },
-  null: {
+  transactions: {
     name: intlTerm("Transactions"),
     icon: <IconTransactions />,
   },
 };
 
-export function FilterType({ onSelect, selectedType }: IFilterType) {
+export function FilterType() {
+  const [parameters, setParameters] = useParameters();
+
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="flex items-center gap-2">
-        {config[selectedType as keyof IConfig].icon}
+        {config[parameters?.type ?? "transactions"].icon}
 
         <span className="text-sm text-gray-800 tracking-tighter font-medium">
-          {config[selectedType as keyof IConfig].name}
+          {config[parameters?.type ?? "transactions"].name}
         </span>
 
         <IconChevronDown className="text-gray-900" />
@@ -49,7 +48,7 @@ export function FilterType({ onSelect, selectedType }: IFilterType) {
       <DropdownMenu.Content className="w-[17.4375rem] mt-2 ml-12 md:ml-28">
         <DropdownMenu.Item
           className="gap-2"
-          onSelect={() => onSelect("INCOME")}
+          onSelect={() => setParameters("type", enTransactionType.INCOME)}
         >
           {config.INCOME.icon}
           {config.INCOME.name}
@@ -57,15 +56,18 @@ export function FilterType({ onSelect, selectedType }: IFilterType) {
 
         <DropdownMenu.Item
           className="gap-2"
-          onSelect={() => onSelect("EXPENSE")}
+          onSelect={() => setParameters("type", enTransactionType.EXPENSE)}
         >
           {config.EXPENSE.icon}
           {config.EXPENSE.name}
         </DropdownMenu.Item>
 
-        <DropdownMenu.Item className="gap-2" onSelect={() => onSelect()}>
-          {config.null.icon}
-          {config.null.name}
+        <DropdownMenu.Item
+          className="gap-2"
+          onSelect={() => setParameters("type", null)}
+        >
+          {config.transactions.icon}
+          {config.transactions.name}
         </DropdownMenu.Item>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
