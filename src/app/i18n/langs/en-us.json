@@ -28,6 +28,8 @@
   "incomes": "incomes",
   "expenses": "expenses",
   "transactions": "transactions",
+  "Edit income": "Edit income",
+  "Edit expense": "Edit expense",
   "New income": "New income",
   "New expense": "New expense",
   "New account": "New account",

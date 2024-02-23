@@ -28,6 +28,8 @@
   "incomes": "receitas",
   "expenses": "despesas",
   "transactions": "transações",
+  "Edit income": "Editar receita",
+  "Edit expense": "Editar despesa",
   "New income": "Nova receita",
   "New expense": "Nova despesa",
   "New account": "Nova conta",
