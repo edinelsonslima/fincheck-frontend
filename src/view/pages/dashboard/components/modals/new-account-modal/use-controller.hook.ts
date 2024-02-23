@@ -13,7 +13,7 @@ import { useParameters } from "../../../../../../app/hooks/use-parameters.hook";
 import { enTransactionType } from "../../../../../../types/enums/transaction-type.enum";
 import { useCache } from "../../../../../../app/hooks/use-cache.hook";
 
-const { intlCurrency, intlTerm } = intlService;
+const { intlTerm } = intlService;
 
 const schema = z.object({
   initialBalance: z.number({
@@ -32,7 +32,6 @@ type IFormData = z.infer<typeof schema>;
 
 export function useController() {
   const { isNewAccountModalOpen, closeNewAccountModal } = useDashboard();
-  const { currencySymbol } = intlCurrency(0);
 
   const [parameters] = useParameters();
   const [, setCacheBankAccounts] = useCache<IBankAccount.GetAll.Response>(
@@ -112,7 +111,6 @@ export function useController() {
     isNewAccountModalOpen,
     closeNewAccountModal,
     intlTerm,
-    currencySymbol,
     register,
     errors,
     handleSubmit,

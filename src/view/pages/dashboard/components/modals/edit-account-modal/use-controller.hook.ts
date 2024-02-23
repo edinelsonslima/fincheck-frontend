@@ -17,7 +17,7 @@ import { useParameters } from "../../../../../../app/hooks/use-parameters.hook";
 import { useCache } from "../../../../../../app/hooks/use-cache.hook";
 import { enTransactionType } from "../../../../../../types/enums/transaction-type.enum";
 
-const { intlCurrency, intlTerm } = intlService;
+const { intlTerm } = intlService;
 
 const schema = z.object({
   initialBalance: z.number({
@@ -35,7 +35,6 @@ type IFormData = z.infer<typeof schema>;
 export function useController() {
   const { isEditAccountModalOpen, closeEditAccountModal, accountBeingEdited } =
     useDashboard();
-  const { currencySymbol } = intlCurrency(0);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [parameters] = useParameters();
@@ -173,7 +172,6 @@ export function useController() {
     isEditAccountModalOpen,
     closeEditAccountModal,
     intlTerm,
-    currencySymbol,
     register,
     errors,
     handleSubmit,

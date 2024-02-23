@@ -12,7 +12,6 @@ export function NewAccountModal() {
   const {
     isNewAccountModalOpen,
     closeNewAccountModal,
-    currencySymbol,
     intlTerm,
     errors,
     handleSubmit,
@@ -33,22 +32,17 @@ export function NewAccountModal() {
             {intlTerm("Initial balance")}
           </span>
 
-          <div className="flex items-center gap-2">
-            <span className="text-gray-600 tracking-tighter text-lg">
-              {currencySymbol}
-            </span>
-            <Controller
-              control={control}
-              name="initialBalance"
-              render={({ field: { onChange, value } }) => (
-                <InputCurrency
-                  value={value}
-                  onChange={onChange}
-                  error={errors.initialBalance?.message}
-                />
-              )}
-            />
-          </div>
+          <Controller
+            control={control}
+            name="initialBalance"
+            render={({ field: { onChange, value } }) => (
+              <InputCurrency
+                value={value}
+                onChange={onChange}
+                error={errors.initialBalance?.message}
+              />
+            )}
+          />
         </div>
 
         <div className="mt-10 flex flex-col gap-4">
