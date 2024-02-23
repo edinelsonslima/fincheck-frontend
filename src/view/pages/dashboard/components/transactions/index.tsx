@@ -10,6 +10,7 @@ import { FilterType } from "./filter-type.component";
 import { useController } from "./use-controller.hook";
 import { cn } from "../../../../../app/utils/cn.utils";
 import { enTransactionType } from "../../../../../types/enums/transaction-type.enum";
+import { EditTransactionModal } from "../modals/edit-transaction-modal";
 
 export function Transactions() {
   const {
@@ -22,6 +23,10 @@ export function Transactions() {
     intlTerm,
     parameters,
     setParameters,
+    handleCloseEditModal,
+    handleOpenEditModal,
+    isEditModalOpen,
+    transactionBeingEdited,
   } = useController();
 
   if (isInitialLoading) {
@@ -87,48 +92,62 @@ export function Transactions() {
           </div>
         )}
 
-        {!!transactions?.length &&
-          !isLoading &&
-          transactions
-            .map((transaction) => (
-              <div
-                key={transaction.id}
-                className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
-              >
-                <div className="flex flex-1 items-center gap-2">
-                  <CategoryIcon
-                    type={transaction.type}
-                    category={transaction.category?.icon}
-                  />
+        {!!transactions?.length && !isLoading && (
+          <>
+            {transactionBeingEdited && (
+              <EditTransactionModal
+                open={isEditModalOpen}
+                onClose={handleCloseEditModal}
+                transaction={transactionBeingEdited}
+              />
+            )}
 
-                  <div>
-                    <strong className="block font-bold">
-                      {transaction.name}
-                    </strong>
-                    <span className="text-sm text-gray-600">
-                      {intlDate(new Date(transaction.date))}
-                    </span>
-                  </div>
-                </div>
-                <span
-                  className={cn(
-                    "tracking-tighter font-medium",
-                    transaction.type === enTransactionType.EXPENSE &&
-                      "text-red-800",
-                    transaction.type === enTransactionType.INCOME &&
-                      "text-green-800"
-                  )}
+            {transactions
+              .map((transaction) => (
+                <button
+                  type="button"
+                  key={transaction.id}
+                  onClick={() => handleOpenEditModal(transaction)}
+                  className="w-full bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
                 >
-                  {transaction.type === enTransactionType.EXPENSE ? "- " : "+ "}
-                  <Value
-                    value={transaction.value}
-                    visible={areValuesVisible}
-                    blur="sm"
-                  />
-                </span>
-              </div>
-            ))
-            .reverse()}
+                  <div className="flex flex-1 items-center gap-2">
+                    <CategoryIcon
+                      type={transaction.type}
+                      category={transaction.category?.icon}
+                    />
+
+                    <div>
+                      <strong className="block font-bold">
+                        {transaction.name}
+                      </strong>
+                      <span className="text-sm text-gray-600">
+                        {intlDate(new Date(transaction.date))}
+                      </span>
+                    </div>
+                  </div>
+                  <span
+                    className={cn(
+                      "tracking-tighter font-medium",
+                      transaction.type === enTransactionType.EXPENSE &&
+                        "text-red-800",
+                      transaction.type === enTransactionType.INCOME &&
+                        "text-green-800"
+                    )}
+                  >
+                    {transaction.type === enTransactionType.EXPENSE
+                      ? "- "
+                      : "+ "}
+                    <Value
+                      value={transaction.value}
+                      visible={areValuesVisible}
+                      blur="sm"
+                    />
+                  </span>
+                </button>
+              ))
+              .reverse()}
+          </>
+        )}
       </section>
     </>
   );
