@@ -4,7 +4,7 @@ import { enTransactionType } from "../../types/enums/transaction-type.enum";
 import { useCallback, useMemo } from "react";
 
 const schema = z.object({
-  month: z.coerce.number().min(0).max(11).positive(),
+  month: z.coerce.number().min(0).max(11).nonnegative(),
   year: z.coerce.number().min(2000).max(9999).positive(),
   bankAccountId: z.string().uuid().optional(),
   type: z
