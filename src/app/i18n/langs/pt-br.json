@@ -75,8 +75,12 @@
   "Provide the bank account ID.": "Informe o id da conta do banco.",
   "Expense successfully registered!": "Despesa cadastrada com sucesso!",
   "Income successfully registered!": "Receita cadastrada com sucesso!",
+  "Expense successfully edited!": "Despesa editada com sucesso!",
+  "Income successfully edited!": "Receita editada com sucesso!",
   "Error registering expense!": "Erro ao cadastrar despesa!",
   "Error registering income!": "Erro ao cadastrar receita!",
+  "Error editing expense!": "Erro editando despesa!",
+  "Error editing income!": "Erro editando receita!",
   "Incomes": "Receitas",
   "Expenses": "Despesas"
 }

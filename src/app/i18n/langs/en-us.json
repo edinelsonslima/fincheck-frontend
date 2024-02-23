@@ -75,8 +75,12 @@
   "Provide the bank account ID.": "Provide the bank account ID.",
   "Expense successfully registered!": "Expense successfully registered!",
   "Income successfully registered!": "Income successfully registered!",
+  "Expense successfully edited!": "Expense successfully edited",
+  "Income successfully edited!": "Income successfully edited",
   "Error registering expense!": "Error registering expense!",
   "Error registering income!": "Error registering income!",
+  "Error editing expense!": "Error editing expense!",
+  "Error editing income!": "Error editing income!",
   "Incomes": "Incomes",
   "Expenses": "Expenses"
 }
