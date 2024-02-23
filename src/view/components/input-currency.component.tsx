@@ -20,6 +20,8 @@ const { intlCurrency } = intlService;
 
 export function InputCurrency({ error, onChange, value }: IInputCurrencyProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  
+  const { currencySymbol } = intlCurrency(0);
 
   const getFormattedPrice = (value = 0) => {
     const { priceValue } = intlCurrency(value);
@@ -46,7 +48,11 @@ export function InputCurrency({ error, onChange, value }: IInputCurrencyProps) {
   useEffect(() => inputRef.current?.focus(), [inputRef]);
 
   return (
-    <div>
+    <div className="flex items-center gap-2">
+      <span className="text-gray-600 tracking-tighter text-lg">
+        {currencySymbol}
+      </span>
+
       <input
         ref={inputRef}
         onChange={handleChange}
