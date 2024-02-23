@@ -15,7 +15,7 @@ import { IBankAccount } from "../../../../../../types/interfaces/bank-account.in
 import { useParameters } from "../../../../../../app/hooks/use-parameters.hook";
 import { useCache } from "../../../../../../app/hooks/use-cache.hook";
 
-const { intlCurrency, intlTerm } = intlService;
+const { intlTerm } = intlService;
 
 const schema = z.object({
   value: z.number({ required_error: intlTerm("Provide the value.") }),
@@ -33,7 +33,6 @@ export function useController() {
     closeNewTransactionModal,
     newTransactionType,
   } = useDashboard();
-  const { currencySymbol } = intlCurrency(0);
 
   const [parameters] = useParameters();
   const [, setCacheBankAccounts] = useCache<IBankAccount.GetAll.Response>(
@@ -136,9 +135,8 @@ export function useController() {
   });
 
   const categories = useMemo(() => {
-    return categoriesGetAll.data?.filter(
-      ({ type }) => type === newTransactionType
-    );
+    const data = categoriesGetAll.data;
+    return data?.filter(({ type }) => type === newTransactionType);
   }, [categoriesGetAll.data, newTransactionType]);
 
   return {
@@ -147,7 +145,6 @@ export function useController() {
     control,
     intlTerm,
     isExpense,
-    currencySymbol,
     handleSubmit,
     isNewTransactionModalOpen,
     closeNewTransactionModal,
