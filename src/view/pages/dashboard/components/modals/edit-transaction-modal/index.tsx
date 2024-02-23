@@ -29,7 +29,7 @@ export function EditTransactionModal({
     categories,
     isLoading,
     isExpense,
-  } = useController(transaction);
+  } = useController(transaction, onClose);
 
   return (
     <Modal
@@ -112,7 +112,7 @@ export function EditTransactionModal({
         </div>
 
         <Button type="submit" className="w-full mt-6" loading={isLoading}>
-          {intlTerm("Create")}
+          {intlTerm("Save")}
         </Button>
       </form>
     </Modal>

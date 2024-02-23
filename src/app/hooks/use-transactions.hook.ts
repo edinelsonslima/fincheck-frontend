@@ -32,3 +32,13 @@ export function useTransactionsCreate(
     mutationOptions
   );
 }
+
+export function useTransactionsUpdate(
+  mutationOptions?: ITransactions.Update.MutationOptions
+) {
+  return useMutation(
+    enKeys.transactions.update,
+    transactionsService.update,
+    mutationOptions
+  );
+}

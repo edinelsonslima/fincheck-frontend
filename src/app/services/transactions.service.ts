@@ -5,6 +5,7 @@ class TransactionsService {
   constructor(private readonly _httpClient: HttpClient) {
     this.getAll = this.getAll.bind(this);
     this.create = this.create.bind(this);
+    this.update = this.update.bind(this);
   }
 
   public getAll(filters: ITransactions.GetAll.Params) {
@@ -25,6 +26,15 @@ class TransactionsService {
   public async create(params: ITransactions.Create.Params) {
     const { data } = await this._httpClient.post<ITransactions.Create.Response>(
       "/transactions",
+      params
+    );
+
+    return data;
+  }
+
+  public async update({ id, ...params }: ITransactions.Update.Params) {
+    const { data } = await this._httpClient.put<ITransactions.Update.Response>(
+      `/transactions/${id}`,
       params
     );
 

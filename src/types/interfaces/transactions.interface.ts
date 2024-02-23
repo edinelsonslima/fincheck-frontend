@@ -61,4 +61,23 @@ export module ITransactions {
     export interface MutationOptions
       extends IOmitMKeyMFn<UseMutationOptions<Response, Error, Params>> {}
   }
+
+  export module Update {
+    export interface Params {
+      id: string;
+      bankAccountId: string;
+      categoryId: string;
+      name: string;
+      value: number;
+      date: string;
+      type: enTransactionType;
+    }
+
+    export interface Response extends Entity {}
+
+    export interface Error extends AxiosError<IApiError, Params> {}
+
+    export interface MutationOptions
+      extends IOmitMKeyMFn<UseMutationOptions<Response, Error, Params>> {}
+  }
 }

@@ -22,5 +22,6 @@ export const enKeys = Object.freeze({
     getAll: (params: ITransactions.GetAll.Params) =>
       formatKeys(params, "transactions", "get_all"),
     create: ["transactions", "create"],
+    update: ["transactions", "update"],
   }),
 });
