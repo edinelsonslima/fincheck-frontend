@@ -2,13 +2,6 @@ import { FormEvent, useEffect, useRef } from "react";
 import { intlService } from "../../app/services/intl.service";
 import { IconCrossCircled } from "../../assets/icons/cross-circled.icon";
 import { cn } from "../../app/utils/cn.utils";
-import { currencyStringToNumber } from "../../app/utils/currency-string-to-number";
-
-interface IInputCurrencyEvent extends FormEvent<HTMLInputElement> {
-  target: HTMLInputElement & {
-    value: string;
-  };
-}
 
 interface IInputCurrencyProps {
   error?: string;
@@ -20,7 +13,7 @@ const { intlCurrency } = intlService;
 
 export function InputCurrency({ error, onChange, value }: IInputCurrencyProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  
+
   const { currencySymbol } = intlCurrency(0);
 
   const getFormattedPrice = (value = 0) => {
@@ -28,41 +21,41 @@ export function InputCurrency({ error, onChange, value }: IInputCurrencyProps) {
     return priceValue;
   };
 
-  const handleChange = (e: IInputCurrencyEvent) => {
-    const hasValue = Number(e.target.value.replace(/\D/g, ""));
+  const handleChange = (e: FormEvent<HTMLInputElement>) => {
+    const inputValue = Number(e.currentTarget.value.replace(/\D/g, ""));
 
-    if (!hasValue || !inputRef.current) {
+    if (isNaN(inputValue) || !inputRef.current) {
       onChange?.(undefined);
-      return (e.target.value = "");
+      return (e.currentTarget.value = "");
     }
 
-    const { selectionStart, selectionEnd } = inputRef.current;
+    const value = inputValue / 100;
+    const price = getFormattedPrice(value);
 
-    const price = getFormattedPrice(currencyStringToNumber(e.target.value));
-    onChange?.(currencyStringToNumber(price));
-    e.target.value = price;
-
-    inputRef.current.setSelectionRange((selectionStart || 0) + 1, selectionEnd);
+    onChange?.(value);
+    e.currentTarget.value = price;
   };
 
   useEffect(() => inputRef.current?.focus(), [inputRef]);
 
   return (
-    <div className="flex items-center gap-2">
-      <span className="text-gray-600 tracking-tighter text-lg">
-        {currencySymbol}
-      </span>
+    <div>
+      <div className="flex items-center gap-2">
+        <span className="text-gray-600 tracking-tighter text-lg">
+          {currencySymbol}
+        </span>
 
-      <input
-        ref={inputRef}
-        onChange={handleChange}
-        placeholder={getFormattedPrice()}
-        defaultValue={value ? getFormattedPrice(value) : undefined}
-        className={cn(
-          "w-full text-gray-900 text-[2rem] font-bold tracking-tightest outline-none",
-          error && "text-red-900 placeholder:text-red-900/50"
-        )}
-      />
+        <input
+          ref={inputRef}
+          onChange={handleChange}
+          placeholder={getFormattedPrice()}
+          defaultValue={value ? getFormattedPrice(value) : undefined}
+          className={cn(
+            "w-full text-gray-900 text-[2rem] font-bold tracking-tightest outline-none",
+            error && "text-red-900 placeholder:text-red-900/50"
+          )}
+        />
+      </div>
 
       {error && (
         <div className="flex items-center gap-2 mt-2 text-red-900">
