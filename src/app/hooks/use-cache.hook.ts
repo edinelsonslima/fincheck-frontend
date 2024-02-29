@@ -19,9 +19,18 @@ export function useCache<TData>(key: QueryKey) {
 
   const setCache = useCallback(
     function (
-      updaterCache: Updater<TData | undefined, TData | undefined>,
+      updater: Updater<TData | undefined, TData | undefined>,
       options?: SetDataOptions
     ) {
+      const updaterCache = (data: TData | undefined) => {
+        if (typeof updater === "function") {
+          const fn = updater as (data: TData | undefined) => TData | undefined;
+          return fn(structuredClone(data));
+        }
+
+        return updater;
+      };
+
       return queryClient.setQueryData<TData>(key, updaterCache, options);
     },
     [key, queryClient]
