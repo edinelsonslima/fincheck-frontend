@@ -22,9 +22,9 @@ export function useController() {
     return isLess(500) ? 1.1 : windowWidth.md ? 2.1 : isLess(900) ? 1.1 : 2.1;
   }, [windowWidth.md, windowWidth.width]);
 
-  const currentBalance = data.reduce((total, account) => {
-    return total + account.currentBalance;
-  }, 0);
+  const currentBalance = useMemo(() => {
+    return data.reduce((total, account) => total + account.currentBalance, 0);
+  }, [data]);
 
   return {
     sliderState,
