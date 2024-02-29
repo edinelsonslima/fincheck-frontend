@@ -1,7 +1,11 @@
-import { PropsWithChildren, createContext, useCallback } from "react";
+import {
+  PropsWithChildren,
+  createContext,
+  useCallback,
+} from "react";
 import { useLocalStorage } from "../../../../app/hooks/use-local-storage.hook";
 import { enLocalStorage } from "../../../../types/enums/local-storage.enum";
-import { useReducer } from "../../../../app/hooks/use-reducer";
+import { useStates } from "../../../../app/hooks/use-states";
 import { IBankAccount } from "../../../../types/interfaces/bank-account.interface";
 import { enTransactionType } from "../../../../types/enums/transaction-type.enum";
 
@@ -30,7 +34,7 @@ interface IDashboardContextProps extends IStates {
 export const DashboardContext = createContext({} as IDashboardContextProps);
 
 export function DashboardProvider({ children }: PropsWithChildren) {
-  const [states, dispatch] = useReducer<IStates>({
+  const [states, dispatch] = useStates<IStates>({
     isNewAccountModalOpen: false,
     isEditAccountModalOpen: false,
     isNewTransactionModalOpen: false,
@@ -48,35 +52,38 @@ export function DashboardProvider({ children }: PropsWithChildren) {
   }, [setAreValuesVisible]);
 
   const openNewAccountModal = useCallback(() => {
-    dispatch({ action: "isNewAccountModalOpen", value: true });
-  }, []);
+    dispatch("isNewAccountModalOpen", true);
+  }, [dispatch]);
 
   const closeNewAccountModal = useCallback(() => {
-    dispatch({ action: "isNewAccountModalOpen", value: false });
-  }, []);
+    dispatch("isNewAccountModalOpen", false);
+  }, [dispatch]);
 
   const openEditAccountModal = useCallback(
     (bankAccount: IBankAccount.Entity) => {
-      dispatch({ action: "isEditAccountModalOpen", value: true });
-      dispatch({ action: "accountBeingEdited", value: bankAccount });
+      dispatch("isEditAccountModalOpen", true);
+      dispatch("accountBeingEdited", bankAccount);
     },
-    []
+    [dispatch]
   );
 
   const closeEditAccountModal = useCallback(() => {
-    dispatch({ action: "isEditAccountModalOpen", value: false });
-    dispatch({ action: "accountBeingEdited", value: null });
-  }, []);
+    dispatch("isEditAccountModalOpen", false);
+    dispatch("accountBeingEdited", null);
+  }, [dispatch]);
 
-  const openNewTransactionModal = useCallback((type: enTransactionType) => {
-    dispatch({ action: "newTransactionType", value: type });
-    dispatch({ action: "isNewTransactionModalOpen", value: true });
-  }, []);
+  const openNewTransactionModal = useCallback(
+    (type: enTransactionType) => {
+      dispatch("newTransactionType", type);
+      dispatch("isNewTransactionModalOpen", true);
+    },
+    [dispatch]
+  );
 
   const closeNewTransactionModal = useCallback(() => {
-    dispatch({ action: "newTransactionType", value: null });
-    dispatch({ action: "isNewTransactionModalOpen", value: false });
-  }, []);
+    dispatch("newTransactionType", null);
+    dispatch("isNewTransactionModalOpen", false);
+  }, [dispatch]);
 
   return (
     <DashboardContext.Provider
