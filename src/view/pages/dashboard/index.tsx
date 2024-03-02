@@ -1,12 +1,12 @@
 import "swiper/css";
 import { IconLogo } from "../../../assets/icons/logo.icon";
 import { UserMenu } from "../../components/user-menu.component";
-import { Accounts } from "./components/accounts";
-import { Fab } from "./components/fab-component";
-import { Transactions } from "./components/transactions";
-import { NewAccountModal } from "./components/accounts/new-account-modal";
-import { NewTransactionModal } from "./components/transactions/new-transaction-modal";
-import { EditAccountModal } from "./components/accounts/edit-account-modal";
+import { Accounts } from "./accounts";
+import { Fab } from "./fab-component";
+import { Transactions } from "./transactions";
+import { NewAccountModal } from "./accounts/new-account-modal";
+import { NewTransactionModal } from "./transactions/new-transaction-modal";
+import { EditAccountModal } from "./accounts/edit-account-modal";
 import { DashboardContext, DashboardProvider } from "./use-controller.hook";
 
 export function Dashboard() {

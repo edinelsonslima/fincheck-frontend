@@ -1,10 +1,10 @@
-import { intlService } from "../../../../app/services/intl.service";
-import { IconBankAccount } from "../../../../assets/icons/bank-account.icon";
-import { IconPlus } from "../../../../assets/icons/plus.icon";
-import { enTransactionType } from "../../../../types/enums/transaction-type.enum";
-import { CategoryIcon } from "../../../components/category-icon.component";
-import { DropdownMenu } from "../../../components/dropdown-menu.component";
-import { useDashboard } from "../use-controller.hook";
+import { intlService } from "../../../app/services/intl.service";
+import { IconBankAccount } from "../../../assets/icons/bank-account.icon";
+import { IconPlus } from "../../../assets/icons/plus.icon";
+import { enTransactionType } from "../../../types/enums/transaction-type.enum";
+import { CategoryIcon } from "../../components/category-icon.component";
+import { DropdownMenu } from "../../components/dropdown-menu.component";
+import { useDashboard } from "./use-controller.hook";
 
 const { t } = intlService;
 

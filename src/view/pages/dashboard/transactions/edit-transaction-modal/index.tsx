@@ -1,18 +1,28 @@
 import { Controller } from "react-hook-form";
-import { Button } from "../../../../../components/button.component";
-import { DatePickerInput } from "../../../../../components/date-picker-input.component";
-import { InputCurrency } from "../../../../../components/input-currency.component";
-import { Input } from "../../../../../components/input.component";
-import { Modal } from "../../../../../components/modal.component";
-import { Select } from "../../../../../components/select.component";
+import { Button } from "../../../../components/button.component";
+import { DatePickerInput } from "../../../../components/date-picker-input.component";
+import { InputCurrency } from "../../../../components/input-currency.component";
+import { Input } from "../../../../components/input.component";
+import { Modal } from "../../../../components/modal.component";
+import { Select } from "../../../../components/select.component";
 import { useController } from "./use-controller.hook";
+import { ITransactions } from "../../../../../types/interfaces/transactions.interface";
+import { ConfirmDeleteModal } from "../../../../components/confirm-delete-modal.component";
+import { IconTrash } from "../../../../../assets/icons/trash.icon";
 
-export function NewTransactionModal() {
+interface IEditTransactionModal {
+  transaction: ITransactions.Entity;
+  open: boolean;
+  onClose: () => void;
+}
+
+export function EditTransactionModal({
+  transaction,
+  open,
+  onClose,
+}: IEditTransactionModal) {
   const {
-    closeNewTransactionModal,
     t,
-    isExpense,
-    isNewTransactionModalOpen,
     control,
     errors,
     handleSubmit,
@@ -20,13 +30,39 @@ export function NewTransactionModal() {
     accounts,
     categories,
     isLoading,
-  } = useController();
+    isExpense,
+    isDeleteModalOpen,
+    handleDeleteTransaction,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
+    isLoadingDelete,
+  } = useController(transaction, onClose);
+
+  if (isDeleteModalOpen) {
+    return (
+      <ConfirmDeleteModal
+        onConfirm={handleDeleteTransaction}
+        onClose={handleCloseDeleteModal}
+        loading={isLoadingDelete}
+        title={t(
+          `Are you sure you want to delete this ${
+            isExpense ? "expense" : "income"
+          }?`
+        )}
+      />
+    );
+  }
 
   return (
     <Modal
-      open={isNewTransactionModalOpen}
-      onClose={closeNewTransactionModal}
-      title={t(isExpense ? "New expense" : "New income")}
+      open={open}
+      onClose={onClose}
+      title={t(isExpense ? "Edit expense" : "Edit income")}
+      rightAction={
+        <button onClick={handleOpenDeleteModal}>
+          <IconTrash className="w-6 h-6 stroke-red-900" />
+        </button>
+      }
     >
       <form onSubmit={handleSubmit}>
         <div>
@@ -103,7 +139,7 @@ export function NewTransactionModal() {
         </div>
 
         <Button type="submit" className="w-full mt-6" loading={isLoading}>
-          {t("Create")}
+          {t("Save")}
         </Button>
       </form>
     </Modal>

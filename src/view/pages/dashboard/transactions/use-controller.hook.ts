@@ -1,8 +1,8 @@
-import { useTransactionsGetAll } from "../../../../../app/hooks/use-transactions.hook";
-import { intlService } from "../../../../../app/services/intl.service";
+import { useTransactionsGetAll } from "../../../../app/hooks/use-transactions.hook";
+import { intlService } from "../../../../app/services/intl.service";
 import { useEffect, useRef, useState } from "react";
-import { useParameters } from "../../../../../app/hooks/use-parameters.hook";
-import { ITransactions } from "../../../../../types/interfaces/transactions.interface";
+import { useParameters } from "../../../../app/hooks/use-parameters.hook";
+import { ITransactions } from "../../../../types/interfaces/transactions.interface";
 
 const { intlMonths, t } = intlService;
 

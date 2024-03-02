@@ -1,6 +1,6 @@
-import { intlService } from "../../../../app/services/intl.service";
-import { cn } from "../../../../app/utils/cn.utils";
-import { useDashboard } from "../use-controller.hook";
+import { intlService } from "../../../app/services/intl.service";
+import { cn } from "../../../app/utils/cn.utils";
+import { useDashboard } from "./use-controller.hook";
 
 interface IValueProps {
   value: number;

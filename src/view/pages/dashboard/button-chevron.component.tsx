@@ -1,7 +1,7 @@
 import { useSwiper } from "swiper/react";
-import { IconChevronLeft } from "../../../../assets/icons/chevron-left.icon";
-import { IconChevronRight } from "../../../../assets/icons/chevron-right.icon";
-import { IButtonProps } from "../../../../types/interfaces";
+import { IconChevronLeft } from "../../../assets/icons/chevron-left.icon";
+import { IconChevronRight } from "../../../assets/icons/chevron-right.icon";
+import { IButtonProps } from "../../../types/interfaces";
 
 interface IButtonChevronProps extends IButtonProps {
   direction: "slidePrev" | "slideNext";

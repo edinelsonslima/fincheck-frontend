@@ -1,21 +1,21 @@
 import { z } from "zod";
-import { intlService } from "../../../../../../app/services/intl.service";
-import { enBankAccountType } from "../../../../../../types/enums/bank-account-type.enum";
+import { intlService } from "../../../../../app/services/intl.service";
+import { enBankAccountType } from "../../../../../types/enums/bank-account-type.enum";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { enKeys } from "../../../../../../types/enums/requests-keys.enum";
-import { IBankAccount } from "../../../../../../types/interfaces/bank-account.interface";
+import { enKeys } from "../../../../../types/enums/requests-keys.enum";
+import { IBankAccount } from "../../../../../types/interfaces/bank-account.interface";
 import {
   useBankAccountDelete,
   useBankAccountUpdate,
-} from "../../../../../../app/hooks/use-bank-account.hook";
+} from "../../../../../app/hooks/use-bank-account.hook";
 import { useState } from "react";
-import { ITransactions } from "../../../../../../types/interfaces/transactions.interface";
-import { useParameters } from "../../../../../../app/hooks/use-parameters.hook";
-import { useCache } from "../../../../../../app/hooks/use-cache.hook";
-import { enTransactionType } from "../../../../../../types/enums/transaction-type.enum";
-import { useDashboard } from "../../../use-controller.hook";
+import { ITransactions } from "../../../../../types/interfaces/transactions.interface";
+import { useParameters } from "../../../../../app/hooks/use-parameters.hook";
+import { useCache } from "../../../../../app/hooks/use-cache.hook";
+import { enTransactionType } from "../../../../../types/enums/transaction-type.enum";
+import { useDashboard } from "../../use-controller.hook";
 
 const { t } = intlService;
 

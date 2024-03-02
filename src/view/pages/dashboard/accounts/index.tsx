@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Spinner } from "../../../../../assets/animations/spinner.animation";
-import { IconEye } from "../../../../../assets/icons/eye-icon";
-import { IconPlus } from "../../../../../assets/icons/plus.icon";
+import { Spinner } from "../../../../assets/animations/spinner.animation";
+import { IconEye } from "../../../../assets/icons/eye-icon";
+import { IconPlus } from "../../../../assets/icons/plus.icon";
 import { ButtonChevron } from "../button-chevron.component";
 import { Value } from "../value.component";
 import { AccountCard } from "./account-card.component";

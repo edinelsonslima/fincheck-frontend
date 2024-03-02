@@ -1,56 +1,30 @@
 import { Controller } from "react-hook-form";
-import { enBankAccountType } from "../../../../../../types/enums/bank-account-type.enum";
-import { Button } from "../../../../../components/button.component";
-import { ColorsDropdownInput } from "../../../../../components/colors-dropdown.components";
-import { InputCurrency } from "../../../../../components/input-currency.component";
-import { Input } from "../../../../../components/input.component";
-import { Modal } from "../../../../../components/modal.component";
-import { Select } from "../../../../../components/select.component";
+import { enBankAccountType } from "../../../../../types/enums/bank-account-type.enum";
+import { Button } from "../../../../components/button.component";
+import { ColorsDropdownInput } from "../../../../components/colors-dropdown.components";
+import { InputCurrency } from "../../../../components/input-currency.component";
+import { Input } from "../../../../components/input.component";
+import { Modal } from "../../../../components/modal.component";
+import { Select } from "../../../../components/select.component";
 import { useController } from "./use-controller.hook";
-import { IconTrash } from "../../../../../../assets/icons/trash.icon";
-import { ConfirmDeleteModal } from "../../../../../components/confirm-delete-modal.component";
 
-export function EditAccountModal() {
+export function NewAccountModal() {
   const {
-    isEditAccountModalOpen,
-    closeEditAccountModal,
+    isNewAccountModalOpen,
+    closeNewAccountModal,
     t,
     errors,
     handleSubmit,
     register,
     control,
-    isLoadingUpdate,
-    handleCloseDeleteModal,
-    handleOpenDeleteModal,
-    isDeleteModalOpen,
-    handleDeleteAccount,
-    isLoadingDelete,
+    isLoading,
   } = useController();
-
-  if (isDeleteModalOpen) {
-    return (
-      <ConfirmDeleteModal
-        onConfirm={handleDeleteAccount}
-        onClose={handleCloseDeleteModal}
-        loading={isLoadingDelete}
-        title={t("Are you sure you want to delete this account?")}
-        description={t(
-          "When deleting the account, all records of related income and expenses will also be deleted."
-        )}
-      />
-    );
-  }
 
   return (
     <Modal
-      open={isEditAccountModalOpen}
-      onClose={closeEditAccountModal}
-      title={t("Edit account")}
-      rightAction={
-        <button onClick={handleOpenDeleteModal}>
-          <IconTrash className="w-6 h-6 stroke-red-900" />
-        </button>
-      }
+      open={isNewAccountModalOpen}
+      onClose={closeNewAccountModal}
+      title={t("New account")}
     >
       <form onSubmit={handleSubmit}>
         <div>
@@ -119,8 +93,8 @@ export function EditAccountModal() {
           />
         </div>
 
-        <Button type="submit" className="w-full mt-6" loading={isLoadingUpdate}>
-          {t("Save")}
+        <Button type="submit" className="w-full mt-6" loading={isLoading}>
+          {t("Create")}
         </Button>
       </form>
     </Modal>

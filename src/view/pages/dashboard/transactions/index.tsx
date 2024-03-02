@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Spinner } from "../../../../../assets/animations/spinner.animation";
-import { ImageEmptyState } from "../../../../../assets/images/empty-state.image";
+import { Spinner } from "../../../../assets/animations/spinner.animation";
+import { ImageEmptyState } from "../../../../assets/images/empty-state.image";
 import { ButtonChevron } from "../button-chevron.component";
 import { ButtonMonth } from "./button-month.component";
 import { FilterModal } from "./filter-modal.component";
