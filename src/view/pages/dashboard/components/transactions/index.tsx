@@ -1,24 +1,19 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Spinner } from "../../../../../assets/animations/spinner.animation";
 import { ImageEmptyState } from "../../../../../assets/images/empty-state.image";
-import { CategoryIcon } from "../../../../components/category-icon.component";
 import { ButtonChevron } from "../button-chevron.component";
-import { Value } from "../value.component";
 import { ButtonMonth } from "./button-month.component";
 import { FilterModal } from "./filter-modal.component";
 import { FilterType } from "./filter-type.component";
 import { useController } from "./use-controller.hook";
-import { cn } from "../../../../../app/utils/cn.utils";
-import { enTransactionType } from "../../../../../types/enums/transaction-type.enum";
 import { EditTransactionModal } from "../modals/edit-transaction-modal";
+import { CardTransaction } from "./card-transaction.component";
 
 export function Transactions() {
   const {
     transactions,
     isLoading,
     isInitialLoading,
-    areValuesVisible,
-    intlDate,
     intlMonths,
     t,
     parameters,
@@ -104,46 +99,11 @@ export function Transactions() {
 
             {transactions
               .map((transaction) => (
-                <button
-                  type="button"
+                <CardTransaction
                   key={transaction.id}
+                  transaction={transaction}
                   onClick={() => handleOpenEditModal(transaction)}
-                  className="w-full bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
-                >
-                  <div className="flex flex-1 items-center gap-2">
-                    <CategoryIcon
-                      type={transaction.type}
-                      category={transaction.category?.icon}
-                    />
-
-                    <div>
-                      <strong className="block font-bold">
-                        {transaction.name}
-                      </strong>
-                      <span className="text-sm text-gray-600">
-                        {intlDate(new Date(transaction.date))}
-                      </span>
-                    </div>
-                  </div>
-                  <span
-                    className={cn(
-                      "tracking-tighter font-medium",
-                      transaction.type === enTransactionType.EXPENSE &&
-                        "text-red-800",
-                      transaction.type === enTransactionType.INCOME &&
-                        "text-green-800"
-                    )}
-                  >
-                    {transaction.type === enTransactionType.EXPENSE
-                      ? "- "
-                      : "+ "}
-                    <Value
-                      value={transaction.value}
-                      visible={areValuesVisible}
-                      blur="sm"
-                    />
-                  </span>
-                </button>
+                />
               ))
               .reverse()}
           </>

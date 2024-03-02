@@ -1,11 +1,10 @@
 import { useTransactionsGetAll } from "../../../../../app/hooks/use-transactions.hook";
 import { intlService } from "../../../../../app/services/intl.service";
-import { useDashboard } from "../../hook/use-dashboard.hook";
 import { useEffect, useRef, useState } from "react";
 import { useParameters } from "../../../../../app/hooks/use-parameters.hook";
 import { ITransactions } from "../../../../../types/interfaces/transactions.interface";
 
-const { intlDate, intlMonths, t } = intlService;
+const { intlMonths, t } = intlService;
 
 export function useController() {
   const [isEditModalOpen, setIsModalOpen] = useState(false);
@@ -13,8 +12,6 @@ export function useController() {
     useState<ITransactions.Entity | null>(null);
 
   const [parameters, setParameters] = useParameters();
-
-  const { areValuesVisible } = useDashboard();
 
   const isFirstRender = useRef(true);
   const transactionsGetAll = useTransactionsGetAll();
@@ -36,9 +33,7 @@ export function useController() {
   }, []);
 
   return {
-    areValuesVisible,
     t,
-    intlDate,
     intlMonths,
     parameters,
     setParameters,

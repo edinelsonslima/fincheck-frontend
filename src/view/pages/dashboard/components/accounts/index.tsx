@@ -39,7 +39,6 @@ export function Accounts() {
         <div className="flex items-center gap-2">
           <Value
             value={currentBalance}
-            visible={areValuesVisible}
             className="text-2xl text-white tracking-tightest font-medium"
           />
 

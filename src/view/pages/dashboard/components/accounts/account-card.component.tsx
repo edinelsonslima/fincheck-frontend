@@ -12,7 +12,8 @@ const { t } = intlService;
 
 export function AccountCard({ data }: IAccountCardProps) {
   const { name, currentBalance, color } = data;
-  const { areValuesVisible, openEditAccountModal } = useDashboard();
+  const { openEditAccountModal } = useDashboard();
+
   return (
     <div
       className="relative overflow-hidden p-4 bg-white rounded-2xl h-[12.5rem] flex flex-col justify-between"
@@ -30,14 +31,11 @@ export function AccountCard({ data }: IAccountCardProps) {
       <main>
         <Value
           value={currentBalance}
-          visible={areValuesVisible}
           blur="sm"
           className="text-gray-800 font-medium tracking-tighter mt-4 block"
         />
 
-        <small className="text-gray-600 text-sm">
-          {t("Current balance")}
-        </small>
+        <small className="text-gray-600 text-sm">{t("Current balance")}</small>
       </main>
 
       <span
