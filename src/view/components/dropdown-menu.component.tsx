@@ -83,8 +83,8 @@ function DropdownSubContent({ children }: PropsWithChildren) {
   return (
     <RdxDropdownMenu.Portal>
       <RdxDropdownMenu.SubContent
-        sideOffset={-1}
-        alignOffset={0}
+        sideOffset={8}
+        alignOffset={5}
         className="z-10 rounded-xl p-2 bg-white space-y-2 text-sm text-gray-800 shadow-[0_11px_20px_0_rgba(0,0,0,0.10)]"
       >
         {children}
