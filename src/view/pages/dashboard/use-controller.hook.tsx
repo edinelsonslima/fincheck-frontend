@@ -1,13 +1,9 @@
-import {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-} from "react";
-import { useLocalStorage } from "../../../../app/hooks/use-local-storage.hook";
-import { enLocalStorage } from "../../../../types/enums/local-storage.enum";
-import { useStates } from "../../../../app/hooks/use-states";
-import { IBankAccount } from "../../../../types/interfaces/bank-account.interface";
-import { enTransactionType } from "../../../../types/enums/transaction-type.enum";
+import { PropsWithChildren, createContext, useCallback, useContext } from "react";
+import { useLocalStorage } from "../../../app/hooks/use-local-storage.hook";
+import { enLocalStorage } from "../../../types/enums/local-storage.enum";
+import { useStates } from "../../../app/hooks/use-states";
+import { IBankAccount } from "../../../types/interfaces/bank-account.interface";
+import { enTransactionType } from "../../../types/enums/transaction-type.enum";
 
 interface IStates {
   isNewAccountModalOpen: boolean;
@@ -106,4 +102,8 @@ export function DashboardProvider({ children }: PropsWithChildren) {
       {children}
     </DashboardContext.Provider>
   );
+}
+
+export function useDashboard() {
+  return useContext(DashboardContext);
 }

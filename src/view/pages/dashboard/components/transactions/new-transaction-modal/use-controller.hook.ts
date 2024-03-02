@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { intlService } from "../../../../../../app/services/intl.service";
-import { useDashboard } from "../../../hook/use-dashboard.hook";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useBankAccountGetAll } from "../../../../../../app/hooks/use-bank-account.hook";
@@ -14,6 +13,7 @@ import { enKeys } from "../../../../../../types/enums/requests-keys.enum";
 import { IBankAccount } from "../../../../../../types/interfaces/bank-account.interface";
 import { useParameters } from "../../../../../../app/hooks/use-parameters.hook";
 import { useCache } from "../../../../../../app/hooks/use-cache.hook";
+import { useDashboard } from "../../../use-controller.hook";
 
 const { t } = intlService;
 

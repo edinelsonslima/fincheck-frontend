@@ -4,13 +4,10 @@ import { UserMenu } from "../../components/user-menu.component";
 import { Accounts } from "./components/accounts";
 import { Fab } from "./components/fab-component";
 import { Transactions } from "./components/transactions";
-import { NewAccountModal } from "./components/modals/new-account-modal";
-import { NewTransactionModal } from "./components/modals/new-transaction-modal";
-import {
-  DashboardContext,
-  DashboardProvider,
-} from "./contexts/dashboard.context";
-import { EditAccountModal } from "./components/modals/edit-account-modal";
+import { NewAccountModal } from "./components/accounts/new-account-modal";
+import { NewTransactionModal } from "./components/transactions/new-transaction-modal";
+import { EditAccountModal } from "./components/accounts/edit-account-modal";
+import { DashboardContext, DashboardProvider } from "./use-controller.hook";
 
 export function Dashboard() {
   return (

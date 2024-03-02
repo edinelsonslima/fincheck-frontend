@@ -6,7 +6,7 @@ import { ButtonMonth } from "./button-month.component";
 import { FilterModal } from "./filter-modal.component";
 import { FilterType } from "./filter-type.component";
 import { useController } from "./use-controller.hook";
-import { EditTransactionModal } from "../modals/edit-transaction-modal";
+import { EditTransactionModal } from "./edit-transaction-modal";
 import { CardTransaction } from "./card-transaction.component";
 
 export function Transactions() {

@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { useWindowSize } from "../../../../../app/hooks/use-window-size";
 import { intlService } from "../../../../../app/services/intl.service";
-import { useDashboard } from "../../hook/use-dashboard.hook";
 import { useBankAccountGetAll } from "../../../../../app/hooks/use-bank-account.hook";
+import { useDashboard } from "../../use-controller.hook";
 
 const { t } = intlService;
 
