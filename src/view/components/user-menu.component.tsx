@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useAuth } from "../../app/hooks/use-auth.hook";
 import { intlService } from "../../app/services/intl.service";
 import { IconChevronLeft } from "../../assets/icons/chevron-left.icon";
@@ -8,12 +9,22 @@ import { SelectLanguageRadioGroup } from "./select-language.component";
 const { t } = intlService;
 
 export function UserMenu() {
-  const { signout } = useAuth();
+  const { signout, user } = useAuth();
+
+  const initialsUserName = useMemo(() => {
+    const [firstName, lastName] = user?.name.split(" ") ?? [];
+
+    if (lastName) {
+      return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+    }
+
+    return firstName?.slice(0, 2).toUpperCase();
+  }, [user?.name]);
 
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="grid place-items-center w-12 h-12 rounded-full bg-teal-50 text-small text-teal-900 font-medium tracking-tighter">
-        ED
+        {initialsUserName}
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Content className="mr-5 mt-2 w-32">

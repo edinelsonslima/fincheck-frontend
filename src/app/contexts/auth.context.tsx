@@ -10,8 +10,10 @@ import { LaunchScreen } from "../../view/components/launch-screen.component";
 import { useLocalStorage } from "../hooks/use-local-storage.hook";
 import { useUserMe } from "../hooks/use-user.hook";
 import { intlService } from "../services/intl.service";
+import { IUser } from "../../types/interfaces";
 interface IAuthContextValue {
   signedIn: boolean;
+  user: IUser.Me.Response | undefined;
   signout: () => void;
   signin: (accessToken: string) => void;
 }
@@ -20,6 +22,7 @@ const { t } = intlService;
 
 export const AuthContext = createContext<IAuthContextValue>({
   signedIn: false,
+  user: { email: "example@email.com", name: "EX" },
   signout: () => {},
   signin: () => {},
 });
@@ -30,7 +33,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
     ""
   );
 
-  const { isSuccess, isFetching, isError, remove } = useUserMe({
+  const { data, isSuccess, isFetching, isError, remove } = useUserMe({
     enabled: !!accessToken,
     staleTime: Infinity,
   });
@@ -55,6 +58,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
     <AuthContext.Provider
       value={{
         signedIn: isSuccess && !!accessToken,
+        user: data,
         signin,
         signout,
       }}
