@@ -72,6 +72,40 @@ export function useController() {
     },
   });
 
+  const handleSubmit = hookFormHandleSubmit(async (data) => {
+    try {
+      const editedBankAccount = await bankAccountUpdate.mutateAsync({
+        ...data,
+        id: accountBeingEdited!.id,
+      });
+
+      reset();
+      updateCacheBankAccountsEdited(editedBankAccount);
+      toast.success(t("Account edited successfully!"));
+      closeEditAccountModal();
+    } catch (error) {
+      const err = error as IBankAccount.Update.Error;
+      toast.error(
+        t(err.response?.data.message || "Error while editing the account!")
+      );
+    }
+  });
+
+  const handleDeleteAccount = async () => {
+    try {
+      await bankAccountDelete.mutateAsync(accountBeingEdited!.id);
+
+      updateCacheBankAccountsDeleted();
+      toast.success(t("Account successfully deleted!"));
+      closeEditAccountModal();
+    } catch (error) {
+      const err = error as IBankAccount.Delete.Error;
+      toast.error(
+        t(err.response?.data.message || "Error deleting the account!")
+      );
+    }
+  };
+
   const updateCacheBankAccountsEdited = (
     bankAccount: IBankAccount.Update.Response
   ) => {
@@ -122,42 +156,6 @@ export function useController() {
     setCacheBankAccounts((bankAccounts) =>
       bankAccounts?.filter(({ id }) => id !== accountBeingEdited?.id)
     );
-  };
-
-  const handleSubmit = hookFormHandleSubmit(async (data) => {
-    try {
-      const editedBankAccount = await bankAccountUpdate.mutateAsync({
-        ...data,
-        id: accountBeingEdited!.id,
-      });
-
-      reset();
-      updateCacheBankAccountsEdited(editedBankAccount);
-      toast.success(t("Account edited successfully!"));
-      closeEditAccountModal();
-    } catch (error) {
-      const err = error as IBankAccount.Update.Error;
-      toast.error(
-        t(
-          err.response?.data.message || "Error while editing the account!"
-        )
-      );
-    }
-  });
-
-  const handleDeleteAccount = async () => {
-    try {
-      await bankAccountDelete.mutateAsync(accountBeingEdited!.id);
-
-      updateCacheBankAccountsDeleted();
-      toast.success(t("Account successfully deleted!"));
-      closeEditAccountModal();
-    } catch (error) {
-      const err = error as IBankAccount.Delete.Error;
-      toast.error(
-        t(err.response?.data.message || "Error deleting the account!")
-      );
-    }
   };
 
   const handleOpenDeleteModal = () => {
