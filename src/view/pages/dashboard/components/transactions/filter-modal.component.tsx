@@ -11,7 +11,7 @@ import { enKeys } from "../../../../../types/enums/requests-keys.enum";
 import { IBankAccount } from "../../../../../types/interfaces/bank-account.interface";
 import { useCache } from "../../../../../app/hooks/use-cache.hook";
 
-const { intlTerm } = intlService;
+const { t } = intlService;
 
 export function FilterModal() {
   const [parameters, setParameter] = useParameters();
@@ -31,12 +31,12 @@ export function FilterModal() {
       <Modal
         open={open}
         onClose={() => setOpen(false)}
-        title={intlTerm("Filters")}
+        title={t("Filters")}
         className="space-y-10 text-gray-800"
       >
         <div className="space-y-2">
           <span className="text-lg tracking-tightest font-bold">
-            {intlTerm("Account")}
+            {t("Account")}
           </span>
 
           {getAccounts()?.map(({ id, name }) => (
@@ -57,7 +57,7 @@ export function FilterModal() {
 
         <div className="space-y-2">
           <span className="text-lg tracking-tightest font-bold">
-            {intlTerm("Year")}
+            {t("Year")}
           </span>
 
           <div className="w-52 flex items-center justify-between">
@@ -88,7 +88,7 @@ export function FilterModal() {
             setParameter("year", year);
           }}
         >
-          {intlTerm("Apply Filters")}
+          {t("Apply Filters")}
         </Button>
       </Modal>
     </>

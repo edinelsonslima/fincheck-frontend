@@ -6,7 +6,7 @@ type ITerms = keyof (typeof langs)[ILanguages]["term"];
 
 class IntlService {
   constructor() {
-    this.intlTerm = this.intlTerm.bind(this);
+    this.t = this.t.bind(this);
     this.intlDate = this.intlDate.bind(this);
     this.intlMonths = this.intlMonths.bind(this);
     this.intlCurrency = this.intlCurrency.bind(this);
@@ -20,7 +20,7 @@ class IntlService {
     return Object.keys(langs) as ILanguages[];
   }
 
-  public intlTerm(term: ITerms) {
+  public t(term: ITerms) {
     return this.getTranslatedTerm(this.getLocalStorageLanguage(), term);
   }
 

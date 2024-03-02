@@ -8,24 +8,24 @@ import { DropdownMenu } from "../../../../components/dropdown-menu.component";
 import { useParameters } from "../../../../../app/hooks/use-parameters.hook";
 
 interface IConfig {
-  [enTransactionType.EXPENSE]: { name: string; icon: JSX.Element };
-  [enTransactionType.INCOME]: { name: string; icon: JSX.Element };
-  transactions: { name: string; icon: JSX.Element };
+  [enTransactionType.EXPENSE]: { name: "Expenses"; icon: JSX.Element };
+  [enTransactionType.INCOME]: { name: "Incomes"; icon: JSX.Element };
+  transactions: { name: "Transactions"; icon: JSX.Element };
 }
 
-const { intlTerm } = intlService;
+const { t } = intlService;
 
 const config: IConfig = {
   [enTransactionType.EXPENSE]: {
-    name: intlTerm("Expenses"),
+    name: "Expenses",
     icon: <IconExpenses />,
   },
   [enTransactionType.INCOME]: {
-    name: intlTerm("Incomes"),
+    name: "Incomes",
     icon: <IconIncome />,
   },
   transactions: {
-    name: intlTerm("Transactions"),
+    name: "Transactions",
     icon: <IconTransactions />,
   },
 };
@@ -39,7 +39,7 @@ export function FilterType() {
         {config[parameters?.type ?? "transactions"].icon}
 
         <span className="text-sm text-gray-800 tracking-tighter font-medium">
-          {config[parameters?.type ?? "transactions"].name}
+          {t(config[parameters?.type ?? "transactions"].name)}
         </span>
 
         <IconChevronDown className="text-gray-900" />
@@ -51,7 +51,7 @@ export function FilterType() {
           onSelect={() => setParameters("type", enTransactionType.INCOME)}
         >
           {config.INCOME.icon}
-          {config.INCOME.name}
+          {t(config.INCOME.name)}
         </DropdownMenu.Item>
 
         <DropdownMenu.Item
@@ -59,7 +59,7 @@ export function FilterType() {
           onSelect={() => setParameters("type", enTransactionType.EXPENSE)}
         >
           {config.EXPENSE.icon}
-          {config.EXPENSE.name}
+          {t(config.EXPENSE.name)}
         </DropdownMenu.Item>
 
         <DropdownMenu.Item
@@ -67,7 +67,7 @@ export function FilterType() {
           onSelect={() => setParameters("type", null)}
         >
           {config.transactions.icon}
-          {config.transactions.name}
+          {t(config.transactions.name)}
         </DropdownMenu.Item>
       </DropdownMenu.Content>
     </DropdownMenu.Root>

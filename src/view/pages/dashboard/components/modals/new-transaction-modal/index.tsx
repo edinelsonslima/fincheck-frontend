@@ -10,7 +10,7 @@ import { useController } from "./use-controller.hook";
 export function NewTransactionModal() {
   const {
     closeNewTransactionModal,
-    intlTerm,
+    t,
     isExpense,
     isNewTransactionModalOpen,
     control,
@@ -26,12 +26,12 @@ export function NewTransactionModal() {
     <Modal
       open={isNewTransactionModalOpen}
       onClose={closeNewTransactionModal}
-      title={intlTerm(isExpense ? "New expense" : "New income")}
+      title={t(isExpense ? "New expense" : "New income")}
     >
       <form onSubmit={handleSubmit}>
         <div>
           <span className="text-gray-600 tracking-tighter text-xs">
-            {intlTerm(isExpense ? "Expense value" : "Income value")}
+            {t(isExpense ? "Expense value" : "Income value")}
           </span>
 
           <Controller
@@ -51,7 +51,7 @@ export function NewTransactionModal() {
           <Input
             type="text"
             error={errors.name?.message}
-            placeholder={intlTerm(isExpense ? "Expense name" : "Income name")}
+            placeholder={t(isExpense ? "Expense name" : "Income name")}
             {...register("name")}
           />
 
@@ -63,7 +63,7 @@ export function NewTransactionModal() {
                 value={value}
                 onChange={onChange}
                 error={errors.categoryId?.message}
-                placeholder={intlTerm("Category")}
+                placeholder={t("Category")}
                 options={categories.map((category) => ({
                   value: category.id,
                   label: category.name,
@@ -80,7 +80,7 @@ export function NewTransactionModal() {
                 value={value}
                 onChange={onChange}
                 error={errors.bankAccountId?.message}
-                placeholder={intlTerm(isExpense ? "Pay with" : "Receive with")}
+                placeholder={t(isExpense ? "Pay with" : "Receive with")}
                 options={accounts.map((account) => ({
                   value: account.id,
                   label: account.name,
@@ -103,7 +103,7 @@ export function NewTransactionModal() {
         </div>
 
         <Button type="submit" className="w-full mt-6" loading={isLoading}>
-          {intlTerm("Create")}
+          {t("Create")}
         </Button>
       </form>
     </Modal>

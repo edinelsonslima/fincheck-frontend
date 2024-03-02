@@ -12,7 +12,7 @@ interface IDatePickerInputProps {
   onChange?(date: Date): void;
 }
 
-const { intlTerm, intlDate } = intlService;
+const { t, intlDate } = intlService;
 
 export function DatePickerInput({
   className,
@@ -38,7 +38,7 @@ export function DatePickerInput({
           )}
         >
           <span className="absolute text-gray-700 text-xs left-[.8125rem] top-2">
-            {intlTerm("Date")}
+            {t("Date")}
           </span>
           <span>{intlDate(selectedDate)}</span>
         </Popover.Trigger>

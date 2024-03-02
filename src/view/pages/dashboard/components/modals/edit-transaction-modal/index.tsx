@@ -20,7 +20,7 @@ export function EditTransactionModal({
   onClose,
 }: IEditTransactionModal) {
   const {
-    intlTerm,
+    t,
     control,
     errors,
     handleSubmit,
@@ -35,12 +35,12 @@ export function EditTransactionModal({
     <Modal
       open={open}
       onClose={onClose}
-      title={intlTerm(isExpense ? "Edit expense" : "Edit income")}
+      title={t(isExpense ? "Edit expense" : "Edit income")}
     >
       <form onSubmit={handleSubmit}>
         <div>
           <span className="text-gray-600 tracking-tighter text-xs">
-            {intlTerm(isExpense ? "Expense value" : "Income value")}
+            {t(isExpense ? "Expense value" : "Income value")}
           </span>
 
           <Controller
@@ -60,7 +60,7 @@ export function EditTransactionModal({
           <Input
             type="text"
             error={errors.name?.message}
-            placeholder={intlTerm(isExpense ? "Expense name" : "Income name")}
+            placeholder={t(isExpense ? "Expense name" : "Income name")}
             {...register("name")}
           />
 
@@ -72,7 +72,7 @@ export function EditTransactionModal({
                 value={value}
                 onChange={onChange}
                 error={errors.categoryId?.message}
-                placeholder={intlTerm("Category")}
+                placeholder={t("Category")}
                 options={categories.map((category) => ({
                   value: category.id,
                   label: category.name,
@@ -89,7 +89,7 @@ export function EditTransactionModal({
                 value={value}
                 onChange={onChange}
                 error={errors.bankAccountId?.message}
-                placeholder={intlTerm(isExpense ? "Pay with" : "Receive with")}
+                placeholder={t(isExpense ? "Pay with" : "Receive with")}
                 options={accounts.map((account) => ({
                   value: account.id,
                   label: account.name,
@@ -112,7 +112,7 @@ export function EditTransactionModal({
         </div>
 
         <Button type="submit" className="w-full mt-6" loading={isLoading}>
-          {intlTerm("Save")}
+          {t("Save")}
         </Button>
       </form>
     </Modal>

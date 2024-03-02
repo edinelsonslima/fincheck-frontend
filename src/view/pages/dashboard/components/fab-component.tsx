@@ -6,7 +6,7 @@ import { CategoryIcon } from "../../../components/category-icon.component";
 import { DropdownMenu } from "../../../components/dropdown-menu.component";
 import { useDashboard } from "../hook/use-dashboard.hook";
 
-const { intlTerm } = intlService;
+const { t } = intlService;
 
 export function Fab() {
   const { openNewAccountModal, openNewTransactionModal } = useDashboard();
@@ -23,7 +23,7 @@ export function Fab() {
           onSelect={() => openNewTransactionModal(enTransactionType.EXPENSE)}
         >
           <CategoryIcon type={enTransactionType.EXPENSE} />
-          {intlTerm("New expense")}
+          {t("New expense")}
         </DropdownMenu.Item>
 
         <DropdownMenu.Item
@@ -31,12 +31,12 @@ export function Fab() {
           onSelect={() => openNewTransactionModal(enTransactionType.INCOME)}
         >
           <CategoryIcon type={enTransactionType.INCOME} />
-          {intlTerm("New income")}
+          {t("New income")}
         </DropdownMenu.Item>
 
         <DropdownMenu.Item className="gap-2" onSelect={openNewAccountModal}>
           <IconBankAccount />
-          {intlTerm("New account")}
+          {t("New account")}
         </DropdownMenu.Item>
       </DropdownMenu.Content>
     </DropdownMenu.Root>

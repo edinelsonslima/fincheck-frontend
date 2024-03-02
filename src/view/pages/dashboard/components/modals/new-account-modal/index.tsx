@@ -12,7 +12,7 @@ export function NewAccountModal() {
   const {
     isNewAccountModalOpen,
     closeNewAccountModal,
-    intlTerm,
+    t,
     errors,
     handleSubmit,
     register,
@@ -24,12 +24,12 @@ export function NewAccountModal() {
     <Modal
       open={isNewAccountModalOpen}
       onClose={closeNewAccountModal}
-      title={intlTerm("New account")}
+      title={t("New account")}
     >
       <form onSubmit={handleSubmit}>
         <div>
           <span className="text-gray-600 tracking-tighter text-xs">
-            {intlTerm("Initial balance")}
+            {t("Initial balance")}
           </span>
 
           <Controller
@@ -48,7 +48,7 @@ export function NewAccountModal() {
         <div className="mt-10 flex flex-col gap-4">
           <Input
             type="text"
-            placeholder={intlTerm("Account name")}
+            placeholder={t("Account name")}
             error={errors.name?.message}
             {...register("name")}
           />
@@ -58,21 +58,21 @@ export function NewAccountModal() {
             control={control}
             render={({ field: { onChange, value } }) => (
               <Select
-                placeholder={intlTerm("Type")}
+                placeholder={t("Type")}
                 error={errors.type?.message}
                 onChange={onChange}
                 value={value}
                 options={[
                   {
-                    label: intlTerm("Checking"),
+                    label: t("Checking"),
                     value: enBankAccountType.CHECKING,
                   },
                   {
-                    label: intlTerm("Investment"),
+                    label: t("Investment"),
                     value: enBankAccountType.INVESTMENT,
                   },
                   {
-                    label: intlTerm("Cash"),
+                    label: t("Cash"),
                     value: enBankAccountType.CASH,
                   },
                 ]}
@@ -94,7 +94,7 @@ export function NewAccountModal() {
         </div>
 
         <Button type="submit" className="w-full mt-6" loading={isLoading}>
-          {intlTerm("Create")}
+          {t("Create")}
         </Button>
       </form>
     </Modal>

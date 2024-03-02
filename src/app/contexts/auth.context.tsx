@@ -16,7 +16,7 @@ interface IAuthContextValue {
   signin: (accessToken: string) => void;
 }
 
-const { intlTerm } = intlService;
+const { t } = intlService;
 
 export const AuthContext = createContext<IAuthContextValue>({
   signedIn: false,
@@ -47,7 +47,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (!isError) return;
-    toast.error(intlTerm("Session expired, please login again"));
+    toast.error(t("Session expired, please login again"));
     signout();
   }, [isError, signout]);
 

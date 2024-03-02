@@ -20,7 +20,7 @@ export function Transactions() {
     areValuesVisible,
     intlDate,
     intlMonths,
-    intlTerm,
+    t,
     parameters,
     setParameters,
     handleCloseEditModal,
@@ -87,7 +87,7 @@ export function Transactions() {
           <div className="flex flex-col items-center justify-center h-full">
             <ImageEmptyState />
             <p className="text-gray-700">
-              {intlTerm("We didn't find any transactions")}
+              {t("We didn't find any transactions")}
             </p>
           </div>
         )}

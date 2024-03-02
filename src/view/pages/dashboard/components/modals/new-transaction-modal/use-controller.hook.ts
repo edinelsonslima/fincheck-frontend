@@ -15,13 +15,13 @@ import { IBankAccount } from "../../../../../../types/interfaces/bank-account.in
 import { useParameters } from "../../../../../../app/hooks/use-parameters.hook";
 import { useCache } from "../../../../../../app/hooks/use-cache.hook";
 
-const { intlTerm } = intlService;
+const { t } = intlService;
 
 const schema = z.object({
-  value: z.number({ required_error: intlTerm("Provide the value.") }),
-  name: z.string().nonempty(intlTerm("Provide the name.")),
-  categoryId: z.string().nonempty(intlTerm("Provide the category.")),
-  bankAccountId: z.string().nonempty(intlTerm("Provide the bank account ID.")),
+  value: z.number({ required_error: t("Provide the value.") }),
+  name: z.string().nonempty(t("Provide the name.")),
+  categoryId: z.string().nonempty(t("Provide the category.")),
+  bankAccountId: z.string().nonempty(t("Provide the bank account ID.")),
   date: z.date(),
 });
 
@@ -126,11 +126,11 @@ export function useController() {
       reset();
       updateCacheTransactions(newTransaction);
       updateCacheBankAccounts(newTransaction);
-      toast.success(intlTerm(successMessage));
+      toast.success(t(successMessage));
       closeNewTransactionModal();
     } catch (error) {
       const err = error as ITransactions.Create.Error;
-      toast.error(intlTerm(err.response?.data.message || errorMessage));
+      toast.error(t(err.response?.data.message || errorMessage));
     }
   });
 
@@ -143,7 +143,7 @@ export function useController() {
     register,
     errors,
     control,
-    intlTerm,
+    t,
     isExpense,
     handleSubmit,
     isNewTransactionModalOpen,

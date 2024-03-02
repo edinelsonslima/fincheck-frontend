@@ -4,14 +4,14 @@ import { FormLayout } from "../../layouts/form.layout";
 import { useController } from "./use-controller.hook";
 
 export function Register() {
-  const { errors, handleSubmit, register, isLoading, intlTerm } =
+  const { errors, handleSubmit, register, isLoading, t } =
     useController();
 
   return (
     <FormLayout
-      title={intlTerm("Create an account")}
-      subtitle={intlTerm("Already have an account?")}
-      link={{ to: "/login", text: intlTerm("Sign in") }}
+      title={t("Create an account")}
+      subtitle={t("Already have an account?")}
+      link={{ to: "/login", text: t("Sign in") }}
     >
       <form onSubmit={handleSubmit} className="mt-16 flex flex-col gap-4">
         <Input
@@ -34,7 +34,7 @@ export function Register() {
         />
 
         <Button type="submit" className="mt-6" loading={isLoading}>
-          {intlTerm("Create account")}
+          {t("Create account")}
         </Button>
       </form>
     </FormLayout>

@@ -8,7 +8,7 @@ interface IAccountCardProps {
   data: IBankAccount.Entity;
 }
 
-const { intlTerm } = intlService;
+const { t } = intlService;
 
 export function AccountCard({ data }: IAccountCardProps) {
   const { name, currentBalance, color } = data;
@@ -36,7 +36,7 @@ export function AccountCard({ data }: IAccountCardProps) {
         />
 
         <small className="text-gray-600 text-sm">
-          {intlTerm("Current balance")}
+          {t("Current balance")}
         </small>
       </main>
 

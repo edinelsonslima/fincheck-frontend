@@ -14,7 +14,7 @@ export function EditAccountModal() {
   const {
     isEditAccountModalOpen,
     closeEditAccountModal,
-    intlTerm,
+    t,
     errors,
     handleSubmit,
     register,
@@ -33,8 +33,8 @@ export function EditAccountModal() {
         onConfirm={handleDeleteAccount}
         onClose={handleCloseDeleteModal}
         loading={isLoadingDelete}
-        title={intlTerm("Are you sure you want to delete this account?")}
-        description={intlTerm(
+        title={t("Are you sure you want to delete this account?")}
+        description={t(
           "When deleting the account, all records of related income and expenses will also be deleted."
         )}
       />
@@ -45,7 +45,7 @@ export function EditAccountModal() {
     <Modal
       open={isEditAccountModalOpen}
       onClose={closeEditAccountModal}
-      title={intlTerm("Edit account")}
+      title={t("Edit account")}
       rightAction={
         <button onClick={handleOpenDeleteModal}>
           <IconTrash className="w-6 h-6 stroke-red-900" />
@@ -55,7 +55,7 @@ export function EditAccountModal() {
       <form onSubmit={handleSubmit}>
         <div>
           <span className="text-gray-600 tracking-tighter text-xs">
-            {intlTerm("Initial balance")}
+            {t("Initial balance")}
           </span>
 
           <Controller
@@ -74,7 +74,7 @@ export function EditAccountModal() {
         <div className="mt-10 flex flex-col gap-4">
           <Input
             type="text"
-            placeholder={intlTerm("Account name")}
+            placeholder={t("Account name")}
             error={errors.name?.message}
             {...register("name")}
           />
@@ -84,21 +84,21 @@ export function EditAccountModal() {
             control={control}
             render={({ field: { onChange, value } }) => (
               <Select
-                placeholder={intlTerm("Type")}
+                placeholder={t("Type")}
                 error={errors.type?.message}
                 onChange={onChange}
                 value={value}
                 options={[
                   {
-                    label: intlTerm("Checking"),
+                    label: t("Checking"),
                     value: enBankAccountType.CHECKING,
                   },
                   {
-                    label: intlTerm("Investment"),
+                    label: t("Investment"),
                     value: enBankAccountType.INVESTMENT,
                   },
                   {
-                    label: intlTerm("Cash"),
+                    label: t("Cash"),
                     value: enBankAccountType.CASH,
                   },
                 ]}
@@ -120,7 +120,7 @@ export function EditAccountModal() {
         </div>
 
         <Button type="submit" className="w-full mt-6" loading={isLoadingUpdate}>
-          {intlTerm("Save")}
+          {t("Save")}
         </Button>
       </form>
     </Modal>

@@ -4,7 +4,7 @@ import { IconLogo } from "../../assets/icons/logo.icon";
 import ImageIllustration from "../../assets/images/illustration.image.png";
 import { SelectLanguage } from "../components/select-language.component";
 
-const { intlTerm } = intlService;
+const { t } = intlService;
 
 export function AuthLayout() {
   return (
@@ -30,7 +30,7 @@ export function AuthLayout() {
           <footer className="bg-white p-10 absolute bottom-0 grid">
             <IconLogo className="text-teal-900 h-8" />
             <p className="text-gray-700 text-xl font-medium mt-6">
-              {intlTerm(
+              {t(
                 "Manage your personal finances in a simple way with fincheck, and best of all, it's completely free!"
               )}
             </p>

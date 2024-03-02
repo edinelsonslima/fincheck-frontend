@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParameters } from "../../../../../app/hooks/use-parameters.hook";
 import { ITransactions } from "../../../../../types/interfaces/transactions.interface";
 
-const { intlDate, intlMonths, intlTerm } = intlService;
+const { intlDate, intlMonths, t } = intlService;
 
 export function useController() {
   const [isEditModalOpen, setIsModalOpen] = useState(false);
@@ -37,7 +37,7 @@ export function useController() {
 
   return {
     areValuesVisible,
-    intlTerm,
+    t,
     intlDate,
     intlMonths,
     parameters,

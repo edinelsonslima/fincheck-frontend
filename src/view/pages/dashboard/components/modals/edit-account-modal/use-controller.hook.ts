@@ -17,14 +17,14 @@ import { useParameters } from "../../../../../../app/hooks/use-parameters.hook";
 import { useCache } from "../../../../../../app/hooks/use-cache.hook";
 import { enTransactionType } from "../../../../../../types/enums/transaction-type.enum";
 
-const { intlTerm } = intlService;
+const { t } = intlService;
 
 const schema = z.object({
   initialBalance: z.number({
-    required_error: intlTerm("Initial balance is required"),
+    required_error: t("Initial balance is required"),
   }),
-  name: z.string().nonempty(intlTerm("Account name is required")),
-  color: z.string().nonempty(intlTerm("Color is required")),
+  name: z.string().nonempty(t("Account name is required")),
+  color: z.string().nonempty(t("Color is required")),
   type: z.enum(
     Object.values(enBankAccountType) as [keyof typeof enBankAccountType]
   ),
@@ -133,12 +133,12 @@ export function useController() {
 
       reset();
       updateCacheBankAccountsEdited(editedBankAccount);
-      toast.success(intlTerm("Account edited successfully!"));
+      toast.success(t("Account edited successfully!"));
       closeEditAccountModal();
     } catch (error) {
       const err = error as IBankAccount.Update.Error;
       toast.error(
-        intlTerm(
+        t(
           err.response?.data.message || "Error while editing the account!"
         )
       );
@@ -150,12 +150,12 @@ export function useController() {
       await bankAccountDelete.mutateAsync(accountBeingEdited!.id);
 
       updateCacheBankAccountsDeleted();
-      toast.success(intlTerm("Account successfully deleted!"));
+      toast.success(t("Account successfully deleted!"));
       closeEditAccountModal();
     } catch (error) {
       const err = error as IBankAccount.Delete.Error;
       toast.error(
-        intlTerm(err.response?.data.message || "Error deleting the account!")
+        t(err.response?.data.message || "Error deleting the account!")
       );
     }
   };
@@ -171,7 +171,7 @@ export function useController() {
   return {
     isEditAccountModalOpen,
     closeEditAccountModal,
-    intlTerm,
+    t,
     register,
     errors,
     handleSubmit,

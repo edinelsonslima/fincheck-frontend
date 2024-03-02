@@ -11,7 +11,7 @@ interface IConfirmDeleteModalProps {
   loading?: boolean;
 }
 
-const { intlTerm } = intlService;
+const { t } = intlService;
 
 export function ConfirmDeleteModal({
   onClose,
@@ -23,7 +23,7 @@ export function ConfirmDeleteModal({
   return (
     <Modal
       open
-      title={intlTerm("Delete")}
+      title={t("Delete")}
       onClose={onClose}
       className="flex flex-col items-center text-center gap-6 text-gray-800"
     >
@@ -41,7 +41,7 @@ export function ConfirmDeleteModal({
           onClick={onConfirm}
           loading={loading}
         >
-          {intlTerm("Yes, I want to delete.")}
+          {t("Yes, I want to delete.")}
         </Button>
 
         <Button
@@ -50,7 +50,7 @@ export function ConfirmDeleteModal({
           onClick={onClose}
           disabled={loading}
         >
-          {intlTerm("Cancel")}
+          {t("Cancel")}
         </Button>
       </div>
     </Modal>

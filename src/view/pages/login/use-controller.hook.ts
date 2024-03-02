@@ -6,17 +6,17 @@ import { useAuth, useAuthSignin } from "../../../app/hooks/use-auth.hook";
 import { intlService } from "../../../app/services/intl.service";
 import { IAuth } from "../../../types/interfaces";
 
-const { intlTerm } = intlService;
+const { t } = intlService;
 
 export const schema = z.object({
   email: z
     .string()
-    .nonempty(intlTerm("E-mail is required"))
-    .email(intlTerm("Use a valid e-mail address")),
+    .nonempty(t("E-mail is required"))
+    .email(t("Use a valid e-mail address")),
   password: z
     .string()
-    .nonempty(intlTerm("Password is required"))
-    .min(8, intlTerm("Password must be at least 8 characters long")),
+    .nonempty(t("Password is required"))
+    .min(8, t("Password must be at least 8 characters long")),
 });
 
 export type IFormData = z.infer<typeof schema>;
@@ -40,7 +40,7 @@ export function useController() {
     } catch (error) {
       const err = error as IAuth.Signin.Error;
       toast.error(
-        intlTerm(err?.response?.data?.message || "Something went wrong")
+        t(err?.response?.data?.message || "Something went wrong")
       );
     }
   });
@@ -50,6 +50,6 @@ export function useController() {
     register,
     isLoading,
     handleSubmit,
-    intlTerm,
+    t,
   };
 }

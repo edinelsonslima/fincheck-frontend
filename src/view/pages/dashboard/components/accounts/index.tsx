@@ -9,7 +9,7 @@ import { useController } from "./use-controller.hook";
 
 export function Accounts() {
   const {
-    intlTerm,
+    t,
     sliderState,
     setSliderState,
     slidesPerView,
@@ -33,7 +33,7 @@ export function Accounts() {
     <>
       <header>
         <h2 className="text-white tracking-tighter block">
-          {intlTerm("Total balance")}
+          {t("Total balance")}
         </h2>
 
         <div className="flex items-center gap-2">
@@ -56,7 +56,7 @@ export function Accounts() {
         {!accounts.length && (
           <>
             <h3 className="text-white text-lg tracking-tighter font-bold">
-              {intlTerm("My bills")}
+              {t("My bills")}
             </h3>
 
             <button
@@ -67,7 +67,7 @@ export function Accounts() {
                 <IconPlus className="w-6 h-6" />
               </div>
               <span className="font-medium tracking-tighter block w-32 text-center">
-                {intlTerm("Register a new account")}
+                {t("Register a new account")}
               </span>
             </button>
           </>
@@ -87,7 +87,7 @@ export function Accounts() {
                 className="flex items-center justify-between mb-4"
               >
                 <h3 className="text-white text-lg tracking-tighter font-bold">
-                  {intlTerm("My bills")}
+                  {t("My bills")}
                 </h3>
 
                 <div>

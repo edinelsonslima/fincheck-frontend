@@ -13,14 +13,14 @@ import { useParameters } from "../../../../../../app/hooks/use-parameters.hook";
 import { enTransactionType } from "../../../../../../types/enums/transaction-type.enum";
 import { useCache } from "../../../../../../app/hooks/use-cache.hook";
 
-const { intlTerm } = intlService;
+const { t } = intlService;
 
 const schema = z.object({
   initialBalance: z.number({
-    required_error: intlTerm("Initial balance is required"),
+    required_error: t("Initial balance is required"),
   }),
-  name: z.string().nonempty(intlTerm("Account name is required")),
-  color: z.string().nonempty(intlTerm("Color is required")),
+  name: z.string().nonempty(t("Account name is required")),
+  color: z.string().nonempty(t("Color is required")),
   type: z.enum([
     enBankAccountType.CASH,
     enBankAccountType.CHECKING,
@@ -95,12 +95,12 @@ export function useController() {
 
       reset();
       updateCacheBankAccounts(newBankAccount);
-      toast.success(intlTerm("Account registered successfully!"));
+      toast.success(t("Account registered successfully!"));
       closeNewAccountModal();
     } catch (error) {
       const err = error as IBankAccount.Create.Error;
       toast.error(
-        intlTerm(
+        t(
           err.response?.data.message || "Error while registering the account!"
         )
       );
@@ -110,7 +110,7 @@ export function useController() {
   return {
     isNewAccountModalOpen,
     closeNewAccountModal,
-    intlTerm,
+    t,
     register,
     errors,
     handleSubmit,
