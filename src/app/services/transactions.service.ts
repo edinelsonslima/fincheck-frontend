@@ -6,6 +6,7 @@ class TransactionsService {
     this.getAll = this.getAll.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   public getAll(filters: ITransactions.GetAll.Params) {
@@ -37,6 +38,15 @@ class TransactionsService {
       `/transactions/${id}`,
       params
     );
+
+    return data;
+  }
+
+  public async delete(id: ITransactions.Delete.Params) {
+    const { data } =
+      await this._httpClient.delete<ITransactions.Delete.Response>(
+        `/transactions/${id}`
+      );
 
     return data;
   }

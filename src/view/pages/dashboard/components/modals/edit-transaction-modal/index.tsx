@@ -7,6 +7,8 @@ import { Modal } from "../../../../../components/modal.component";
 import { Select } from "../../../../../components/select.component";
 import { useController } from "./use-controller.hook";
 import { ITransactions } from "../../../../../../types/interfaces/transactions.interface";
+import { ConfirmDeleteModal } from "../../../../../components/confirm-delete-modal.component";
+import { IconTrash } from "../../../../../../assets/icons/trash.icon";
 
 interface IEditTransactionModal {
   transaction: ITransactions.Entity;
@@ -29,13 +31,38 @@ export function EditTransactionModal({
     categories,
     isLoading,
     isExpense,
+    isDeleteModalOpen,
+    handleDeleteTransaction,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
+    isLoadingDelete,
   } = useController(transaction, onClose);
+
+  if (isDeleteModalOpen) {
+    return (
+      <ConfirmDeleteModal
+        onConfirm={handleDeleteTransaction}
+        onClose={handleCloseDeleteModal}
+        loading={isLoadingDelete}
+        title={t(
+          `Are you sure you want to delete this ${
+            isExpense ? "expense" : "income"
+          }?`
+        )}
+      />
+    );
+  }
 
   return (
     <Modal
       open={open}
       onClose={onClose}
       title={t(isExpense ? "Edit expense" : "Edit income")}
+      rightAction={
+        <button onClick={handleOpenDeleteModal}>
+          <IconTrash className="w-6 h-6 stroke-red-900" />
+        </button>
+      }
     >
       <form onSubmit={handleSubmit}>
         <div>

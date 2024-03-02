@@ -80,4 +80,15 @@ export module ITransactions {
     export interface MutationOptions
       extends IOmitMKeyMFn<UseMutationOptions<Response, Error, Params>> {}
   }
+
+  export module Delete {
+    export type Params = string;
+
+    export type Response = void;
+
+    export interface Error extends AxiosError<IApiError, Params> {}
+
+    export interface MutationOptions
+      extends IOmitMKeyMFn<UseMutationOptions<unknown, Error, Params>> {}
+  }
 }

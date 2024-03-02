@@ -23,5 +23,6 @@ export const enKeys = Object.freeze({
       formatKeys(params, "transactions", "get_all"),
     create: ["transactions", "create"],
     update: ["transactions", "update"],
+    delete: ["transactions", "delete"],
   }),
 });

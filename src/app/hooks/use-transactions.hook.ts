@@ -42,3 +42,13 @@ export function useTransactionsUpdate(
     mutationOptions
   );
 }
+
+export function useTransactionsDelete(
+  mutationOptions?: ITransactions.Delete.MutationOptions
+) {
+  return useMutation(
+    enKeys.transactions.delete,
+    transactionsService.delete,
+    mutationOptions
+  );
+}

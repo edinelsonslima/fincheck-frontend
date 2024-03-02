@@ -4,8 +4,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useBankAccountGetAll } from "../../../../../../app/hooks/use-bank-account.hook";
 import { useCategoriesGetAll } from "../../../../../../app/hooks/use-categories.hook";
-import { useMemo } from "react";
-import { useTransactionsUpdate } from "../../../../../../app/hooks/use-transactions.hook";
+import { useMemo, useState } from "react";
+import {
+  useTransactionsDelete,
+  useTransactionsUpdate,
+} from "../../../../../../app/hooks/use-transactions.hook";
 import { enTransactionType } from "../../../../../../types/enums/transaction-type.enum";
 import { ITransactions } from "../../../../../../types/interfaces/transactions.interface";
 import toast from "react-hot-toast";
@@ -30,6 +33,7 @@ export function useController(
   transaction: ITransactions.Entity,
   onClose: () => void
 ) {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [parameters] = useParameters();
   const [, setCacheBankAccounts] = useCache<IBankAccount.GetAll.Response>(
     enKeys.bankAccount.getAll
@@ -45,9 +49,8 @@ export function useController(
 
   const bankAccountGetAll = useBankAccountGetAll();
   const transactionsUpdate = useTransactionsUpdate();
+  const transactionsDelete = useTransactionsDelete();
   const categoriesGetAll = useCategoriesGetAll();
-
-  const isExpense = transaction.type === enTransactionType.EXPENSE;
 
   const {
     register,
@@ -66,7 +69,60 @@ export function useController(
     },
   });
 
-  const updateCacheTransactions = (
+  const categories = useMemo(() => {
+    const data = categoriesGetAll.data;
+    return data?.filter(({ type }) => type === transaction.type);
+  }, [categoriesGetAll.data, transaction.type]);
+
+  const handleSubmit = hookFormSubmit(async (data) => {
+    const successMessage = isExpense
+      ? "Expense successfully edited!"
+      : "Income successfully edited!";
+
+    const errorMessage = isExpense
+      ? "Error editing expense!"
+      : "Error editing income!";
+
+    try {
+      const updatedTransaction = await transactionsUpdate.mutateAsync({
+        ...data,
+        id: transaction.id,
+        type: transaction.type,
+        date: data.date.toISOString(),
+      });
+
+      reset();
+      updateCacheTransactionsEdited(updatedTransaction);
+      toast.success(t(successMessage));
+      onClose();
+    } catch (error) {
+      const err = error as ITransactions.Update.Error;
+      toast.error(t(err.response?.data.message || errorMessage));
+    }
+  });
+
+  const handleDeleteTransaction = async () => {
+    const successMessage = isExpense
+      ? "Expense successfully deleted!"
+      : "Income successfully deleted!";
+
+    const errorMessage = isExpense
+      ? "Error delete this expense!"
+      : "Error delete this income!";
+
+    try {
+      await transactionsDelete.mutateAsync(transaction.id);
+
+      toast.success(t(successMessage));
+      updateCacheTransactionsDeleted(transaction);
+      handleCloseDeleteModal();
+    } catch (error) {
+      const err = error as IBankAccount.Delete.Error;
+      toast.error(t(err.response?.data.message || errorMessage));
+    }
+  };
+
+  const updateCacheTransactionsEdited = (
     updatedTransaction: ITransactions.Update.Response
   ) => {
     setCacheTransactions((transactions) => {
@@ -119,37 +175,51 @@ export function useController(
     });
   };
 
-  const handleSubmit = hookFormSubmit(async (data) => {
-    const successMessage = isExpense
-      ? "Expense successfully edited!"
-      : "Income successfully edited!";
+  const updateCacheTransactionsDeleted = (
+    deletedTransaction: ITransactions.Update.Response
+  ) => {
+    setCacheTransactions((transactions) => {
+      return transactions?.filter(({ id }) => deletedTransaction.id !== id);
+    });
 
-    const errorMessage = isExpense
-      ? "Error editing expense!"
-      : "Error editing income!";
+    setCacheBankAccounts((bankAccounts) => {
+      if (!bankAccounts) {
+        return bankAccounts;
+      }
 
-    try {
-      const updatedTransaction = await transactionsUpdate.mutateAsync({
-        ...data,
-        id: transaction.id,
-        type: transaction.type,
-        date: data.date.toISOString(),
+      const bankAccountIndex = bankAccounts.findIndex(({ id }) => {
+        return deletedTransaction.bankAccountId === id;
       });
 
-      reset();
-      updateCacheTransactions(updatedTransaction);
-      toast.success(t(successMessage));
-      onClose();
-    } catch (error) {
-      const err = error as ITransactions.Update.Error;
-      toast.error(t(err.response?.data.message || errorMessage));
-    }
-  });
+      if (bankAccountIndex === -1) {
+        return bankAccounts;
+      }
 
-  const categories = useMemo(() => {
-    const data = categoriesGetAll.data;
-    return data?.filter(({ type }) => type === transaction.type);
-  }, [categoriesGetAll.data, transaction.type]);
+      const { initialBalance, ...bankAccount } = bankAccounts[bankAccountIndex];
+
+      if (deletedTransaction.type === enTransactionType.INCOME) {
+        bankAccount.currentBalance = initialBalance + deletedTransaction.value;
+      }
+
+      if (deletedTransaction.type === enTransactionType.EXPENSE) {
+        bankAccount.currentBalance = initialBalance - deletedTransaction.value;
+      }
+
+      bankAccounts[bankAccountIndex] = { ...bankAccount, initialBalance };
+
+      return bankAccounts;
+    });
+  };
+
+  const handleOpenDeleteModal = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+  };
+
+  const isExpense = transaction.type === enTransactionType.EXPENSE;
 
   return {
     register,
@@ -161,5 +231,10 @@ export function useController(
     accounts: bankAccountGetAll.data ?? [],
     categories: categories ?? [],
     isLoading: transactionsUpdate.isLoading,
+    isDeleteModalOpen,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
+    handleDeleteTransaction,
+    isLoadingDelete: transactionsDelete.isLoading,
   };
 }
