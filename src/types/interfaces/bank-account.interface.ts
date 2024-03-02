@@ -67,6 +67,8 @@ export module IBankAccount {
   export module Delete {
     export type Params = string;
 
+    export type Response = void;
+
     export interface Error extends AxiosError<IApiError, Params> {}
 
     export interface MutationOptions

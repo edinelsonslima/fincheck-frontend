@@ -37,7 +37,7 @@ class BankAccountService {
   }
 
   public async delete(id: IBankAccount.Delete.Params) {
-    const { data } = await this._httpClient.delete(`/bank-accounts/${id}`);
+    const { data } = await this._httpClient.delete<IBankAccount.Delete.Response>(`/bank-accounts/${id}`);
 
     return data;
   }
