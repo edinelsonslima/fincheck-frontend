@@ -198,11 +198,11 @@ export function useController(
       const { initialBalance, ...bankAccount } = bankAccounts[bankAccountIndex];
 
       if (deletedTransaction.type === enTransactionType.INCOME) {
-        bankAccount.currentBalance = initialBalance + deletedTransaction.value;
+        bankAccount.currentBalance -= deletedTransaction.value;
       }
 
       if (deletedTransaction.type === enTransactionType.EXPENSE) {
-        bankAccount.currentBalance = initialBalance - deletedTransaction.value;
+        bankAccount.currentBalance += deletedTransaction.value;
       }
 
       bankAccounts[bankAccountIndex] = { ...bankAccount, initialBalance };
