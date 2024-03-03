@@ -19,9 +19,34 @@ export function useController() {
   const bankAccounts = useBankAccountGet();
 
   const slidesPerView = useMemo(() => {
-    const isLess = (width: number) => windowWidth.width <= width;
-    return isLess(500) ? 1.1 : windowWidth.md ? 2.1 : isLess(900) ? 1.1 : 2.1;
-  }, [windowWidth.md, windowWidth.width]);
+    if (windowWidth.sm) {
+      return 1.1;
+    }
+
+    if (windowWidth.md) {
+      return 2.2;
+    }
+
+    if (windowWidth.lg) {
+      return 1.1;
+    }
+
+    if (windowWidth.xl) {
+      return 2.1;
+    }
+
+    if (windowWidth.xxl) {
+      return 3.1;
+    }
+
+    return 4.1;
+  }, [
+    windowWidth.lg,
+    windowWidth.md,
+    windowWidth.sm,
+    windowWidth.xl,
+    windowWidth.xxl,
+  ]);
 
   const currentBalance = useMemo(() => {
     const balance = bankAccounts.data?.reduce((total, account) => {
