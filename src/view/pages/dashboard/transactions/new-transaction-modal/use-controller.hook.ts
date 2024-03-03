@@ -56,7 +56,7 @@ export function useController() {
       ? "Error registering expense!"
       : "Error registering income!";
 
-    const createData = {
+    const transactionFactory = {
       ...data,
       type: newTransactionType!,
       date: data.date.toISOString(),
@@ -73,7 +73,7 @@ export function useController() {
     };
 
     transactionsCreate
-      .mutateAsync(createData)
+      .mutateAsync(transactionFactory)
       .then(handleSuccess)
       .catch(handleError);
   });

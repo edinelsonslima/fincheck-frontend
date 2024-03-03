@@ -61,7 +61,7 @@ export function useController(
       ? "Error editing expense!"
       : "Error editing income!";
 
-    const createData = {
+    const transactionFactory = {
       ...data,
       id: transaction.id,
       type: transaction.type,
@@ -79,7 +79,7 @@ export function useController(
     };
 
     transactionsUpdate
-      .mutateAsync(createData)
+      .mutateAsync(transactionFactory)
       .then(handleSuccess)
       .catch(handleError);
   });

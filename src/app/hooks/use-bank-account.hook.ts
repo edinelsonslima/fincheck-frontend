@@ -28,10 +28,10 @@ export function useBankAccountCreate(
   );
 
   const updateCacheBankAccounts = (
-    bankAccount: IBankAccount.Create.Response
+    data: IBankAccount.Create.Response
   ) => {
     const currentBalance = getCacheTransactions()
-      ?.filter(({ bankAccountId }) => bankAccountId === bankAccount.id)
+      ?.filter(({ bankAccountId }) => bankAccountId === data.id)
       .reduce((total, { value, type }) => {
         if (type === enTransactionType.INCOME) {
           total += value;
@@ -42,12 +42,12 @@ export function useBankAccountCreate(
         }
 
         return total;
-      }, bankAccount.initialBalance);
+      }, data.initialBalance);
 
     setCacheBankAccounts((bankAccounts) =>
       bankAccounts?.concat({
-        ...bankAccount,
-        currentBalance: currentBalance ?? bankAccount.initialBalance,
+        ...data,
+        currentBalance: currentBalance ?? data.initialBalance,
       })
     );
   };
@@ -75,7 +75,7 @@ export function useBankAccountUpdate(
   );
 
   const updateCacheBankAccountsUpdated = (
-    bankAccount: IBankAccount.Update.Response,
+    data: IBankAccount.Update.Response,
     variables: IBankAccount.Update.Params
   ) => {
     setCacheBankAccounts((bankAccounts) => {
@@ -92,7 +92,7 @@ export function useBankAccountUpdate(
       }
 
       const currentBalance = getCacheTransactions()
-        ?.filter(({ bankAccountId }) => bankAccountId === bankAccount.id)
+        ?.filter(({ bankAccountId }) => bankAccountId === data.id)
         .reduce((total, { value, type }) => {
           if (type === enTransactionType.INCOME) {
             total += value;
@@ -103,12 +103,12 @@ export function useBankAccountUpdate(
           }
 
           return total;
-        }, bankAccount.initialBalance);
+        }, data.initialBalance);
 
       bankAccounts[bankAccountIndex] = {
         ...bankAccounts[bankAccountIndex],
-        ...bankAccount,
-        currentBalance: currentBalance ?? bankAccount.initialBalance,
+        ...data,
+        currentBalance: currentBalance ?? data.initialBalance,
       };
 
       return bankAccounts;
@@ -138,7 +138,7 @@ export function useBankAccountDelete(
   );
 
   const updateCacheBankAccountsDeleted = (
-    _: void,
+    _: IBankAccount.Delete.Response,
     variables: IBankAccount.Delete.Params
   ) => {
     setCacheTransactions((transactions) =>
