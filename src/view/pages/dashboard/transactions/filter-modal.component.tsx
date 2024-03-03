@@ -25,7 +25,7 @@ export function FilterModal() {
   return (
     <>
       <button onClick={() => setOpen(true)}>
-        <IconFilter />
+        <IconFilter className="hover:fill-slate-300" />
       </button>
 
       <Modal
