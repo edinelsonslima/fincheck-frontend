@@ -61,19 +61,97 @@ export function useBankAccountCreate(
 export function useBankAccountUpdate(
   mutationOptions?: IBankAccount.Update.MutationOptions
 ) {
-  return useMutation(
-    enKeys.bankAccount.update,
-    bankAccountService.update,
-    mutationOptions
+  const [parameters] = useParameters();
+  const [, setCacheBankAccounts] = useCache<IBankAccount.Get.Response>(
+    enKeys.bankAccount.get
   );
+  const [getCacheTransactions] = useCache<ITransactions.Get.Response>(
+    enKeys.transactions.get({
+      month: parameters.month,
+      year: parameters.year,
+      type: parameters.type,
+      bankAccountId: parameters.bankAccountId,
+    })
+  );
+
+  const updateCacheBankAccountsUpdated = (
+    bankAccount: IBankAccount.Update.Response,
+    variables: IBankAccount.Update.Params
+  ) => {
+    setCacheBankAccounts((bankAccounts) => {
+      if (!bankAccounts) {
+        return bankAccounts;
+      }
+
+      const bankAccountIndex = bankAccounts.findIndex(({ id }) => {
+        return id === variables?.id;
+      });
+
+      if (bankAccountIndex === -1) {
+        return bankAccounts;
+      }
+
+      const currentBalance = getCacheTransactions()
+        ?.filter(({ bankAccountId }) => bankAccountId === bankAccount.id)
+        .reduce((total, { value, type }) => {
+          if (type === enTransactionType.INCOME) {
+            total += value;
+          }
+
+          if (type === enTransactionType.EXPENSE) {
+            total -= value;
+          }
+
+          return total;
+        }, bankAccount.initialBalance);
+
+      bankAccounts[bankAccountIndex] = {
+        ...bankAccounts[bankAccountIndex],
+        ...bankAccount,
+        currentBalance: currentBalance ?? bankAccount.initialBalance,
+      };
+
+      return bankAccounts;
+    });
+  };
+
+  return useMutation(enKeys.bankAccount.update, bankAccountService.update, {
+    ...mutationOptions,
+    onSuccess: updateCacheBankAccountsUpdated,
+  });
 }
 
 export function useBankAccountDelete(
   mutationOptions?: IBankAccount.Delete.MutationOptions
 ) {
-  return useMutation(
-    enKeys.bankAccount.delete,
-    bankAccountService.delete,
-    mutationOptions
+  const [parameters] = useParameters();
+  const [, setCacheBankAccounts] = useCache<IBankAccount.Get.Response>(
+    enKeys.bankAccount.get
   );
+  const [, setCacheTransactions] = useCache<ITransactions.Get.Response>(
+    enKeys.transactions.get({
+      month: parameters.month,
+      year: parameters.year,
+      type: parameters.type,
+      bankAccountId: parameters.bankAccountId,
+    })
+  );
+
+  const updateCacheBankAccountsDeleted = (
+    _: void,
+    variables: IBankAccount.Delete.Params
+  ) => {
+    setCacheTransactions((transactions) =>
+      transactions?.filter(({ bankAccountId }) => bankAccountId !== variables)
+    );
+
+    setCacheBankAccounts((bankAccounts) =>
+      bankAccounts?.filter(({ id }) => id !== variables)
+    );
+  };
+
+  return useMutation(enKeys.bankAccount.delete, bankAccountService.delete, {
+    ...mutationOptions,
+    onSuccess: updateCacheBankAccountsDeleted,
+  });
 }
