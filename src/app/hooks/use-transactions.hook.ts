@@ -6,6 +6,7 @@ import { useParameters } from "./use-parameters.hook";
 import { enTransactionType } from "../../types/enums/transaction-type.enum";
 import { useCache } from "./use-cache.hook";
 import { IBankAccount } from "../../types/interfaces/bank-account.interface";
+import { ICategories } from "../../types/interfaces/categories.interface";
 
 export function useTransactionsGet(options?: ITransactions.Get.QueryOptions) {
   const [parameters] = useParameters();
@@ -30,6 +31,9 @@ export function useTransactionsCreate(
   const [parameters] = useParameters();
   const [getBankAccounts, setCacheBankAccounts] =
     useCache<IBankAccount.Get.Response>(enKeys.bankAccount.get);
+  const [getCacheCategories] = useCache<ICategories.Get.Response>(
+    enKeys.categories.get
+  );
   const [, setCacheTransactions] = useCache<ITransactions.Get.Response>(
     enKeys.transactions.get({
       month: parameters.month,
@@ -44,10 +48,23 @@ export function useTransactionsCreate(
       return data.bankAccountId === id;
     });
 
+    const category = getCacheCategories()?.find(({ id }) => {
+      return data.categoryId === id;
+    });
+
+    const categoryFactory = category && {
+      icon: category.icon,
+      id: category.id,
+      name: category.name,
+    };
+
+    const bankAccountFactory = bankAccount && { color: bankAccount?.color };
+
     setCacheTransactions((transactions) => {
       return transactions?.concat({
         ...data,
-        ...(bankAccount && { bankAccount: { color: bankAccount?.color } }),
+        ...(categoryFactory && { category: categoryFactory }),
+        ...(bankAccountFactory && { bankAccount: bankAccountFactory }),
       });
     });
 
