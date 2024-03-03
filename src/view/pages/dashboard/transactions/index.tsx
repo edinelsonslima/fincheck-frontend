@@ -7,7 +7,7 @@ import { FilterModal } from "./filter-modal.component";
 import { FilterType } from "./filter-type.component";
 import { useController } from "./use-controller.hook";
 import { EditTransactionModal } from "./edit-transaction-modal";
-import { CardTransaction } from "./card-transaction.component";
+import { TransactionCard } from "./transaction-card.component";
 
 export function Transactions() {
   const {
@@ -99,7 +99,7 @@ export function Transactions() {
 
             {transactions
               .map((transaction) => (
-                <CardTransaction
+                <TransactionCard
                   key={transaction.id}
                   transaction={transaction}
                   onClick={() => handleOpenEditModal(transaction)}

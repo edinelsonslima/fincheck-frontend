@@ -12,7 +12,7 @@ interface ICardTransaction {
 
 const { intlDate } = intlService;
 
-export function CardTransaction({ transaction, onClick }: ICardTransaction) {
+export function TransactionCard({ transaction, onClick }: ICardTransaction) {
   return (
     <button
       type="button"
