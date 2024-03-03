@@ -23,10 +23,7 @@ export function Modal({
     <RdxDialog.Root open={open} onOpenChange={onClose}>
       <RdxDialog.Portal>
         <RdxDialog.Overlay
-          className={cn(
-            "z-10 fixed inset-0 bg-black/80 backdrop-blur-sm",
-            "data-[state=open]:animate-overlay-show"
-          )}
+          className={cn("z-10 fixed inset-0 bg-black/80 backdrop-blur-sm")}
         />
         <RdxDialog.Content
           className={cn(
