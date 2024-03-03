@@ -15,9 +15,8 @@ export function AccountCard({ data }: IAccountCardProps) {
   const { openEditAccountModal } = useDashboard();
 
   return (
-    <div
-      className="relative overflow-hidden p-4 bg-white rounded-2xl h-[12.5rem] flex flex-col justify-between"
-      role="button"
+    <button
+      className="w-full relative overflow-hidden p-4 bg-white rounded-2xl h-[12.5rem] flex flex-col justify-between"
       onClick={() => openEditAccountModal(data)}
     >
       <header>
@@ -42,6 +41,6 @@ export function AccountCard({ data }: IAccountCardProps) {
         style={{ background: color }}
         className="absolute h-1 inset-x-0 bottom-0 bg-teal-950"
       />
-    </div>
+    </button>
   );
 }
