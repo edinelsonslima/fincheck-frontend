@@ -12,9 +12,6 @@ import {
 import { enTransactionType } from "../../../../../types/enums/transaction-type.enum";
 import { ITransactions } from "../../../../../types/interfaces/transactions.interface";
 import toast from "react-hot-toast";
-import { useCache } from "../../../../../app/hooks/use-cache.hook";
-import { enKeys } from "../../../../../types/enums/requests-keys.enum";
-import { useParameters } from "../../../../../app/hooks/use-parameters.hook";
 import { IBankAccount } from "../../../../../types/interfaces/bank-account.interface";
 
 const { t } = intlService;
@@ -34,31 +31,13 @@ export function useController(
   onClose: () => void
 ) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [parameters] = useParameters();
-  const [, setCacheBankAccounts] = useCache<IBankAccount.Get.Response>(
-    enKeys.bankAccount.get
-  );
-  const [, setCacheTransactions] = useCache<ITransactions.Get.Response>(
-    enKeys.transactions.get({
-      month: parameters.month,
-      year: parameters.year,
-      type: parameters.type,
-      bankAccountId: parameters.bankAccountId,
-    })
-  );
 
   const bankAccounts = useBankAccountGet();
   const transactionsUpdate = useTransactionsUpdate();
   const transactionsDelete = useTransactionsDelete();
   const categories = useCategoriesGet();
 
-  const {
-    register,
-    handleSubmit: hookFormSubmit,
-    formState: { errors },
-    control,
-    reset,
-  } = useForm<FormData>({
+  const form = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       name: transaction.name,
@@ -73,7 +52,7 @@ export function useController(
     return categories.data?.filter(({ type }) => type === transaction.type);
   }, [categories.data, transaction.type]);
 
-  const handleSubmit = hookFormSubmit(async (data) => {
+  const handleSubmit = form.handleSubmit((data) => {
     const successMessage = isExpense
       ? "Expense successfully edited!"
       : "Income successfully edited!";
@@ -82,25 +61,27 @@ export function useController(
       ? "Error editing expense!"
       : "Error editing income!";
 
-    try {
-      const updatedTransaction = await transactionsUpdate.mutateAsync({
-        ...data,
-        id: transaction.id,
-        type: transaction.type,
-        date: data.date.toISOString(),
-      });
+    const createData = {
+      ...data,
+      id: transaction.id,
+      type: transaction.type,
+      date: data.date.toISOString(),
+    };
 
-      reset();
-      updateCacheTransactionsEdited(updatedTransaction);
-      toast.success(t(successMessage));
-      onClose();
-    } catch (error) {
-      const err = error as ITransactions.Update.Error;
-      toast.error(t(err.response?.data.message || errorMessage));
-    }
+    transactionsUpdate
+      .mutateAsync(createData)
+      .then(() => {
+        toast.success(t(successMessage));
+        form.reset();
+        onClose();
+      })
+      .catch((error) => {
+        const err = error as ITransactions.Update.Error;
+        toast.error(t(err.response?.data.message || errorMessage));
+      });
   });
 
-  const handleDeleteTransaction = async () => {
+  const handleDeleteTransaction = () => {
     const successMessage = isExpense
       ? "Expense successfully deleted!"
       : "Income successfully deleted!";
@@ -109,105 +90,16 @@ export function useController(
       ? "Error delete this expense!"
       : "Error delete this income!";
 
-    try {
-      await transactionsDelete.mutateAsync(transaction.id);
-
-      toast.success(t(successMessage));
-      updateCacheTransactionsDeleted(transaction);
-      handleCloseDeleteModal();
-    } catch (error) {
-      const err = error as IBankAccount.Delete.Error;
-      toast.error(t(err.response?.data.message || errorMessage));
-    }
-  };
-
-  const updateCacheTransactionsEdited = (
-    updatedTransaction: ITransactions.Update.Response
-  ) => {
-    setCacheTransactions((transactions) => {
-      if (!transactions) {
-        return transactions;
-      }
-
-      const transactionIndex = transactions.findIndex(({ id }) => {
-        return id === transaction.id;
+    transactionsDelete
+      .mutateAsync(transaction.id)
+      .then(() => {
+        toast.success(t(successMessage));
+        handleCloseDeleteModal();
+      })
+      .catch((error) => {
+        const err = error as IBankAccount.Delete.Error;
+        toast.error(t(err.response?.data.message || errorMessage));
       });
-
-      if (transactionIndex === -1) {
-        return transactions;
-      }
-
-      transactions[transactionIndex] = {
-        ...transactions[transactionIndex],
-        ...updatedTransaction,
-      };
-
-      return transactions;
-    });
-
-    setCacheBankAccounts((bankAccounts) => {
-      if (!bankAccounts) {
-        return bankAccounts;
-      }
-
-      const bankAccountIndex = bankAccounts.findIndex(({ id }) => {
-        return updatedTransaction.bankAccountId === id;
-      });
-
-      if (bankAccountIndex === -1) {
-        return bankAccounts;
-      }
-
-      const { initialBalance, ...bankAccount } = bankAccounts[bankAccountIndex];
-
-      if (updatedTransaction.type === enTransactionType.INCOME) {
-        bankAccount.currentBalance = initialBalance + updatedTransaction.value;
-      }
-
-      if (updatedTransaction.type === enTransactionType.EXPENSE) {
-        bankAccount.currentBalance = initialBalance - updatedTransaction.value;
-      }
-
-      bankAccounts[bankAccountIndex] = { ...bankAccount, initialBalance };
-
-      return bankAccounts;
-    });
-  };
-
-  const updateCacheTransactionsDeleted = (
-    deletedTransaction: ITransactions.Update.Response
-  ) => {
-    setCacheTransactions((transactions) => {
-      return transactions?.filter(({ id }) => deletedTransaction.id !== id);
-    });
-
-    setCacheBankAccounts((bankAccounts) => {
-      if (!bankAccounts) {
-        return bankAccounts;
-      }
-
-      const bankAccountIndex = bankAccounts.findIndex(({ id }) => {
-        return deletedTransaction.bankAccountId === id;
-      });
-
-      if (bankAccountIndex === -1) {
-        return bankAccounts;
-      }
-
-      const { initialBalance, ...bankAccount } = bankAccounts[bankAccountIndex];
-
-      if (deletedTransaction.type === enTransactionType.INCOME) {
-        bankAccount.currentBalance -= deletedTransaction.value;
-      }
-
-      if (deletedTransaction.type === enTransactionType.EXPENSE) {
-        bankAccount.currentBalance += deletedTransaction.value;
-      }
-
-      bankAccounts[bankAccountIndex] = { ...bankAccount, initialBalance };
-
-      return bankAccounts;
-    });
   };
 
   const handleOpenDeleteModal = () => {
@@ -221,12 +113,12 @@ export function useController(
   const isExpense = transaction.type === enTransactionType.EXPENSE;
 
   return {
-    register,
-    errors,
-    control,
     t,
-    handleSubmit,
     isExpense,
+    handleSubmit,
+    register: form.register,
+    errors: form.formState.errors,
+    control: form.control,
     accounts: bankAccounts.data ?? [],
     categories: categoriesFiltered ?? [],
     isLoading: transactionsUpdate.isLoading,
