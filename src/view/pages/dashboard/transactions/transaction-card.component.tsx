@@ -17,9 +17,9 @@ export function TransactionCard({ transaction, onClick }: ICardTransaction) {
     <button
       type="button"
       onClick={onClick}
-      className="relative overflow-hidden w-full bg-white p-4 rounded-2xl flex items-center justify-between gap-4 hover:shadow-sm transition-all"
+      className="relative overflow-hidden w-full bg-white p-4 rounded-2xl flex sm:items-center justify-between flex-col sm:flex-row gap-4 hover:shadow-sm transition-all text-start"
     >
-      <div className="flex flex-1 items-center gap-2 text-start">
+      <div className="flex flex-1 items-center gap-2">
         <CategoryIcon
           type={transaction.type}
           category={transaction.category?.icon}
