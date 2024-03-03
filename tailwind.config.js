@@ -176,7 +176,8 @@ export default {
         slideUpAndFade: {
           from: { opacity: 0, transform: 'translateY(2px)' },
           to: { opacity: 1, transform: 'translateY(0)' },
-        }, overlayShow: {
+        },
+        overlayShow: {
           from: { opacity: 0 },
           to: { opacity: 1 },
         },
