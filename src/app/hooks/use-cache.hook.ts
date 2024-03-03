@@ -23,9 +23,8 @@ export function useCache<TData>(key: QueryKey) {
       options?: SetDataOptions
     ) {
       const updaterCache = (data: TData | undefined) => {
-        if (typeof updater === "function") {
-          const fn = updater as (data: TData | undefined) => TData | undefined;
-          return fn(structuredClone(data));
+        if (updater instanceof Function) {
+          return updater(structuredClone(data));
         }
 
         return updater;

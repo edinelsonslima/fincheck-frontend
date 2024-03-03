@@ -15,9 +15,8 @@ export function useStates<TStates extends object>(
     value: IUpdateState<TStates, TKey>["value"]
   ) {
     return setStates((previous) => {
-      if (typeof value === "function") {
-        const fn = value as (data: TStates[TKey]) => TStates[TKey];
-        return { ...previous, [key]: fn(previous[key]) };
+      if (value instanceof Function) {
+        return { ...previous, [key]: value(previous[key]) };
       }
 
       return { ...previous, [key]: value };
