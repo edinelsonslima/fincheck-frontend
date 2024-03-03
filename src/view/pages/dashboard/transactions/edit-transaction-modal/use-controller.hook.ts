@@ -96,6 +96,7 @@ export function useController(
     const handleSuccess = () => {
       toast.success(t(successMessage));
       handleCloseDeleteModal();
+      onClose();
     };
 
     const handleError = (error: IBankAccount.Delete.Error) => {
