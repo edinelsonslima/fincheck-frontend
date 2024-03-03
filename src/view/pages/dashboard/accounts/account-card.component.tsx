@@ -16,7 +16,7 @@ export function AccountCard({ data }: IAccountCardProps) {
 
   return (
     <button
-      className="w-full relative overflow-hidden p-4 bg-white rounded-2xl h-[12.5rem] flex flex-col justify-between"
+      className="w-full relative overflow-hidden p-4 bg-white rounded-2xl h-[12.5rem] flex flex-col justify-between text-start"
       onClick={() => openEditAccountModal(data)}
     >
       <header>
