@@ -47,32 +47,38 @@ export function useController() {
   });
 
   const handleSubmit = form.handleSubmit((data) => {
+    const handleSuccess = () => {
+      toast.success(t("Account edited successfully!"));
+      form.reset();
+      closeEditAccountModal();
+    };
+
+    const handleError = (error: IBankAccount.Update.Error) => {
+      const defaultMessage = "Error while editing the account!";
+      toast.error(t(error.response?.data.message ?? defaultMessage));
+    };
+
     bankAccountUpdate
       .mutateAsync({ ...data, id: accountBeingEdited!.id })
-      .then(() => {
-        toast.success(t("Account edited successfully!"));
-        form.reset();
-        closeEditAccountModal();
-      })
-      .catch((error) => {
-        const err = error as IBankAccount.Update.Error;
-        const defaultMessage = "Error while editing the account!";
-        toast.error(t(err.response?.data.message ?? defaultMessage));
-      });
+      .then(handleSuccess)
+      .catch(handleError);
   });
 
   const handleDeleteAccount = () => {
+    const handleSuccess = () => {
+      toast.success(t("Account successfully deleted!"));
+      closeEditAccountModal();
+    };
+
+    const handleError = (error: IBankAccount.Delete.Error) => {
+      const defaultMessage = "Error deleting the account!";
+      toast.error(t(error.response?.data.message ?? defaultMessage));
+    };
+
     bankAccountDelete
       .mutateAsync(accountBeingEdited!.id)
-      .then(() => {
-        toast.success(t("Account successfully deleted!"));
-        closeEditAccountModal();
-      })
-      .catch((error) => {
-        const err = error as IBankAccount.Delete.Error;
-        const defaultMessage = "Error deleting the account!";
-        toast.error(t(err.response?.data.message ?? defaultMessage));
-      });
+      .then(handleSuccess)
+      .catch(handleError);
   };
 
   const handleOpenDeleteModal = () => {

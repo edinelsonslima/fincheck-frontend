@@ -61,17 +61,20 @@ export function useController() {
       date: data.date.toISOString(),
     };
 
+    const handleSuccess = () => {
+      toast.success(t(successMessage));
+      form.reset();
+      closeNewTransactionModal();
+    };
+
+    const handleError = (error: ITransactions.Create.Error) => {
+      toast.error(t(error.response?.data.message || errorMessage));
+    };
+
     transactionsCreate
       .mutateAsync(createData)
-      .then(() => {
-        toast.success(t(successMessage));
-        form.reset();
-        closeNewTransactionModal();
-      })
-      .catch((error) => {
-        const err = error as ITransactions.Create.Error;
-        toast.error(t(err.response?.data.message || errorMessage));
-      });
+      .then(handleSuccess)
+      .catch(handleError);
   });
 
   const categoriesFiltered = useMemo(() => {

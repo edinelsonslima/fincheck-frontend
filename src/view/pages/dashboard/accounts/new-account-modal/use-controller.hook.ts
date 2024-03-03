@@ -40,18 +40,18 @@ export function useController() {
   });
 
   const handleSubmit = form.handleSubmit((data) => {
-    bankAccountCreate
-      .mutateAsync(data)
-      .then(() => {
-        toast.success(t("Account registered successfully!"));
-        form.reset();
-        closeNewAccountModal();
-      })
-      .catch((error) => {
-        const err = error as IBankAccount.Create.Error;
-        const defaultMessage = "Error while registering the account!";
-        toast.error(t(err.response?.data.message ?? defaultMessage));
-      });
+    const handleSuccess = () => {
+      toast.success(t("Account registered successfully!"));
+      form.reset();
+      closeNewAccountModal();
+    };
+
+    const handleError = (error: IBankAccount.Create.Error) => {
+      const defaultMessage = "Error while registering the account!";
+      toast.error(t(error.response?.data.message ?? defaultMessage));
+    };
+
+    bankAccountCreate.mutateAsync(data).then(handleSuccess).catch(handleError);
   });
 
   return {

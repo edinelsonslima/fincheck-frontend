@@ -68,17 +68,20 @@ export function useController(
       date: data.date.toISOString(),
     };
 
+    const handleSuccess = () => {
+      toast.success(t(successMessage));
+      form.reset();
+      onClose();
+    };
+
+    const handleError = (error: ITransactions.Update.Error) => {
+      toast.error(t(error.response?.data.message || errorMessage));
+    };
+
     transactionsUpdate
       .mutateAsync(createData)
-      .then(() => {
-        toast.success(t(successMessage));
-        form.reset();
-        onClose();
-      })
-      .catch((error) => {
-        const err = error as ITransactions.Update.Error;
-        toast.error(t(err.response?.data.message || errorMessage));
-      });
+      .then(handleSuccess)
+      .catch(handleError);
   });
 
   const handleDeleteTransaction = () => {
@@ -90,16 +93,19 @@ export function useController(
       ? "Error delete this expense!"
       : "Error delete this income!";
 
+    const handleSuccess = () => {
+      toast.success(t(successMessage));
+      handleCloseDeleteModal();
+    };
+
+    const handleError = (error: IBankAccount.Delete.Error) => {
+      toast.error(t(error.response?.data.message || errorMessage));
+    };
+
     transactionsDelete
       .mutateAsync(transaction.id)
-      .then(() => {
-        toast.success(t(successMessage));
-        handleCloseDeleteModal();
-      })
-      .catch((error) => {
-        const err = error as IBankAccount.Delete.Error;
-        toast.error(t(err.response?.data.message || errorMessage));
-      });
+      .then(handleSuccess)
+      .catch(handleError);
   };
 
   const handleOpenDeleteModal = () => {
