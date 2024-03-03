@@ -32,6 +32,7 @@ export function TransactionCard({ transaction, onClick }: ICardTransaction) {
           </span>
         </div>
       </div>
+
       <span
         className={cn(
           "tracking-tighter font-medium",
