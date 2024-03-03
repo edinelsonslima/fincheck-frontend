@@ -71,7 +71,7 @@ export function Transactions() {
         </div>
       </header>
 
-      <section className="flex-1 mt-4 space-y-2 overflow-y-auto">
+      <section className="flex-1 mt-4 space-y-2 overflow-y-auto pr-1">
         {isLoading && (
           <div className="h-full grid place-items-center">
             <Spinner className="w-10 h-10" />
