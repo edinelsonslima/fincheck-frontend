@@ -35,9 +35,8 @@ export function useController() {
   } = useDashboard();
 
   const [parameters] = useParameters();
-  const [, setCacheBankAccounts] = useCache<IBankAccount.GetAll.Response>(
-    enKeys.bankAccount.getAll
-  );
+  const [getBankAccounts, setCacheBankAccounts] =
+    useCache<IBankAccount.GetAll.Response>(enKeys.bankAccount.getAll);
   const [, setCacheTransactions] = useCache<ITransactions.GetAll.Response>(
     enKeys.transactions.getAll({
       month: parameters.month,
@@ -72,7 +71,16 @@ export function useController() {
   const updateCacheTransactions = (
     transaction: ITransactions.Create.Response
   ) => {
-    setCacheTransactions((transactions) => transactions?.concat(transaction));
+    const bankAccount = getBankAccounts()?.find(({ id }) => {
+      return transaction.bankAccountId === id;
+    });
+
+    setCacheTransactions((transactions) => {
+      return transactions?.concat({
+        ...transaction,
+        ...(bankAccount && { bankAccount: { color: bankAccount?.color } }),
+      });
+    });
   };
 
   const updateCacheBankAccounts = (

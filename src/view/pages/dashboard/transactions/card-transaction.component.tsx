@@ -17,7 +17,7 @@ export function CardTransaction({ transaction, onClick }: ICardTransaction) {
     <button
       type="button"
       onClick={onClick}
-      className="w-full bg-white p-4 rounded-2xl flex items-center justify-between gap-4 hover:shadow-sm transition-all"
+      className="relative overflow-hidden w-full bg-white p-4 rounded-2xl flex items-center justify-between gap-4 hover:shadow-sm transition-all"
     >
       <div className="flex flex-1 items-center gap-2">
         <CategoryIcon
@@ -42,6 +42,11 @@ export function CardTransaction({ transaction, onClick }: ICardTransaction) {
         {transaction.type === enTransactionType.EXPENSE ? "- " : "+ "}
         <Value value={transaction.value} blur="sm" />
       </span>
+
+      <span
+        style={{ background: transaction.bankAccount?.color }}
+        className="absolute w-1 inset-y-0 left-0 bg-teal-950"
+      />
     </button>
   );
 }

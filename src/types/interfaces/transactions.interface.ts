@@ -17,6 +17,9 @@ export module ITransactions {
     date: string;
     type: enTransactionType;
     value: number;
+    bankAccount?: {
+      color: string;
+    };
     category?: {
       id: string;
       name: string;
