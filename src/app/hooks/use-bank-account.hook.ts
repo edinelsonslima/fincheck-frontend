@@ -3,12 +3,12 @@ import { IBankAccount } from "../../types/interfaces/bank-account.interface";
 import { bankAccountService } from "../services/bank-account.service";
 import { enKeys } from "../../types/enums/requests-keys.enum";
 
-export function useBankAccountGetAll(
-  options?: IBankAccount.GetAll.QueryOptions
+export function useBankAccountGet(
+  options?: IBankAccount.Get.QueryOptions
 ) {
   return useQuery(
-    enKeys.bankAccount.getAll,
-    bankAccountService.getAll,
+    enKeys.bankAccount.get,
+    bankAccountService.get,
     options
   );
 }

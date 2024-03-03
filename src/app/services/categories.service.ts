@@ -3,11 +3,11 @@ import httpClient, { HttpClient } from "./http-client.service";
 
 class CategoriesService {
   constructor(private readonly _httpClient: HttpClient) {
-    this.getAll = this.getAll.bind(this);
+    this.get = this.get.bind(this);
   }
 
-  public async getAll({ signal }: ICategories.GetAll.QueryFnProps) {
-    const { data } = await this._httpClient.get<ICategories.GetAll.Response>(
+  public async get({ signal }: ICategories.Get.QueryFnProps) {
+    const { data } = await this._httpClient.get<ICategories.Get.Response>(
       "/categories",
       { signal }
     );

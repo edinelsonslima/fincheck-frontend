@@ -18,8 +18,8 @@ export function FilterModal() {
   const [open, setOpen] = useState(false);
   const [year, setYear] = useState(parameters.year);
   const [bankAccountId, setBankAccountId] = useState(parameters.bankAccountId);
-  const [getAccounts] = useCache<IBankAccount.GetAll.Response>(
-    enKeys.bankAccount.getAll
+  const [getAccounts] = useCache<IBankAccount.Get.Response>(
+    enKeys.bankAccount.get
   );
 
   return (

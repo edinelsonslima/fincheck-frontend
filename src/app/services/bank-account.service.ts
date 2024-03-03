@@ -3,14 +3,14 @@ import httpClient, { HttpClient } from "./http-client.service";
 
 class BankAccountService {
   constructor(private readonly _httpClient: HttpClient) {
-    this.getAll = this.getAll.bind(this);
+    this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
   }
 
-  public async getAll({ signal }: IBankAccount.GetAll.QueryFnProps) {
-    const { data } = await this._httpClient.get<IBankAccount.GetAll.Response>(
+  public async get({ signal }: IBankAccount.Get.QueryFnProps) {
+    const { data } = await this._httpClient.get<IBankAccount.Get.Response>(
       "/bank-accounts",
       { signal }
     );

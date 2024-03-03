@@ -2,8 +2,8 @@ import { z } from "zod";
 import { intlService } from "../../../../../app/services/intl.service";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useBankAccountGetAll } from "../../../../../app/hooks/use-bank-account.hook";
-import { useCategoriesGetAll } from "../../../../../app/hooks/use-categories.hook";
+import { useBankAccountGet } from "../../../../../app/hooks/use-bank-account.hook";
+import { useCategoriesGet } from "../../../../../app/hooks/use-categories.hook";
 import { useMemo, useState } from "react";
 import {
   useTransactionsDelete,
@@ -35,11 +35,11 @@ export function useController(
 ) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [parameters] = useParameters();
-  const [, setCacheBankAccounts] = useCache<IBankAccount.GetAll.Response>(
-    enKeys.bankAccount.getAll
+  const [, setCacheBankAccounts] = useCache<IBankAccount.Get.Response>(
+    enKeys.bankAccount.get
   );
-  const [, setCacheTransactions] = useCache<ITransactions.GetAll.Response>(
-    enKeys.transactions.getAll({
+  const [, setCacheTransactions] = useCache<ITransactions.Get.Response>(
+    enKeys.transactions.get({
       month: parameters.month,
       year: parameters.year,
       type: parameters.type,
@@ -47,10 +47,10 @@ export function useController(
     })
   );
 
-  const bankAccountGetAll = useBankAccountGetAll();
+  const bankAccounts = useBankAccountGet();
   const transactionsUpdate = useTransactionsUpdate();
   const transactionsDelete = useTransactionsDelete();
-  const categoriesGetAll = useCategoriesGetAll();
+  const categories = useCategoriesGet();
 
   const {
     register,
@@ -69,10 +69,9 @@ export function useController(
     },
   });
 
-  const categories = useMemo(() => {
-    const data = categoriesGetAll.data;
-    return data?.filter(({ type }) => type === transaction.type);
-  }, [categoriesGetAll.data, transaction.type]);
+  const categoriesFiltered = useMemo(() => {
+    return categories.data?.filter(({ type }) => type === transaction.type);
+  }, [categories.data, transaction.type]);
 
   const handleSubmit = hookFormSubmit(async (data) => {
     const successMessage = isExpense
@@ -228,8 +227,8 @@ export function useController(
     t,
     handleSubmit,
     isExpense,
-    accounts: bankAccountGetAll.data ?? [],
-    categories: categories ?? [],
+    accounts: bankAccounts.data ?? [],
+    categories: categoriesFiltered ?? [],
     isLoading: transactionsUpdate.isLoading,
     isDeleteModalOpen,
     handleOpenDeleteModal,

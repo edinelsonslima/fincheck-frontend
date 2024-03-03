@@ -4,12 +4,12 @@ import { ITransactions } from "../../types/interfaces/transactions.interface";
 import { transactionsService } from "../services/transactions.service";
 import { useParameters } from "./use-parameters.hook";
 
-export function useTransactionsGetAll(
-  options?: ITransactions.GetAll.QueryOptions
+export function useTransactionsGet(
+  options?: ITransactions.Get.QueryOptions
 ) {
   const [parameters] = useParameters();
 
-  const filters: ITransactions.GetAll.Params = {
+  const filters: ITransactions.Get.Params = {
     month: parameters.month,
     year: parameters.year,
     type: parameters.type,
@@ -17,8 +17,8 @@ export function useTransactionsGetAll(
   };
 
   return useQuery(
-    enKeys.transactions.getAll(filters),
-    transactionsService.getAll(filters),
+    enKeys.transactions.get(filters),
+    transactionsService.get(filters),
     options
   );
 }

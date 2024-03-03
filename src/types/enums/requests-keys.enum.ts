@@ -10,17 +10,17 @@ export const enKeys = Object.freeze({
     me: ["user", "me"],
   }),
   bankAccount: Object.freeze({
-    getAll: ["bank", "account", "get_all"],
+    get: ["bank", "account", "get"],
     create: ["bank", "account", "create"],
     update: ["bank", "account", "update"],
     delete: ["bank", "account", "delete"],
   }),
   categories: Object.freeze({
-    getAll: ["categories", "get_all"],
+    get: ["categories", "get"],
   }),
   transactions: Object.freeze({
-    getAll: (params: ITransactions.GetAll.Params) =>
-      formatKeys(params, "transactions", "get_all"),
+    get: (params: ITransactions.Get.Params) =>
+      formatKeys(params, "transactions", "get"),
     create: ["transactions", "create"],
     update: ["transactions", "update"],
     delete: ["transactions", "delete"],

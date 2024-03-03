@@ -27,7 +27,7 @@ export module ITransactions {
     };
   }
 
-  export module GetAll {
+  export module Get {
     export interface Params {
       month: number;
       year: number;

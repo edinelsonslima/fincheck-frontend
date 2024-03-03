@@ -34,11 +34,11 @@ export function useController() {
   const { isNewAccountModalOpen, closeNewAccountModal } = useDashboard();
 
   const [parameters] = useParameters();
-  const [, setCacheBankAccounts] = useCache<IBankAccount.GetAll.Response>(
-    enKeys.bankAccount.getAll
+  const [, setCacheBankAccounts] = useCache<IBankAccount.Get.Response>(
+    enKeys.bankAccount.get
   );
-  const [getCacheTransactions] = useCache<ITransactions.GetAll.Response>(
-    enKeys.transactions.getAll({
+  const [getCacheTransactions] = useCache<ITransactions.Get.Response>(
+    enKeys.transactions.get({
       month: parameters.month,
       year: parameters.year,
       type: parameters.type,

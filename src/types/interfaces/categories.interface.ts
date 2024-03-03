@@ -12,7 +12,7 @@ export module ICategories {
     type: enTransactionType;
   }
 
-  export module GetAll {
+  export module Get {
     export interface Response extends Array<Entity> {}
 
     export interface Error extends AxiosError<IApiError> {}

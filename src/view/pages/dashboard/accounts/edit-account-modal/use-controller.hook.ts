@@ -38,12 +38,12 @@ export function useController() {
 
   const [parameters] = useParameters();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [, setCacheBankAccounts] = useCache<IBankAccount.GetAll.Response>(
-    enKeys.bankAccount.getAll
+  const [, setCacheBankAccounts] = useCache<IBankAccount.Get.Response>(
+    enKeys.bankAccount.get
   );
   const [getCacheTransactions, setCacheTransactions] =
-    useCache<ITransactions.GetAll.Response>(
-      enKeys.transactions.getAll({
+    useCache<ITransactions.Get.Response>(
+      enKeys.transactions.get({
         month: parameters.month,
         year: parameters.year,
         type: parameters.type,

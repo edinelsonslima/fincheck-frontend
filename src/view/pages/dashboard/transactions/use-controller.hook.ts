@@ -1,4 +1,4 @@
-import { useTransactionsGetAll } from "../../../../app/hooks/use-transactions.hook";
+import { useTransactionsGet } from "../../../../app/hooks/use-transactions.hook";
 import { intlService } from "../../../../app/services/intl.service";
 import { useEffect, useRef, useState } from "react";
 import { useParameters } from "../../../../app/hooks/use-parameters.hook";
@@ -14,7 +14,7 @@ export function useController() {
   const [parameters, setParameters] = useParameters();
 
   const isFirstRender = useRef(true);
-  const transactionsGetAll = useTransactionsGetAll();
+  const transactions = useTransactionsGet();
 
   function handleOpenEditModal(transaction: ITransactions.Entity) {
     setIsModalOpen(true);
@@ -41,10 +41,10 @@ export function useController() {
     isEditModalOpen,
     handleCloseEditModal,
     handleOpenEditModal,
-    transactions: transactionsGetAll.data ?? [],
-    isLoading: transactionsGetAll.isLoading,
+    transactions: transactions.data ?? [],
+    isLoading: transactions.isLoading,
     isInitialLoading: isFirstRender.current
-      ? transactionsGetAll.isInitialLoading
+      ? transactions.isInitialLoading
       : false,
   };
 }

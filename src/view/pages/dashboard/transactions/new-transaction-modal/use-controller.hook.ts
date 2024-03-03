@@ -2,8 +2,8 @@ import { z } from "zod";
 import { intlService } from "../../../../../app/services/intl.service";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useBankAccountGetAll } from "../../../../../app/hooks/use-bank-account.hook";
-import { useCategoriesGetAll } from "../../../../../app/hooks/use-categories.hook";
+import { useBankAccountGet } from "../../../../../app/hooks/use-bank-account.hook";
+import { useCategoriesGet } from "../../../../../app/hooks/use-categories.hook";
 import { useMemo } from "react";
 import { useTransactionsCreate } from "../../../../../app/hooks/use-transactions.hook";
 import toast from "react-hot-toast";
@@ -36,9 +36,9 @@ export function useController() {
 
   const [parameters] = useParameters();
   const [getBankAccounts, setCacheBankAccounts] =
-    useCache<IBankAccount.GetAll.Response>(enKeys.bankAccount.getAll);
-  const [, setCacheTransactions] = useCache<ITransactions.GetAll.Response>(
-    enKeys.transactions.getAll({
+    useCache<IBankAccount.Get.Response>(enKeys.bankAccount.get);
+  const [, setCacheTransactions] = useCache<ITransactions.Get.Response>(
+    enKeys.transactions.get({
       month: parameters.month,
       year: parameters.year,
       type: parameters.type,
@@ -46,9 +46,9 @@ export function useController() {
     })
   );
 
-  const bankAccountGetAll = useBankAccountGetAll();
+  const bankAccounts = useBankAccountGet();
   const transactionsCreate = useTransactionsCreate();
-  const categoriesGetAll = useCategoriesGetAll();
+  const categories = useCategoriesGet();
 
   const isExpense = newTransactionType === enTransactionType.EXPENSE;
 
@@ -142,10 +142,9 @@ export function useController() {
     }
   });
 
-  const categories = useMemo(() => {
-    const data = categoriesGetAll.data;
-    return data?.filter(({ type }) => type === newTransactionType);
-  }, [categoriesGetAll.data, newTransactionType]);
+  const categoriesFiltered = useMemo(() => {
+    return categories.data?.filter(({ type }) => type === newTransactionType);
+  }, [categories.data, newTransactionType]);
 
   return {
     register,
@@ -156,8 +155,8 @@ export function useController() {
     handleSubmit,
     isNewTransactionModalOpen,
     closeNewTransactionModal,
-    accounts: bankAccountGetAll.data ?? [],
-    categories: categories ?? [],
+    accounts: bankAccounts.data ?? [],
+    categories: categoriesFiltered ?? [],
     isLoading: transactionsCreate.isLoading,
   };
 }

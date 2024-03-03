@@ -3,16 +3,16 @@ import httpClient, { HttpClient } from "./http-client.service";
 
 class TransactionsService {
   constructor(private readonly _httpClient: HttpClient) {
-    this.getAll = this.getAll.bind(this);
+    this.get = this.get.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
   }
 
-  public getAll(filters: ITransactions.GetAll.Params) {
-    return async ({ signal }: ITransactions.GetAll.QueryFnProps) => {
+  public get(filters: ITransactions.Get.Params) {
+    return async ({ signal }: ITransactions.Get.QueryFnProps) => {
       const { data } =
-        await this._httpClient.get<ITransactions.GetAll.Response>(
+        await this._httpClient.get<ITransactions.Get.Response>(
           "/transactions",
           {
             params: filters,
