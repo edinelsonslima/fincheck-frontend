@@ -43,6 +43,7 @@ export function useController() {
       categoryId: "",
       date: new Date(),
       bankAccountId: "",
+      value: 0,
     },
   });
 
