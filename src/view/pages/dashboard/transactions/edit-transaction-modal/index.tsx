@@ -1,14 +1,14 @@
+import { ConfirmDeleteModal } from "@components/confirm-delete-modal.component";
+import { DatePickerInput } from "@components/date-picker-input.component";
+import { InputCurrency } from "@components/input-currency.component";
+import { Input } from "@components/input.component";
+import { Modal } from "@components/modal.component";
+import { IconTrash } from "@icons/trash.icon";
+import { ITransactions } from "@interfaces/transactions.interface";
 import { Controller } from "react-hook-form";
-import { Button } from "../../../../components/button.component";
-import { DatePickerInput } from "../../../../components/date-picker-input.component";
-import { InputCurrency } from "../../../../components/input-currency.component";
-import { Input } from "../../../../components/input.component";
-import { Modal } from "../../../../components/modal.component";
-import { Select } from "../../../../components/select.component";
 import { useController } from "./use-controller.hook";
-import { ITransactions } from "../../../../../types/interfaces/transactions.interface";
-import { ConfirmDeleteModal } from "../../../../components/confirm-delete-modal.component";
-import { IconTrash } from "../../../../../assets/icons/trash.icon";
+import { Select } from "@components/select.component";
+import { Button } from "@components/button.component";
 
 interface IEditTransactionModal {
   transaction: ITransactions.Entity;

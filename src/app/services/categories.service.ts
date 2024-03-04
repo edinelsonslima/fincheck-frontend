@@ -1,5 +1,5 @@
-import { ICategories } from "../../types/interfaces/categories.interface";
-import httpClient, { HttpClient } from "./http-client.service";
+import { ICategories } from "@interfaces/categories.interface";
+import httpClientService, { HttpClient } from "./http-client.service";
 
 class CategoriesService {
   constructor(private readonly _httpClient: HttpClient) {
@@ -16,4 +16,4 @@ class CategoriesService {
   }
 }
 
-export const categoriesService = new CategoriesService(httpClient);
+export const categoriesService = new CategoriesService(httpClientService);

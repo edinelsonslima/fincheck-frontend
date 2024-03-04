@@ -1,8 +1,8 @@
+import { useAuth } from "@hooks/use-auth.hook";
+import { IconChevronLeft } from "@icons/chevron-left.icon";
+import { IconExit } from "@icons/exit.icon";
+import { intlService } from "@services/intl.service";
 import { useMemo } from "react";
-import { useAuth } from "../../app/hooks/use-auth.hook";
-import { intlService } from "../../app/services/intl.service";
-import { IconChevronLeft } from "../../assets/icons/chevron-left.icon";
-import { IconExit } from "../../assets/icons/exit.icon";
 import { DropdownMenu } from "./dropdown-menu.component";
 import { SelectLanguageRadioGroup } from "./select-language.component";
 

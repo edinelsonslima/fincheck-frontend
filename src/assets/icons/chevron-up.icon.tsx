@@ -1,5 +1,5 @@
+import { ISVGProps } from "@interfaces/component-props.interface";
 import { memo } from "react";
-import { ISVGProps } from "../../types/interfaces";
 
 export const IconChevronUp = memo(({ className, ...props }: ISVGProps) => (
   <svg

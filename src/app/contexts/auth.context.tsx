@@ -1,16 +1,17 @@
+import { enLocalStorage } from "@enums/local-storage.enum";
+import { useLocalStorage } from "@hooks/use-local-storage.hook";
+import { useUserMe } from "@hooks/use-user.hook";
+import { IUser } from "@interfaces/user.interface";
+import { intlService } from "@services/intl.service";
 import {
-  PropsWithChildren,
   createContext,
+  PropsWithChildren,
   useCallback,
   useEffect,
 } from "react";
-import { toast } from "react-hot-toast";
-import { enLocalStorage } from "../../types/enums/local-storage.enum";
-import { LaunchScreen } from "../../view/components/launch-screen.component";
-import { useLocalStorage } from "../hooks/use-local-storage.hook";
-import { useUserMe } from "../hooks/use-user.hook";
-import { intlService } from "../services/intl.service";
-import { IUser } from "../../types/interfaces";
+import toast from "react-hot-toast";
+import { LaunchScreen } from "view/components/launch-screen.component";
+
 interface IAuthContextValue {
   signedIn: boolean;
   user: IUser.Me.Response | undefined;

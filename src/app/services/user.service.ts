@@ -1,5 +1,5 @@
-import { IUser} from "../../types/interfaces";
-import httpClient, { HttpClient } from "./http-client.service";
+import { IUser } from "@interfaces/user.interface";
+import httpClientService, { HttpClient } from "./http-client.service";
 
 export class UserService {
   constructor(private readonly _httpClient: HttpClient) {
@@ -15,4 +15,4 @@ export class UserService {
   }
 }
 
-export const userService = new UserService(httpClient);
+export const userService = new UserService(httpClientService);

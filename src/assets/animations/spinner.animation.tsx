@@ -1,6 +1,6 @@
+import { ISVGProps } from "@interfaces/component-props.interface";
+import { cn } from "@utils/cn.utils";
 import { memo } from "react";
-import { cn } from "../../app/utils/cn.utils";
-import { ISVGProps } from "../../types/interfaces";
 
 export const Spinner = memo(({ className, ...props }: ISVGProps) => (
   <>

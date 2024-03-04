@@ -1,9 +1,9 @@
 import {
-  QueryFilters,
   QueryKey,
-  SetDataOptions,
-  Updater,
   useQueryClient,
+  QueryFilters,
+  Updater,
+  SetDataOptions,
 } from "@tanstack/react-query";
 import { useCallback } from "react";
 

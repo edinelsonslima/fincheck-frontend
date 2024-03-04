@@ -1,15 +1,15 @@
+import { Modal } from "@components/modal.component";
+import { enKeys } from "@enums/requests-keys.enum";
+import { useCache } from "@hooks/use-cache.hook";
+import { useParameters } from "@hooks/use-parameters.hook";
+import { IconChevronLeft } from "@icons/chevron-left.icon";
+import { IconChevronRight } from "@icons/chevron-right.icon";
+import { IconFilter } from "@icons/filter.icon";
+import { IBankAccount } from "@interfaces/bank-account.interface";
+import { intlService } from "@services/intl.service";
+import { cn } from "@utils/cn.utils";
 import { useState } from "react";
-import { intlService } from "../../../../app/services/intl.service";
-import { cn } from "../../../../app/utils/cn.utils";
-import { IconChevronLeft } from "../../../../assets/icons/chevron-left.icon";
-import { IconChevronRight } from "../../../../assets/icons/chevron-right.icon";
-import { IconFilter } from "../../../../assets/icons/filter.icon";
-import { Button } from "../../../components/button.component";
-import { Modal } from "../../../components/modal.component";
-import { useParameters } from "../../../../app/hooks/use-parameters.hook";
-import { enKeys } from "../../../../types/enums/requests-keys.enum";
-import { IBankAccount } from "../../../../types/interfaces/bank-account.interface";
-import { useCache } from "../../../../app/hooks/use-cache.hook";
+import { Button } from "react-day-picker";
 
 const { t } = intlService;
 

@@ -1,7 +1,7 @@
+import { enTransactionType } from "@enums/transaction-type.enum";
+import { UseQueryOptions, QueryFunctionContext } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { IApiError, IOmitQKeyQFn } from ".";
-import { QueryFunctionContext, UseQueryOptions } from "@tanstack/react-query";
-import { enTransactionType } from "../enums/transaction-type.enum";
 
 export module ICategories {
   interface Entity {

@@ -1,11 +1,11 @@
+import { Spinner } from "@animations/spinner.animation";
+import { IconEye } from "@icons/eye-icon";
+import { IconPlus } from "@icons/plus.icon";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Spinner } from "../../../../assets/animations/spinner.animation";
-import { IconEye } from "../../../../assets/icons/eye-icon";
-import { IconPlus } from "../../../../assets/icons/plus.icon";
 import { ButtonChevron } from "../button-chevron.component";
-import { Value } from "../value.component";
 import { AccountCard } from "./account-card.component";
 import { useController } from "./use-controller.hook";
+import { Value } from "../value.component";
 
 export function Accounts() {
   const {

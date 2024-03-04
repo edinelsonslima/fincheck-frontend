@@ -1,9 +1,9 @@
+import { IconCrossCircled } from "@icons/cross-circled.icon";
+import { intlService } from "@services/intl.service";
+import { cn } from "@utils/cn.utils";
 import { useState } from "react";
-import { intlService } from "../../app/services/intl.service";
-import { cn } from "../../app/utils/cn.utils";
-import { IconCrossCircled } from "../../assets/icons/cross-circled.icon";
-import { Popover } from "./popover.component";
 import { DatePicker } from "./date-picker.component";
+import { Popover } from "./popover.component";
 
 interface IDatePickerInputProps {
   error?: string;

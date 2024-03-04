@@ -1,6 +1,6 @@
-import { intlService } from "../../../../app/services/intl.service";
-import { IBankAccount } from "../../../../types/interfaces/bank-account.interface";
-import { CategoryIcon } from "../../../components/category-icon.component";
+import { CategoryIcon } from "@components/category-icon.component";
+import { IBankAccount } from "@interfaces/bank-account.interface";
+import { intlService } from "@services/intl.service";
 import { useDashboard } from "../use-controller.hook";
 import { Value } from "../value.component";
 

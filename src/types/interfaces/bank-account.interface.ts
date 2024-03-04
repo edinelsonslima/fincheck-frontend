@@ -1,11 +1,11 @@
-import { AxiosError } from "axios";
-import { IApiError, IOmitMKeyMFn, IOmitQKeyQFn } from ".";
+import { enBankAccountType } from "@enums/bank-account-type.enum";
 import {
+  UseQueryOptions,
   QueryFunctionContext,
   UseMutationOptions,
-  UseQueryOptions,
 } from "@tanstack/react-query";
-import { enBankAccountType } from "../enums/bank-account-type.enum";
+import { AxiosError } from "axios";
+import { IApiError, IOmitQKeyQFn, IOmitMKeyMFn } from ".";
 
 export module IBankAccount {
   export interface Entity {

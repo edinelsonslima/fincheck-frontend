@@ -1,7 +1,7 @@
-import { PropsWithChildren, createContext, useEffect } from "react";
-import { enLocalStorage } from "../../types/enums/local-storage.enum";
-import { useLocalStorage } from "../hooks/use-local-storage.hook";
-import { ILanguages, intlService } from "../services/intl.service";
+import { enLocalStorage } from "@enums/local-storage.enum";
+import { useLocalStorage } from "@hooks/use-local-storage.hook";
+import { ILanguages, intlService } from "@services/intl.service";
+import { createContext, PropsWithChildren, useEffect } from "react";
 
 type IContextProps = [
   ILanguages,

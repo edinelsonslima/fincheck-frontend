@@ -1,9 +1,9 @@
+import { AuthContext } from "@contexts/auth.context";
+import { enKeys } from "@enums/requests-keys.enum";
+import { IAuth } from "@interfaces/auth.interface";
+import { authService } from "@services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { useContext } from "react";
-import { IAuth } from "../../types/interfaces";
-import { AuthContext } from "../contexts/auth.context";
-import { authService } from "../services/auth.service";
-import { enKeys } from "../../types/enums/requests-keys.enum";
 
 export function useAuth() {
   return useContext(AuthContext);

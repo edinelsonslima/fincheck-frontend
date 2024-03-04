@@ -1,11 +1,11 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { IBankAccount } from "../../types/interfaces/bank-account.interface";
-import { bankAccountService } from "../services/bank-account.service";
-import { enKeys } from "../../types/enums/requests-keys.enum";
-import { useParameters } from "./use-parameters.hook";
+import { enKeys } from "@enums/requests-keys.enum";
+import { enTransactionType } from "@enums/transaction-type.enum";
+import { IBankAccount } from "@interfaces/bank-account.interface";
+import { ITransactions } from "@interfaces/transactions.interface";
+import { bankAccountService } from "@services/bank-account.service";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useCache } from "./use-cache.hook";
-import { ITransactions } from "../../types/interfaces/transactions.interface";
-import { enTransactionType } from "../../types/enums/transaction-type.enum";
+import { useParameters } from "./use-parameters.hook";
 
 export function useBankAccountGet(options?: IBankAccount.Get.QueryOptions) {
   return useQuery(enKeys.bankAccount.get, bankAccountService.get, options);
@@ -27,9 +27,7 @@ export function useBankAccountCreate(
     })
   );
 
-  const updateCacheBankAccounts = (
-    data: IBankAccount.Create.Response
-  ) => {
+  const updateCacheBankAccounts = (data: IBankAccount.Create.Response) => {
     const currentBalance = getCacheTransactions()
       ?.filter(({ bankAccountId }) => bankAccountId === data.id)
       .reduce((total, { value, type }) => {

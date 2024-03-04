@@ -1,11 +1,10 @@
-import { Button } from "../../components/button.component";
-import { Input } from "../../components/input.component";
-import { FormLayout } from "../../layouts/form.layout";
+import { Input } from "@components/input.component";
+import { FormLayout } from "@layouts/form.layout";
 import { useController } from "./use-controller.hook";
+import { Button } from "@components/button.component";
 
 export function Register() {
-  const { errors, handleSubmit, register, isLoading, t } =
-    useController();
+  const { errors, handleSubmit, register, isLoading, t } = useController();
 
   return (
     <FormLayout

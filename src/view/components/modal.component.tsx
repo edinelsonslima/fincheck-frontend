@@ -1,7 +1,7 @@
+import { IconCross } from "@icons/cross.icon";
 import * as RdxDialog from "@radix-ui/react-dialog";
+import { cn } from "@utils/cn.utils";
 import { PropsWithChildren } from "react";
-import { cn } from "../../app/utils/cn.utils";
-import { IconCross } from "../../assets/icons/cross.icon";
 
 interface IModalProps {
   open: boolean;

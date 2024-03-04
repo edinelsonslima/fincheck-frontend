@@ -1,4 +1,4 @@
-import { langs } from "../../app/i18n";
+import { langs } from "app/i18n";
 
 export interface IApiError {
   error: string;

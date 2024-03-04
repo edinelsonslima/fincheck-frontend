@@ -1,9 +1,9 @@
+import { IconChevronDown } from "@icons/chevron-down.icon";
+import { IconColor } from "@icons/colors.icon";
+import { IconCrossCircled } from "@icons/cross-circled.icon";
+import { intlService } from "@services/intl.service";
+import { cn } from "@utils/cn.utils";
 import { useState } from "react";
-import { intlService } from "../../app/services/intl.service";
-import { cn } from "../../app/utils/cn.utils";
-import { IconChevronDown } from "../../assets/icons/chevron-down.icon";
-import { IconColor } from "../../assets/icons/colors.icon";
-import { IconCrossCircled } from "../../assets/icons/cross-circled.icon";
 import { DropdownMenu } from "./dropdown-menu.component";
 
 const colors: IColor[] = [

@@ -1,5 +1,5 @@
-import { intlService } from "../../../app/services/intl.service";
-import { cn } from "../../../app/utils/cn.utils";
+import { intlService } from "@services/intl.service";
+import { cn } from "@utils/cn.utils";
 import { useDashboard } from "./use-controller.hook";
 
 interface IValueProps {

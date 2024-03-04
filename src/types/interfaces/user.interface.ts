@@ -1,4 +1,4 @@
-import { QueryFunctionContext, UseQueryOptions } from "@tanstack/react-query";
+import { UseQueryOptions, QueryFunctionContext } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { IApiError, IOmitQKeyQFn } from ".";
 

@@ -1,12 +1,12 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { enKeys } from "../../types/enums/requests-keys.enum";
-import { ITransactions } from "../../types/interfaces/transactions.interface";
-import { transactionsService } from "../services/transactions.service";
-import { useParameters } from "./use-parameters.hook";
-import { enTransactionType } from "../../types/enums/transaction-type.enum";
+import { enKeys } from "@enums/requests-keys.enum";
+import { enTransactionType } from "@enums/transaction-type.enum";
+import { IBankAccount } from "@interfaces/bank-account.interface";
+import { ICategories } from "@interfaces/categories.interface";
+import { ITransactions } from "@interfaces/transactions.interface";
+import { transactionsService } from "@services/transactions.service";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useCache } from "./use-cache.hook";
-import { IBankAccount } from "../../types/interfaces/bank-account.interface";
-import { ICategories } from "../../types/interfaces/categories.interface";
+import { useParameters } from "./use-parameters.hook";
 
 export function useTransactionsGet(options?: ITransactions.Get.QueryOptions) {
   const [parameters] = useParameters();

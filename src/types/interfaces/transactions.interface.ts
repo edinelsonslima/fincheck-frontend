@@ -1,11 +1,11 @@
-import { enTransactionType } from "../enums/transaction-type.enum";
-import { AxiosError } from "axios";
-import { IApiError, IOmitMKeyMFn, IOmitQKeyQFn } from ".";
+import { enTransactionType } from "@enums/transaction-type.enum";
 import {
+  UseQueryOptions,
   QueryFunctionContext,
   UseMutationOptions,
-  UseQueryOptions,
 } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { IApiError, IOmitQKeyQFn, IOmitMKeyMFn } from ".";
 
 export module ITransactions {
   export interface Entity {

@@ -1,6 +1,6 @@
 import * as RdxDropdownMenu from "@radix-ui/react-dropdown-menu";
 import { PropsWithChildren } from "react";
-import { cn } from "../../app/utils/cn.utils";
+import { cn } from "@utils/cn.utils";
 
 interface IDropdownMenuProps {
   className?: string;

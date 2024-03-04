@@ -1,5 +1,5 @@
+import { enLocalStorage } from "@enums/local-storage.enum";
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import { enLocalStorage } from "../../types/enums/local-storage.enum";
 
 class HttpClient {
   constructor(private readonly _axios: AxiosInstance) {}

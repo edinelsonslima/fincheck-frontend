@@ -1,12 +1,12 @@
-import { z } from "zod";
-import { intlService } from "../../../../../app/services/intl.service";
-import { enBankAccountType } from "../../../../../types/enums/bank-account-type.enum";
+import { enBankAccountType } from "@enums/bank-account-type.enum";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useBankAccountCreate } from "@hooks/use-bank-account.hook";
+import { IBankAccount } from "@interfaces/bank-account.interface";
+import { useDashboard } from "@pages/dashboard/use-controller.hook";
+import { intlService } from "@services/intl.service";
 import { useForm } from "react-hook-form";
-import { useBankAccountCreate } from "../../../../../app/hooks/use-bank-account.hook";
 import toast from "react-hot-toast";
-import { IBankAccount } from "../../../../../types/interfaces/bank-account.interface";
-import { useDashboard } from "../../use-controller.hook";
+import { z } from "zod";
 
 const { t } = intlService;
 

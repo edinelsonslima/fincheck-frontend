@@ -1,8 +1,8 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { AuthLayout } from "../view/layouts/auth.layout";
-import { Dashboard } from "../view/pages/dashboard";
-import { Login } from "../view/pages/login";
-import { Register } from "../view/pages/register";
+import { AuthLayout } from "@layouts/auth.layout";
+import { Dashboard } from "@pages/dashboard";
+import { Login } from "@pages/login";
+import { Register } from "@pages/register";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthGuard } from "./auth-guard.router";
 
 export function Router() {

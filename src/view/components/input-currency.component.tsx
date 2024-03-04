@@ -1,7 +1,7 @@
-import { FormEvent, useEffect, useRef } from "react";
-import { intlService } from "../../app/services/intl.service";
-import { IconCrossCircled } from "../../assets/icons/cross-circled.icon";
-import { cn } from "../../app/utils/cn.utils";
+import { IconCrossCircled } from "@icons/cross-circled.icon";
+import { intlService } from "@services/intl.service";
+import { cn } from "@utils/cn.utils";
+import { useRef, FormEvent, useEffect } from "react";
 
 interface IInputCurrencyProps {
   error?: string;

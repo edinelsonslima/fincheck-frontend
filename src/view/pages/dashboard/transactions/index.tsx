@@ -1,13 +1,13 @@
+import { Spinner } from "@animations/spinner.animation";
+import { ImageEmptyState } from "@images/empty-state.image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Spinner } from "../../../../assets/animations/spinner.animation";
-import { ImageEmptyState } from "../../../../assets/images/empty-state.image";
 import { ButtonChevron } from "../button-chevron.component";
 import { ButtonMonth } from "./button-month.component";
+import { EditTransactionModal } from "./edit-transaction-modal";
 import { FilterModal } from "./filter-modal.component";
 import { FilterType } from "./filter-type.component";
-import { useController } from "./use-controller.hook";
-import { EditTransactionModal } from "./edit-transaction-modal";
 import { TransactionCard } from "./transaction-card.component";
+import { useController } from "./use-controller.hook";
 
 export function Transactions() {
   const {

@@ -1,8 +1,8 @@
+import { IconChevronDown } from "@icons/chevron-down.icon";
+import { IconChevronUp } from "@icons/chevron-up.icon";
+import { IconCrossCircled } from "@icons/cross-circled.icon";
 import * as RdxSelect from "@radix-ui/react-select";
-import { cn } from "../../app/utils/cn.utils";
-import { IconChevronDown } from "../../assets/icons/chevron-down.icon";
-import { IconChevronUp } from "../../assets/icons/chevron-up.icon";
-import { IconCrossCircled } from "../../assets/icons/cross-circled.icon";
+import { cn } from "@utils/cn.utils";
 import { useState } from "react";
 
 interface IOptionProps {

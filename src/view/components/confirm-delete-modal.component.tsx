@@ -1,7 +1,7 @@
-import { intlService } from "../../app/services/intl.service";
-import { IconTrash } from "../../assets/icons/trash.icon";
-import { Button } from "./button.component";
+import { IconTrash } from "@icons/trash.icon";
+import { intlService } from "@services/intl.service";
 import { Modal } from "./modal.component";
+import { Button } from "./button.component";
 
 interface IConfirmDeleteModalProps {
   onConfirm(): void;

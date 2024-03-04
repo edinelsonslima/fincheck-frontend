@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react";
-import { Spinner } from "../../assets/animations/spinner.animation";
-import { IconLogo } from "../../assets/icons/logo.icon";
+import { Spinner } from "@animations/spinner.animation";
+import { IconLogo } from "@icons/logo.icon";
 
 interface ILaunchScreenProps {
   loading: boolean;

@@ -1,5 +1,5 @@
-import { ITransactions } from "../../types/interfaces/transactions.interface";
-import httpClient, { HttpClient } from "./http-client.service";
+import { ITransactions } from "@interfaces/transactions.interface";
+import httpClientService, { HttpClient } from "./http-client.service";
 
 class TransactionsService {
   constructor(private readonly _httpClient: HttpClient) {
@@ -11,14 +11,13 @@ class TransactionsService {
 
   public get(filters: ITransactions.Get.Params) {
     return async ({ signal }: ITransactions.Get.QueryFnProps) => {
-      const { data } =
-        await this._httpClient.get<ITransactions.Get.Response>(
-          "/transactions",
-          {
-            params: filters,
-            signal,
-          }
-        );
+      const { data } = await this._httpClient.get<ITransactions.Get.Response>(
+        "/transactions",
+        {
+          params: filters,
+          signal,
+        }
+      );
 
       return data;
     };
@@ -52,4 +51,4 @@ class TransactionsService {
   }
 }
 
-export const transactionsService = new TransactionsService(httpClient);
+export const transactionsService = new TransactionsService(httpClientService);

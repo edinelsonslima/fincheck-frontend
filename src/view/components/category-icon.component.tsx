@@ -1,14 +1,14 @@
+import { IconClothes } from "@icons/categories/expense/clothes.icon";
+import { IconEducation } from "@icons/categories/expense/education.icon";
+import { IconExpense } from "@icons/categories/expense/expense.icon";
+import { IconFood } from "@icons/categories/expense/food.icon";
+import { IconFun } from "@icons/categories/expense/fun.icon";
+import { IconGrocery } from "@icons/categories/expense/grocery.icon";
+import { IconHome } from "@icons/categories/expense/home.icon";
+import { IconTransport } from "@icons/categories/expense/transport.icon";
+import { IconTravel } from "@icons/categories/expense/travel.icon";
+import { IconIncome } from "@icons/income.icon";
 import { MemoExoticComponent } from "react";
-import { IconClothes } from "../../assets/icons/categories/expense/clothes.icon";
-import { IconEducation } from "../../assets/icons/categories/expense/education.icon";
-import { IconExpense } from "../../assets/icons/categories/expense/expense.icon";
-import { IconFood } from "../../assets/icons/categories/expense/food.icon";
-import { IconFun } from "../../assets/icons/categories/expense/fun.icon";
-import { IconGrocery } from "../../assets/icons/categories/expense/grocery.icon";
-import { IconHome } from "../../assets/icons/categories/expense/home.icon";
-import { IconTransport } from "../../assets/icons/categories/expense/transport.icon";
-import { IconTravel } from "../../assets/icons/categories/expense/travel.icon";
-import { IconIncome } from "../../assets/icons/categories/income/income.icon";
 
 const iconsMap = {
   INCOME: {

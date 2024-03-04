@@ -1,7 +1,7 @@
-import { IconCash } from "../../assets/icons/cash.icon";
-import { IconChecking } from "../../assets/icons/checking.icon";
-import { IconInvestment } from "../../assets/icons/investment.icon";
-import { enBankAccountType } from "../../types/enums/bank-account-type.enum";
+import { enBankAccountType } from "@enums/bank-account-type.enum";
+import { IconCash } from "@icons/cash.icon";
+import { IconChecking } from "@icons/checking.icon";
+import { IconInvestment } from "@icons/investment.icon";
 
 const iconsMap = {
   [enBankAccountType.CHECKING]: IconChecking,

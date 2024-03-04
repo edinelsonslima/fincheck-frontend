@@ -1,5 +1,5 @@
-import { IBankAccount } from "../../types/interfaces/bank-account.interface";
-import httpClient, { HttpClient } from "./http-client.service";
+import { IBankAccount } from "@interfaces/bank-account.interface";
+import httpClientService, { HttpClient } from "./http-client.service";
 
 class BankAccountService {
   constructor(private readonly _httpClient: HttpClient) {
@@ -43,4 +43,4 @@ class BankAccountService {
   }
 }
 
-export const bankAccountService = new BankAccountService(httpClient);
+export const bankAccountService = new BankAccountService(httpClientService);

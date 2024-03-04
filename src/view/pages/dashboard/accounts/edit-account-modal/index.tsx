@@ -1,14 +1,14 @@
+import { ColorsDropdownInput } from "@components/colors-dropdown.components";
+import { ConfirmDeleteModal } from "@components/confirm-delete-modal.component";
+import { InputCurrency } from "@components/input-currency.component";
+import { Input } from "@components/input.component";
+import { Modal } from "@components/modal.component";
+import { enBankAccountType } from "@enums/bank-account-type.enum";
+import { IconTrash } from "@icons/trash.icon";
 import { Controller } from "react-hook-form";
-import { enBankAccountType } from "../../../../../types/enums/bank-account-type.enum";
-import { Button } from "../../../../components/button.component";
-import { ColorsDropdownInput } from "../../../../components/colors-dropdown.components";
-import { InputCurrency } from "../../../../components/input-currency.component";
-import { Input } from "../../../../components/input.component";
-import { Modal } from "../../../../components/modal.component";
-import { Select } from "../../../../components/select.component";
 import { useController } from "./use-controller.hook";
-import { IconTrash } from "../../../../../assets/icons/trash.icon";
-import { ConfirmDeleteModal } from "../../../../components/confirm-delete-modal.component";
+import { Select } from "@components/select.component";
+import { Button } from "@components/button.component";
 
 export function EditAccountModal() {
   const {

@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import * as RdxPopover from "@radix-ui/react-popover";
-import { cn } from "../../app/utils/cn.utils";
+import { cn } from "@utils/cn.utils";
 
 interface IPopoverProps {
   className?: string;

@@ -1,8 +1,8 @@
 import * as RdxDropdownMenu from "@radix-ui/react-dropdown-menu";
-import { useLanguage } from "../../app/hooks/use-language.hook";
-import { ILanguages, intlService } from "../../app/services/intl.service";
-import { IconCheck } from "../../assets/icons/check.icon";
 import { DropdownMenu } from "./dropdown-menu.component";
+import { useLanguage } from "@hooks/use-language.hook";
+import { IconCheck } from "@icons/check.icon";
+import { intlService, ILanguages } from "@services/intl.service";
 
 const { languages } = intlService;
 

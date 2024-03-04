@@ -1,5 +1,5 @@
-import { IAuth } from "../../types/interfaces";
-import httpClient, { HttpClient } from "./http-client.service";
+import { IAuth } from "@interfaces/auth.interface";
+import httpClientService, { HttpClient } from "./http-client.service";
 
 class AuthService {
   constructor(private readonly _httpClient: HttpClient) {
@@ -26,4 +26,4 @@ class AuthService {
   }
 }
 
-export const authService = new AuthService(httpClient);
+export const authService = new AuthService(httpClientService);

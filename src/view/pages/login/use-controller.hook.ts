@@ -1,10 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuthSignin, useAuth } from "@hooks/use-auth.hook";
+import { intlService } from "@services/intl.service";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { IAuth } from "types/interfaces";
 import { z } from "zod";
-import { useAuth, useAuthSignin } from "../../../app/hooks/use-auth.hook";
-import { intlService } from "../../../app/services/intl.service";
-import { IAuth } from "../../../types/interfaces";
+
 
 const { t } = intlService;
 
@@ -39,9 +40,7 @@ export function useController() {
       return signin(accessToken);
     } catch (error) {
       const err = error as IAuth.Signin.Error;
-      toast.error(
-        t(err?.response?.data?.message || "Something went wrong")
-      );
+      toast.error(t(err?.response?.data?.message || "Something went wrong"));
     }
   });
 

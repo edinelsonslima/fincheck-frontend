@@ -1,8 +1,8 @@
-import { ptBR, enUS } from "date-fns/locale";
-import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
-import { intlService } from "../../app/services/intl.service";
-import { capitalizeFirstLetter } from "../../app/utils/capitalize-first-letter.utils";
+import { intlService } from "@services/intl.service";
+import { capitalizeFirstLetter } from "@utils/capitalize-first-letter.utils";
+import { enUS, ptBR } from "date-fns/locale";
+import { format } from "date-fns";
 
 interface IDatePickerProps {
   value: Date;

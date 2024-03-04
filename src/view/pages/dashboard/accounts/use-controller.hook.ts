@@ -1,7 +1,7 @@
-import { useMemo, useState } from "react";
-import { useWindowSize } from "../../../../app/hooks/use-window-size";
-import { intlService } from "../../../../app/services/intl.service";
-import { useBankAccountGet } from "../../../../app/hooks/use-bank-account.hook";
+import { useBankAccountGet } from "@hooks/use-bank-account.hook";
+import { useWindowSize } from "@hooks/use-window-size";
+import { intlService } from "@services/intl.service";
+import { useState, useMemo } from "react";
 import { useDashboard } from "../use-controller.hook";
 
 const { t } = intlService;

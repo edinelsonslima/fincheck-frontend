@@ -1,6 +1,6 @@
+import { IconCrossCircled } from "@icons/cross-circled.icon";
+import { cn } from "@utils/cn.utils";
 import { ComponentProps, forwardRef, useId } from "react";
-import { cn } from "../../app/utils/cn.utils";
-import { IconCrossCircled } from "../../assets/icons/cross-circled.icon";
 
 interface IInputProps extends ComponentProps<"input"> {
   error?: string;

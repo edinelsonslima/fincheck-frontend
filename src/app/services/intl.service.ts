@@ -1,5 +1,5 @@
-import { enLocalStorage } from "../../types/enums/local-storage.enum";
-import { langs } from "../i18n";
+import { enLocalStorage } from "@enums/local-storage.enum";
+import { langs } from "app/i18n";
 
 export type ILanguages = keyof typeof langs;
 type ITerms = keyof (typeof langs)[ILanguages]["term"];

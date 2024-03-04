@@ -1,11 +1,11 @@
-import { intlService } from "../../../../app/services/intl.service";
-import { IconChevronDown } from "../../../../assets/icons/chevron-down.icon";
-import { IconExpenses } from "../../../../assets/icons/expenses.icon";
-import { IconIncome } from "../../../../assets/icons/income.icon";
-import { IconTransactions } from "../../../../assets/icons/transactions.icon";
-import { enTransactionType } from "../../../../types/enums/transaction-type.enum";
-import { DropdownMenu } from "../../../components/dropdown-menu.component";
-import { useParameters } from "../../../../app/hooks/use-parameters.hook";
+import { DropdownMenu } from "@components/dropdown-menu.component";
+import { enTransactionType } from "@enums/transaction-type.enum";
+import { useParameters } from "@hooks/use-parameters.hook";
+import { IconChevronDown } from "@icons/chevron-down.icon";
+import { IconExpenses } from "@icons/expenses.icon";
+import { IconIncome } from "@icons/income.icon";
+import { IconTransactions } from "@icons/transactions.icon";
+import { intlService } from "@services/intl.service";
 
 interface IConfig {
   [enTransactionType.EXPENSE]: { name: "Expenses"; icon: JSX.Element };

@@ -1,9 +1,14 @@
-import { PropsWithChildren, createContext, useCallback, useContext } from "react";
-import { useLocalStorage } from "../../../app/hooks/use-local-storage.hook";
-import { enLocalStorage } from "../../../types/enums/local-storage.enum";
-import { useStates } from "../../../app/hooks/use-states";
-import { IBankAccount } from "../../../types/interfaces/bank-account.interface";
-import { enTransactionType } from "../../../types/enums/transaction-type.enum";
+import { enLocalStorage } from "@enums/local-storage.enum";
+import { enTransactionType } from "@enums/transaction-type.enum";
+import { useLocalStorage } from "@hooks/use-local-storage.hook";
+import { useStates } from "@hooks/use-states";
+import { IBankAccount } from "@interfaces/bank-account.interface";
+import {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+} from "react";
 
 interface IStates {
   isNewAccountModalOpen: boolean;

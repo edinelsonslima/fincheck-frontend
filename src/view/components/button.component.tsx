@@ -1,6 +1,6 @@
+import { Spinner } from "@animations/spinner.animation";
+import { cn } from "@utils/cn.utils";
 import { ComponentProps } from "react";
-import { cn } from "../../app/utils/cn.utils";
-import { Spinner } from "../../assets/animations/spinner.animation";
 
 interface IButtonProps extends ComponentProps<"button"> {
   loading?: boolean;

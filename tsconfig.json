@@ -2,10 +2,13 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "skipLibCheck": true,
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -13,13 +16,63 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@contexts/*": [
+        "./app/contexts/*"
+      ],
+      "@hooks/*": [
+        "./app/hooks/*"
+      ],
+      "@services/*": [
+        "./app/services/*"
+      ],
+      "@utils/*": [
+        "./app/utils/*"
+      ],
+      "@animations/*": [
+        "./assets/animations/*"
+      ],
+      "@icons/*": [
+        "./assets/icons/*"
+      ],
+      "@images/*": [
+        "./assets/images/*"
+      ],
+      "@router/*": [
+        "./router/*"
+      ],
+      "@enums/*": [
+        "./types/enums/*"
+      ],
+      "@interfaces/*": [
+        "./types/interfaces/*"
+      ],
+      "@components/*": [
+        "./view/components/*"
+      ],
+      "@layouts/*": [
+        "./view/layouts/*"
+      ],
+      "@pages/*": [
+        "./view/pages/*"
+      ],
+    }
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

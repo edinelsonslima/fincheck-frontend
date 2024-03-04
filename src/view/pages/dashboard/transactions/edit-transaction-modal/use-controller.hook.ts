@@ -1,18 +1,18 @@
-import { z } from "zod";
-import { intlService } from "../../../../../app/services/intl.service";
-import { useForm } from "react-hook-form";
+import { enTransactionType } from "@enums/transaction-type.enum";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useBankAccountGet } from "../../../../../app/hooks/use-bank-account.hook";
-import { useCategoriesGet } from "../../../../../app/hooks/use-categories.hook";
-import { useMemo, useState } from "react";
+import { useBankAccountGet } from "@hooks/use-bank-account.hook";
+import { useCategoriesGet } from "@hooks/use-categories.hook";
 import {
-  useTransactionsDelete,
   useTransactionsUpdate,
-} from "../../../../../app/hooks/use-transactions.hook";
-import { enTransactionType } from "../../../../../types/enums/transaction-type.enum";
-import { ITransactions } from "../../../../../types/interfaces/transactions.interface";
+  useTransactionsDelete,
+} from "@hooks/use-transactions.hook";
+import { IBankAccount } from "@interfaces/bank-account.interface";
+import { ITransactions } from "@interfaces/transactions.interface";
+import { intlService } from "@services/intl.service";
+import { useState, useMemo } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { IBankAccount } from "../../../../../types/interfaces/bank-account.interface";
+import { z } from "zod";
 
 const { t } = intlService;
 

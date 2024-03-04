@@ -1,8 +1,8 @@
-import { intlService } from "../../../../app/services/intl.service";
-import { cn } from "../../../../app/utils/cn.utils";
-import { enTransactionType } from "../../../../types/enums/transaction-type.enum";
-import { ITransactions } from "../../../../types/interfaces/transactions.interface";
-import { CategoryIcon } from "../../../components/category-icon.component";
+import { CategoryIcon } from "@components/category-icon.component";
+import { enTransactionType } from "@enums/transaction-type.enum";
+import { ITransactions } from "@interfaces/transactions.interface";
+import { intlService } from "@services/intl.service";
+import { cn } from "@utils/cn.utils";
 import { Value } from "../value.component";
 
 interface ICardTransaction {

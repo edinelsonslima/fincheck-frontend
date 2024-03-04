@@ -1,8 +1,8 @@
+import { SelectLanguage } from "@components/select-language.component";
+import { IconLogo } from "@icons/logo.icon";
+import { intlService } from "@services/intl.service";
 import { Outlet } from "react-router-dom";
-import { intlService } from "../../app/services/intl.service";
-import { IconLogo } from "../../assets/icons/logo.icon";
-import ImageIllustration from "../../assets/images/illustration.image.png";
-import { SelectLanguage } from "../components/select-language.component";
+import ImageIllustration from "@images/illustration.image.png";
 
 const { t } = intlService;
 

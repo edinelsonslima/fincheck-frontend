@@ -1,5 +1,5 @@
-import { ITransactions } from "../interfaces/transactions.interface";
-import { formatKeys } from "../../app/utils/format-query-keys.utils";
+import { ITransactions } from "@interfaces/transactions.interface";
+import { formatKeys } from "@utils/format-query-keys.utils";
 
 export const enKeys = Object.freeze({
   auth: Object.freeze({
