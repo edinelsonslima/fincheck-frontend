@@ -1,10 +1,10 @@
 import { CategoryIcon } from "@components/category-icon.component";
+import { DropdownMenu } from "@components/dropdown-menu.component";
 import { enTransactionType } from "@enums/transaction-type.enum";
 import { IconBankAccount } from "@icons/bank-account.icon";
 import { IconPlus } from "@icons/plus.icon";
 import { intlService } from "@services/intl.service";
 import { useDashboard } from "./use-controller.hook";
-import { DropdownMenu } from "@components/dropdown-menu.component";
 
 const { t } = intlService;
 

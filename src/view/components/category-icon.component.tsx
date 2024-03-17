@@ -7,7 +7,7 @@ import { IconGrocery } from "@icons/categories/expense/grocery.icon";
 import { IconHome } from "@icons/categories/expense/home.icon";
 import { IconTransport } from "@icons/categories/expense/transport.icon";
 import { IconTravel } from "@icons/categories/expense/travel.icon";
-import { IconIncome } from "@icons/income.icon";
+import { IconIncome } from "@icons/categories/income/income.icon";
 import { MemoExoticComponent } from "react";
 
 const iconsMap = {
